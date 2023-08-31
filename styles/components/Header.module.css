@@ -1,0 +1,30 @@
+/* 메인 헤더 */
+.main_header {
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+}
+
+/* 로고 */
+.main_header .logo_wrapper {
+    width: 15%;
+}
+
+/* 네비게이션 */
+.main_header .nav_wrapper {
+    width: 70%;
+}
+
+/* 로그인 로그아웃 */
+.main_header .auth_wrapper {
+    width: 15%;
+    text-align: end;
+}
+
+.main_header .auth_wrapper span {
+    color: #737373;
+}

@@ -1,0 +1,10 @@
+.main_nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_nav li {
+    padding: 0px 28px;
+    color: #737373;
+}
