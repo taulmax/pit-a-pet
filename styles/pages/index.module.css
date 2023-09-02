@@ -9,6 +9,7 @@
 
 .welcome_text {
   position: absolute;
+  width: 100%;
   top: 36%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -54,5 +55,23 @@
     text-align: center;
     line-height: 1.8;
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .welcome_text .title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  .welcome_text .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 12px;
   }
 }
