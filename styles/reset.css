@@ -200,4 +200,5 @@ dialog {
 .app_wrapper {
     height: 100%;
     padding-top: 120px;
+    background-color: #EAEAEA;
 }

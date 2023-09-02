@@ -8,3 +8,11 @@
     padding: 0px 28px;
     color: #737373;
 }
+
+/* 태블릿 PC */
+@media screen and (max-width: 1023px) {
+    .main_nav a {
+        padding: 0px 20px;
+        color: #737373;
+    }
+}

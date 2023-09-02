@@ -16,8 +16,11 @@
 }
 
 .main_header .logo_wrapper .logo {
-    object-fit: cover;
-    object-position: center;
+    background: url('/img/logo.png');
+    background-size: cover;
+    background-position: center;
+    width: 100px;
+    height: 100px;
 }
 
 /* 네비게이션 */
@@ -29,8 +32,45 @@
 .main_header .auth_wrapper {
     width: 15%;
     text-align: end;
+    color: #737373;
+    margin-right: 20px;
 }
 
-.main_header .auth_wrapper span {
-    color: #737373;
+/* 태블릿 PC */
+@media screen and (max-width: 1023px) {
+
+    /* 메인 헤더 */
+    .main_header {
+        width: 100%;
+        height: 100px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 20px;
+        z-index: 10;
+    }
+
+    /* 로고 */
+    .main_header .logo_wrapper .logo {
+        background: url('/img/logo.png');
+        background-size: cover;
+        background-position: center;
+        width: 70px;
+        height: 70px;
+    }
+
+    /* 네비게이션 */
+    .main_header .nav_wrapper {
+        width: 70%;
+        font-size: 12px;
+    }
+
+    /* 로그인 로그아웃 */
+    .main_header .auth_wrapper {
+        width: 15%;
+        text-align: end;
+        color: #737373;
+        font-size: 12px;
+    }
 }
