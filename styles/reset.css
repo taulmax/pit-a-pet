@@ -195,3 +195,9 @@ dialog {
     border-image: initial;
     padding: 1em;
 }
+
+/* APP WRAPPER */
+.app_wrapper {
+    height: 100%;
+    padding-top: 120px;
+}
