@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 20px;
+    z-index: 10;
 }
 
 /* 로고 */

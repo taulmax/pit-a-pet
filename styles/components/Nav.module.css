@@ -4,7 +4,7 @@
     justify-content: center;
 }
 
-.main_nav li {
+.main_nav a {
     padding: 0px 28px;
     color: #737373;
 }
