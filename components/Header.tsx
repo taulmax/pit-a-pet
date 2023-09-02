@@ -7,18 +7,17 @@ export default function Header() {
   return (
     <header className={styles.main_header}>
       {/* 로고 */}
-      <Link href="/">
-        <div className={styles.logo_wrapper}>
+      <div className={styles.logo_wrapper}>
+        <Link href="/">
           <Image
+            className={styles.logo}
             src="/img/logo.png"
             alt="로고"
             width={100}
             height={100}
-            objectFit="cover"
-            objectPosition="center"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       {/* 네비게이션 */}
       <div className={styles.nav_wrapper}>
