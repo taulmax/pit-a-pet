@@ -211,3 +211,20 @@ dialog {
 .off {
     display: none !important;
 }
+
+/* padding */
+.pl20 {
+    padding-left: 20px !important;
+}
+
+.pr20 {
+    padding-right: 20px !important;
+}
+
+.pt20 {
+    padding-top: 20px !important;
+}
+
+.pb20 {
+    padding-bottom: 20px !important;
+}

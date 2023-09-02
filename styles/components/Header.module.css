@@ -58,6 +58,45 @@
     right: 0;
 }
 
+.burger_navigation .burger_header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    padding: 30px 20px;
+}
+
+.burger_navigation .burger_header .burger_logo {
+    font-family: 'IM Fell Double Pica', serif;
+    font-weight: bold;
+}
+
+.burger_navigation .burger_header .burger_close_button {
+    cursor: pointer;
+    color: #737373;
+}
+
+.burger_navigation .burger_list {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    align-items: center;
+    color: #737373;
+}
+
+.burger_navigation .burger_list:hover {
+    background-color: #f4eee6;
+}
+
+.burger_navigation .burger_list svg {
+    width: 26px;
+    height: 26px;
+    padding: 0px 14px;
+}
+
+.burger_navigation .login_wrapper {
+    border-bottom: 1px solid #EAEAEA;
+}
+
 .burger_dark_layer {
     position: fixed;
     top: 0;
