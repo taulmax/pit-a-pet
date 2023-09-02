@@ -31,9 +31,8 @@
 /* 로그인 로그아웃 */
 .main_header .auth_wrapper {
     width: 15%;
-    text-align: end;
     color: #737373;
-    margin-right: 20px;
+    text-align: end;
 }
 
 /* 태블릿 PC */
