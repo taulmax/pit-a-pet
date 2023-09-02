@@ -16,8 +16,11 @@ export default function Home() {
 
       {/* Pit a pet 설명 글 */}
       <div className={styles.welcome_text}>
-        <h1>PIT-A-PAT = &quot;두근두근&quot;</h1>
-        <span>
+        <span className={styles.title}>
+          <span className={styles.pit_a_pat}>PIT-A-PAT</span>
+          <span>&nbsp; = &quot;두근두근&quot;</span>
+        </span>
+        <span className={styles.description}>
           영어로 ‘두근두근’이라는 뜻을 가진 PIT-A-PAT이라는 단어를
           <br />
           소중한 생명들과 나누세요.
