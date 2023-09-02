@@ -1,6 +1,8 @@
 import styles from "@/styles/components/Header.module.css";
 import Nav from "./Nav";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   return (
@@ -21,6 +23,9 @@ export default function Header() {
       <div className={styles.auth_wrapper}>
         <span>로그인</span>
       </div>
+
+      {/* 반응형 버거메뉴 */}
+      <FontAwesomeIcon className={styles.burger_menu} icon={faBars} />
     </header>
   );
 }

@@ -35,6 +35,11 @@
     text-align: end;
 }
 
+/* 버거메뉴 */
+.burger_menu {
+    display: none;
+}
+
 /* 태블릿 PC */
 @media screen and (max-width: 1023px) {
 
@@ -71,5 +76,25 @@
         text-align: end;
         color: #737373;
         font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    /* 네비게이션 */
+    .main_header .nav_wrapper {
+        display: none;
+    }
+
+    /* 로그인 로그아웃 */
+    .main_header .auth_wrapper {
+        display: none;
+    }
+
+    /* 버거메뉴 */
+    .burger_menu {
+        display: block;
+        color: #737373;
+        font-size: 24px;
     }
 }
