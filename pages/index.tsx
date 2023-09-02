@@ -1,20 +1,8 @@
 import styles from "@/styles/pages/index.module.css";
-import Image from "next/image";
 
 export default function Home() {
   return (
     <main className={styles.main_wrapper}>
-      {/* 메인 배경 이미지 */}
-      <Image
-        className={styles.main_background_image}
-        src="/img/corgi.jpg"
-        alt="메인 배경 이미지"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      />
-
-      {/* Pit a pet 설명 글 */}
       <div className={styles.welcome_text}>
         <span className={styles.title}>
           <span className={styles.pit_a_pat}>PIT-A-PAT</span>

@@ -2,13 +2,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-.main_background_image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+  background-image: url('/img/corgi.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .welcome_text {
