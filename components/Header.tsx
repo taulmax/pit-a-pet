@@ -1,21 +1,24 @@
 import Image from "next/image";
 import styles from "@/styles/components/Header.module.css";
 import Nav from "./Nav";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <header className={styles.main_header}>
       {/* 로고 */}
-      <div className={styles.logo_wrapper}>
-        <Image
-          src="/img/logo.png"
-          alt="로고"
-          width={100}
-          height={100}
-          objectFit="cover"
-          objectPosition="center"
-        />
-      </div>
+      <Link href="/">
+        <div className={styles.logo_wrapper}>
+          <Image
+            src="/img/logo.png"
+            alt="로고"
+            width={100}
+            height={100}
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
+      </Link>
 
       {/* 네비게이션 */}
       <div className={styles.nav_wrapper}>
