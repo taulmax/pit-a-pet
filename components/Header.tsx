@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "@/styles/components/Header.module.css";
 import Nav from "./Nav";
 import Link from "next/link";
@@ -9,13 +8,7 @@ export default function Header() {
       {/* 로고 */}
       <div className={styles.logo_wrapper}>
         <Link href="/">
-          <Image
-            className={styles.logo}
-            src="/img/logo.png"
-            alt="로고"
-            width={100}
-            height={100}
-          />
+          <div className={styles.logo}></div>
         </Link>
       </div>
 
