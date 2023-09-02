@@ -1,34 +1,34 @@
 /* 나눔스퀘어 폰트 */
 @font-face {
     font-family: 'NanumSquareLight';
-    src: url('/public/fonts/nanum-square/NanumSquareL.ttf') format('truetype');
+    src: url('/fonts/nanum-square/NanumSquareL.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'NanumSquare';
-    src: url('/public/fonts/nanum-square/NanumSquareR.ttf') format('truetype');
+    src: url('/fonts/nanum-square/NanumSquareR.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'NanumSquareBold';
-    src: url('/public/fonts/nanum-square/NanumSquareB.ttf') format('truetype');
+    src: url('/fonts/nanum-square/NanumSquareB.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'NanumSquareExtraBold';
-    src: url('/public/fonts/nanum-square/NanumSquareEB.ttf') format('truetype');
+    src: url('/fonts/nanum-square/NanumSquareEB.ttf') format('truetype');
 }
 
 /* IM FELL DOBULE PICA FONT */
 @font-face {
     font-family: 'IM Fell Double Pica', serif;
-    src: url('/public/fonts/IM_Fell_Double_Pica/IMFellDoublePica-Regular.ttf') format('truetype');
+    src: url('/fonts/IM_Fell_Double_Pica/IMFellDoublePica-Regular.ttf') format('truetype');
     font-style: normal;
 }
 
 @font-face {
     font-family: 'IM Fell Double Pica', serif;
-    src: url('/public/fonts/IM_Fell_Double_Pica/IMFellDoublePica-Italic.ttf') format('truetype');
+    src: url('/fonts/IM_Fell_Double_Pica/IMFellDoublePica-Italic.ttf') format('truetype');
     font-style: italic;
 }
 
