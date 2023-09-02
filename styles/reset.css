@@ -173,6 +173,7 @@ table {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     font-family: 'NanumSquare';
+    overflow: hidden;
 }
 
 html,
@@ -204,4 +205,9 @@ dialog {
     height: 100%;
     padding-top: 120px;
     background-color: #EAEAEA;
+}
+
+/* display on off */
+.off {
+    display: none !important;
 }

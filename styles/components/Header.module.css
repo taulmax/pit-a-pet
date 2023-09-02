@@ -40,6 +40,34 @@
     display: none;
 }
 
+.burger_navigation {
+    position: fixed;
+    top: 0;
+    width: 320px;
+    height: 100vh;
+    background-color: white;
+    z-index: 20;
+    transition: right 0.3s ease-in-out;
+}
+
+.burger_navigation.burger_off {
+    right: -320px;
+}
+
+.burger_navigation.burger_on {
+    right: 0;
+}
+
+.burger_dark_layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+}
+
 /* 태블릿 PC */
 @media screen and (max-width: 1023px) {
 
@@ -96,5 +124,6 @@
         display: block;
         color: #737373;
         font-size: 24px;
+        cursor: pointer;
     }
 }

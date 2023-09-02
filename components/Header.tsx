@@ -3,8 +3,13 @@ import Nav from "./Nav";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useState } from "react";
 
 export default function Header() {
+  const [isBurgerMenuOn, setIsBurgerMenuOn] = useState(false);
+  const onClickBurgerMenu = useCallback(() => {
+    setIsBurgerMenuOn((state) => !state);
+  }, []);
   return (
     <header className={styles.main_header}>
       {/* 로고 */}
@@ -25,7 +30,20 @@ export default function Header() {
       </div>
 
       {/* 반응형 버거메뉴 */}
-      <FontAwesomeIcon className={styles.burger_menu} icon={faBars} />
+      <FontAwesomeIcon
+        onClick={onClickBurgerMenu}
+        className={styles.burger_menu}
+        icon={faBars}
+      />
+      <div
+        className={`${styles.burger_navigation} ${
+          isBurgerMenuOn ? styles.burger_on : styles.burger_off
+        }`}
+      ></div>
+      <div
+        onClick={onClickBurgerMenu}
+        className={`${styles.burger_dark_layer} ${isBurgerMenuOn ? "" : "off"}`}
+      ></div>
     </header>
   );
 }
