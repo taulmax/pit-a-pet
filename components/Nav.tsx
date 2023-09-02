@@ -8,7 +8,6 @@ export default function Nav() {
       <Link href="/find">우리 아이 찾기</Link>
       <Link href="/info">반려동물 관련정보</Link>
       <Link href="/community">커뮤니티</Link>
-      <Link href="/profile">내정보</Link>
     </nav>
   );
 }
