@@ -2,23 +2,19 @@ import styles from "@/styles/components/Header.module.css";
 import Nav from "./Nav";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faCircleInfo,
-  faGlobe,
-  faHouse,
-  faMagnifyingGlass,
-  faPaw,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faHouse, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useState } from "react";
 import Button from "./Button";
+import { MAIN_MENU } from "@/util/data";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const { pathname } = useRouter();
   const [isBurgerMenuOn, setIsBurgerMenuOn] = useState(false);
   const onClickBurgerMenu = useCallback(() => {
     setIsBurgerMenuOn((state) => !state);
   }, []);
+
   return (
     <header className={styles.main_header}>
       {/* 로고 */}
@@ -61,35 +57,27 @@ export default function Header() {
           <Button color="logo" text="로그인" />
         </div>
         <Link href="/">
-          <li className={styles.burger_list}>
+          <li
+            className={`${styles.burger_list} ${
+              pathname === "/" ? styles.current_page : ""
+            }`}
+          >
             <FontAwesomeIcon icon={faHouse} />
             <div>홈</div>
           </li>
         </Link>
-        <Link href="/introduction">
-          <li className={styles.burger_list}>
-            <FontAwesomeIcon icon={faPaw} />
-            <div>아이들 소개</div>
-          </li>
-        </Link>
-        <Link href="/find">
-          <li className={styles.burger_list}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-            <div>우리 아이 찾기</div>
-          </li>
-        </Link>
-        <Link href="/info">
-          <li className={styles.burger_list}>
-            <FontAwesomeIcon icon={faCircleInfo} />
-            <div>반려동물 관련정보</div>
-          </li>
-        </Link>
-        <Link href="/community">
-          <li className={styles.burger_list}>
-            <FontAwesomeIcon icon={faGlobe} />
-            <div>커뮤니티</div>
-          </li>
-        </Link>
+        {MAIN_MENU.map(({ title, link, icon }) => (
+          <Link key={title} href={link}>
+            <li
+              className={`${styles.burger_list} ${
+                pathname === link ? styles.current_page : ""
+              }`}
+            >
+              <FontAwesomeIcon icon={icon} />
+              <div>{title}</div>
+            </li>
+          </Link>
+        ))}
       </div>
       <div
         onClick={onClickBurgerMenu}

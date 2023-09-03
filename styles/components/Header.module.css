@@ -48,6 +48,7 @@
     background-color: white;
     z-index: 20;
     transition: right 0.3s ease-in-out;
+    overflow-y: auto;
 }
 
 .burger_navigation.burger_off {
@@ -84,7 +85,8 @@
     cursor: pointer;
 }
 
-.burger_navigation .burger_list:hover {
+.burger_navigation .burger_list:hover,
+.burger_navigation .burger_list.current_page {
     background-color: #f4eee6;
 }
 

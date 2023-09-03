@@ -9,6 +9,15 @@
     color: #737373;
 }
 
+.main_nav a:hover {
+    color: #CBB395;
+}
+
+.main_nav a.current_page {
+    color: #CBB395;
+    font-weight: bold;
+}
+
 /* 태블릿 PC */
 @media screen and (max-width: 1023px) {
     .main_nav a {

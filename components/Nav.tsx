@@ -1,13 +1,21 @@
 import styles from "@/styles/components/Nav.module.css";
+import { MAIN_MENU } from "@/util/data";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Nav() {
+  const { pathname } = useRouter();
   return (
     <nav className={styles.main_nav}>
-      <Link href="/introduction">아이들 소개</Link>
-      <Link href="/find">우리 아이 찾기</Link>
-      <Link href="/info">반려동물 관련정보</Link>
-      <Link href="/community">커뮤니티</Link>
+      {MAIN_MENU.map(({ title, link }) => (
+        <Link
+          key={title}
+          className={pathname === link ? styles.current_page : ""}
+          href={link}
+        >
+          {title}
+        </Link>
+      ))}
     </nav>
   );
 }
