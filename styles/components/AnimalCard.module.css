@@ -1,0 +1,57 @@
+.animal_card {
+    width: 200px;
+    height: 300px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 10px;
+    font-size: 12px;
+}
+
+.animal_card_image {
+    position: static !important;
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.animal_card_list_wrapper {
+    display: flex;
+    height: 100px;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 12px;
+}
+
+.animal_card_list {
+    display: flex;
+    padding: 3px 12px;
+}
+
+.animal_card_list .list_title {
+    min-width: 45px;
+    color: rgb(68, 68, 68);
+}
+
+.animal_card_list .list_content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+    color: #737373;
+}
+
+@media screen and (max-width: 1023px) {
+    .animal_card {
+        width: 150px;
+        height: 250px;
+        background-color: white;
+        border-radius: 20px;
+        margin: 10px;
+        font-size: 12px;
+    }
+
+    .animal_card_image {
+        position: static !important;
+        width: 150px !important;
+        height: 150px !important;
+    }
+}
