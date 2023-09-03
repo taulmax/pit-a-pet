@@ -75,3 +75,14 @@
     font-size: 12px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .main_wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('/img/corgi-mobile.png');
+    background-size: cover;
+    background-position: center;
+  }
+}
