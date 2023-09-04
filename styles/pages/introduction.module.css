@@ -24,3 +24,14 @@
         margin: 10px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .animal_card_row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .animal_fake_card {
+        display: none;
+    }
+}

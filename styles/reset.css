@@ -207,6 +207,12 @@ dialog {
     background-color: #EAEAEA;
 }
 
+@media screen and (max-width: 1023px) {
+    .app_wrapper {
+        padding-top: 100px;
+    }
+}
+
 /* display on off */
 .off {
     display: none !important;
