@@ -1,5 +1,7 @@
+import { fetchPosts } from "@/api/introduction";
 import AnimalCard from "@/components/AnimalCard";
 import styles from "@/styles/pages/introduction.module.css";
+import { useQuery } from "react-query";
 
 export default function Introduction() {
   const originalArray = [
@@ -16,6 +18,12 @@ export default function Introduction() {
     }
     chunkedArray.push(chunk);
   }
+
+  const { data, isLoading, isError, error } = useQuery("posts", fetchPosts);
+  console.log(data);
+  console.log(isLoading);
+  console.log(isError);
+  console.log(error);
 
   return (
     <main className={styles.content_wrapper}>
