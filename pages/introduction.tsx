@@ -2,7 +2,9 @@ import AnimalCard from "@/components/AnimalCard";
 import styles from "@/styles/pages/introduction.module.css";
 
 export default function Introduction() {
-  const originalArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const originalArray = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ];
   const chunkSize = 4;
   const fillValue = 0;
   const chunkedArray = [];
