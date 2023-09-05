@@ -10,7 +10,7 @@ export default function Nav() {
       {MAIN_MENU.map(({ title, link }) => (
         <Link
           key={title}
-          className={pathname === link ? styles.current_page : ""}
+          className={pathname.includes(link) ? styles.current_page : ""}
           href={link}
         >
           {title}
