@@ -20,20 +20,20 @@ export default function Introduction() {
   }
 
   const { data, isLoading, isError, error } = useQuery("posts", fetchPosts);
-  console.log(data);
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
+  // console.log(data);
+  // console.log(isLoading);
+  // console.log(isError);
+  // console.log(error);
 
   return (
     <main className={styles.content_wrapper}>
       {chunkedArray.map((item, index) => (
-        <div key={index} className={styles.animal_card_row}>
+        <div key={`row${index}`} className={styles.animal_card_row}>
           {item.map((value) =>
             value !== 0 ? (
-              <AnimalCard key={index} />
+              <AnimalCard id={value} key={value} />
             ) : (
-              <div key={index} className={styles.animal_fake_card}></div>
+              <div key={value} className={styles.animal_fake_card}></div>
             )
           )}
         </div>
