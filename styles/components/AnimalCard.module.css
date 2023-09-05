@@ -37,6 +37,26 @@
     margin-right: 4px;
 }
 
+.animal_tag_wrapper span.protected {
+    border-color: #6c9c7e;
+    color: #6c9c7e;
+}
+
+.animal_tag_wrapper span.process_state {
+    border-color: #737373;
+    color: #737373;
+}
+
+.animal_tag_wrapper span.male {
+    border-color: #5f8cda;
+    color: #5f8cda;
+}
+
+.animal_tag_wrapper span.female {
+    border-color: #da5f5f;
+    color: #da5f5f;
+}
+
 .animal_card_list_wrapper {
     display: flex;
     height: 96px;
