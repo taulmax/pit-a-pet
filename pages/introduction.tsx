@@ -1,10 +1,14 @@
 import { IdleData, getIdle } from "@/api/introduction";
 import AnimalCard from "@/components/AnimalCard";
+import Pagination from "@/components/Pagination";
 import styles from "@/styles/pages/introduction.module.css";
 import { formatDate } from "@/util/util";
+import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
 export default function Introduction() {
+  const { query } = useRouter();
+
   const currentDate = new Date();
   const threeMonthsAgo = new Date(
     currentDate.getFullYear(),
@@ -12,16 +16,14 @@ export default function Introduction() {
     currentDate.getDate()
   );
 
-  const { data, isLoading, isError } = useQuery("idle", () =>
+  const { data, isLoading, isError } = useQuery(["idle", query], () =>
     getIdle({
-      page: 1,
+      page: query.page ? Number(query.page) : 1,
       pageSize: 20,
       startDate: formatDate(threeMonthsAgo)["yyyy-mm-dd"],
       endDate: formatDate(currentDate)["yyyy-mm-dd"],
     })
   );
-
-  console.log(data);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -31,7 +33,7 @@ export default function Introduction() {
     return <div>Error</div>;
   }
 
-  if (!data) {
+  if (!data?.data.length) {
     return <div>No data available</div>;
   }
 
@@ -63,6 +65,11 @@ export default function Introduction() {
           )}
         </div>
       ))}
+      <Pagination
+        currentPage={1}
+        pageCount={10}
+        onPageChange={() => console.log("asd")}
+      />
     </main>
   );
 }
