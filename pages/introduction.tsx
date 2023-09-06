@@ -21,6 +21,8 @@ export default function Introduction() {
     })
   );
 
+  console.log(data);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -37,8 +39,8 @@ export default function Introduction() {
   const fakeValue = { desertionNo: "fake" };
   const chunkedArray = [];
 
-  for (let i = 0; i < data?.length; i += chunkSize) {
-    const chunk: any[] = data.slice(i, i + chunkSize);
+  for (let i = 0; i < data?.data.length; i += chunkSize) {
+    const chunk: any[] = data.data.slice(i, i + chunkSize);
     while (chunk.length < chunkSize) {
       chunk.push(fakeValue);
     }

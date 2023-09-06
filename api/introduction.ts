@@ -30,7 +30,7 @@ export const getIdle = async (params: {
   pageSize: number;
   startDate: string;
   endDate: string;
-}): Promise<IdleData[]> => {
+}): Promise<{ data: IdleData[]; pageCount: number }> => {
   const response = await axios.get("/idle/data", { params });
   return response.data;
 };
