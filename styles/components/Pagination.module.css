@@ -2,24 +2,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin: 40px 0px 50px 0px;
 }
 
 button.page_button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: transparent;
+    color: #737373;
     border: none;
     border-radius: 4px;
     padding: 8px 12px;
     margin: 2px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.1s ease-in-out;
 }
 
 button.page_button:hover {
-    background-color: #0056b3;
+    background-color: #CBB395;
+    color: white;
 }
 
 button.page_button.active {
-    background-color: #0056b3;
+    background-color: #CBB395;
+    color: white;
 }

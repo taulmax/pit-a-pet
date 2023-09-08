@@ -4,10 +4,40 @@ import Pagination from "@/components/Pagination";
 import styles from "@/styles/pages/introduction.module.css";
 import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next/types";
+import { useCallback } from "react";
 import { useQuery } from "react-query";
 
-export default function Introduction() {
-  const { query } = useRouter();
+// query 프롭스에 대한 타입 정의
+type IntroductionProps = {
+  query: {
+    page?: string;
+  };
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context;
+  return {
+    props: {
+      query,
+    },
+  };
+};
+
+export default function Introduction({ query }: IntroductionProps) {
+  const router = useRouter();
+  const currentPage = query.page ? Number(query.page) : 1;
+
+  const onPageChange = useCallback(
+    (page: number) => {
+      router.push(`/introduction?page=${page}`);
+      const element = document.getElementById("introduction_main_wrapper");
+      if (element) {
+        element.scrollTop = 0;
+      }
+    },
+    [router]
+  );
 
   const currentDate = new Date();
   const threeMonthsAgo = new Date(
@@ -18,7 +48,7 @@ export default function Introduction() {
 
   const { data, isLoading, isError } = useQuery(["idle", query], () =>
     getIdle({
-      page: query.page ? Number(query.page) : 1,
+      page: currentPage,
       pageSize: 20,
       startDate: formatDate(threeMonthsAgo)["yyyy-mm-dd"],
       endDate: formatDate(currentDate)["yyyy-mm-dd"],
@@ -50,7 +80,7 @@ export default function Introduction() {
   }
 
   return (
-    <main className={styles.content_wrapper}>
+    <main id="introduction_main_wrapper" className={styles.content_wrapper}>
       {chunkedArray.map((item, index) => (
         <div key={`row${index}`} className={styles.animal_card_row}>
           {item.map((idleData: IdleData, idleIndex: number) =>
@@ -66,9 +96,9 @@ export default function Introduction() {
         </div>
       ))}
       <Pagination
-        currentPage={1}
-        pageCount={10}
-        onPageChange={() => console.log("asd")}
+        currentPage={currentPage}
+        pageCount={data.pageCount}
+        onPageChange={onPageChange}
       />
     </main>
   );

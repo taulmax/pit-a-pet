@@ -1,5 +1,12 @@
 import React from "react";
 import styles from "@/styles/components/Pagination.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface IPagination {
   currentPage: number;
@@ -28,8 +35,12 @@ export default function Pagination({
   // "<<"(첫 페이지로 이동) 버튼
   if (currentPage > 1) {
     pageNumbers.push(
-      <button className={styles.page_button} onClick={() => onPageChange(1)}>
-        &laquo;&laquo;
+      <button
+        key="<<"
+        className={styles.page_button}
+        onClick={() => onPageChange(1)}
+      >
+        <FontAwesomeIcon icon={faAnglesLeft} />
       </button>
     );
   }
@@ -38,10 +49,11 @@ export default function Pagination({
   if (startPage > 1) {
     pageNumbers.push(
       <button
+        key="<"
         className={styles.page_button}
         onClick={() => onPageChange(startPage - 1)}
       >
-        &laquo;
+        <FontAwesomeIcon icon={faAngleLeft} />
       </button>
     );
   }
@@ -50,7 +62,10 @@ export default function Pagination({
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(
       <button
-        className={`${styles.page_button} ${i === currentPage ? "active" : ""}`}
+        key={i}
+        className={`${styles.page_button} ${
+          i === currentPage ? styles.active : ""
+        }`}
         onClick={() => onPageChange(i)}
       >
         {i}
@@ -62,10 +77,11 @@ export default function Pagination({
   if (endPage < pageCount) {
     pageNumbers.push(
       <button
+        key=">"
         className={styles.page_button}
         onClick={() => onPageChange(endPage + 1)}
       >
-        &raquo;
+        <FontAwesomeIcon icon={faAngleRight} />
       </button>
     );
   }
@@ -74,10 +90,11 @@ export default function Pagination({
   if (currentPage < pageCount) {
     pageNumbers.push(
       <button
+        key=">>"
         className={styles.page_button}
         onClick={() => onPageChange(pageCount)}
       >
-        &raquo;&raquo;
+        <FontAwesomeIcon icon={faAnglesRight} />
       </button>
     );
   }
