@@ -28,3 +28,19 @@ export function formatDate(inputDate: string | Date) {
     "yyyy-mm-dd": `${yyyyYear}-${month}-${day}`,
   };
 }
+
+export function encodeDataToBase64(data: any) {
+  const textEncoder = new TextEncoder();
+  const dataToEncode = JSON.stringify(data);
+  const uint8Array = textEncoder.encode(dataToEncode);
+  return btoa(String.fromCharCode.apply(null, Array.from(uint8Array)));
+}
+
+export function decodeBase64ToUTF8(encodedData: any) {
+  const decodedData = atob(encodedData); // Base64 디코딩
+  const textDecoder = new TextDecoder("utf-8");
+  const utf8Data = textDecoder.decode(
+    new Uint8Array(decodedData.length).map((_, i) => decodedData.charCodeAt(i))
+  );
+  return utf8Data;
+}

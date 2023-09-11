@@ -2,11 +2,16 @@ import Image from "next/image";
 import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
 import { IdleData } from "@/api/introduction";
-import { formatDate } from "@/util/util";
+import { encodeDataToBase64, formatDate } from "@/util/util";
 
 export default function AnimalCard({ idleData }: { idleData: IdleData }) {
   return (
-    <Link href={`/introduction/${idleData.desertionNo}`}>
+    <Link
+      href={{
+        pathname: `/introduction/${idleData.desertionNo}`,
+        query: { data: encodeDataToBase64(idleData) },
+      }}
+    >
       <div className={styles.animal_card}>
         <Image
           className={styles.animal_card_image}
