@@ -152,17 +152,69 @@
 
 @media screen and (max-width: 500px) {
     .image_wrapper {
-        min-width: 400px;
-        min-height: 400px;
+        min-width: 350px;
+        min-height: 350px;
     }
 
     .animal_image {
-        width: 400px !important;
-        height: 400px !important;
+        width: 350px !important;
+        height: 350px !important;
     }
 
     .animal_info_wrapper {
-        min-width: 400px;
-        width: 400px;
+        min-width: 350px;
+        width: 350px;
+    }
+
+    .animal_info_wrapper .animal_title {
+        font-size: 20px;
+        height: 30px;
+    }
+
+    .animal_info_wrapper .animal_title span {
+        font-size: 16px;
+    }
+
+    .default_info {
+        margin-top: 6px;
+    }
+
+    .default_info div {
+        color: #c4a073;
+        font-size: 14px;
+        font-weight: bold;
+        border: 2px solid #CBB395;
+        padding: 6px 14px;
+        margin: 2px 4px 2px 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+    }
+
+    .animal_info_list {
+        font-size: 16px;
+        margin: 12px 0px;
+        display: flex;
+    }
+
+    .animal_info_list .list_title {
+        min-width: 118px;
+        color: rgb(68, 68, 68);
+    }
+
+    .animal_info_list .list_content {
+        margin-left: 10px;
+        color: #737373;
+        line-height: normal;
+    }
+
+    .button_container button {
+        height: 56px;
+        font-size: 18px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
     }
 }
