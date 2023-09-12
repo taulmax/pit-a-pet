@@ -130,14 +130,13 @@
         background: url('/img/logo.png');
         background-size: cover;
         background-position: center;
-        width: 70px;
-        height: 70px;
+        width: 78px;
+        height: 78px;
     }
 
     /* 네비게이션 */
     .main_header .nav_wrapper {
         width: 70%;
-        font-size: 12px;
     }
 
     /* 로그인 로그아웃 */
@@ -161,6 +160,11 @@
         display: none;
     }
 
+    .main_header .logo_wrapper {
+        width: 30%;
+    }
+
+
     /* 버거메뉴 */
     .burger_menu {
         display: block;
@@ -171,6 +175,17 @@
 }
 
 @media screen and (max-width: 480px) {
+
+    /* 메인 헤더 */
+    .main_header {
+        width: 100%;
+        height: 64px;
+        padding: 18px 16px 0px 6px;
+    }
+
+    .main_header .logo_wrapper {
+        width: 30%;
+    }
 
     /* 버거메뉴 */
     .burger_menu {
@@ -184,7 +199,7 @@
         background: url('/img/logo.png');
         background-size: cover;
         background-position: center;
-        width: 50px;
-        height: 50px;
+        width: 64px;
+        height: 64px;
     }
 }

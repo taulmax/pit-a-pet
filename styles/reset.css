@@ -213,6 +213,12 @@ dialog {
     }
 }
 
+@media screen and (max-width: 480px) {
+    .app_wrapper {
+        padding-top: 86px;
+    }
+}
+
 /* display on off */
 .off {
     display: none !important;
