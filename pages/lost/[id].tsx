@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { IdleData } from "@/api/introduction";
+import { LostData } from "@/api/lost";
 
-export default function IntroductionDetail() {
+export default function LostDetail() {
   const router = useRouter();
   const { data } = router.query;
-  const [decodedData, setDecodedData] = useState<IdleData>();
+  const [decodedData, setDecodedData] = useState<LostData>();
 
   useEffect(() => {
     if (data) {
@@ -31,7 +31,7 @@ export default function IntroductionDetail() {
       <div className={styles.image_wrapper}>
         <Image
           className={styles.animal_image}
-          src={decodedData.popfile}
+          src={decodedData.image}
           alt="thumbnail"
           priority={true}
           width={500}
@@ -40,7 +40,7 @@ export default function IntroductionDetail() {
       </div>
       <ul className={styles.animal_info_wrapper}>
         <li className={styles.animal_title}>
-          <span
+          {/* <span
             className={
               decodedData.processState === "보호중"
                 ? styles.protected
@@ -48,8 +48,8 @@ export default function IntroductionDetail() {
             }
           >
             {decodedData.processState}
-          </span>
-          {decodedData.kindCd}
+          </span> */}
+          {decodedData.type}
         </li>
         <li className={styles.default_info}>
           {decodedData.sexCd === "M" ? (
@@ -59,7 +59,7 @@ export default function IntroductionDetail() {
           ) : (
             <></>
           )}
-          {decodedData.neuterYn === "Y" ? (
+          {/* {decodedData.neuterYn === "Y" ? (
             <div>중성화</div>
           ) : decodedData.neuterYn === "N" ? (
             <div>중성화 X</div>
@@ -68,21 +68,20 @@ export default function IntroductionDetail() {
           )}
           <div>{decodedData.colorCd}</div>
           <div>{decodedData.age}</div>
-          <div>{decodedData.weight}</div>
+          <div>{decodedData.weight}</div> */}
         </li>
 
         <li className={styles.animal_info_list}>
-          <span className={styles.list_title}>공고번호</span>{" "}
-          <span className={styles.list_content}>{decodedData.noticeNo}</span>
+          <span className={styles.list_title}>실종번호</span>{" "}
+          <span className={styles.list_content}>{decodedData.lostNo}</span>
         </li>
         <li className={styles.animal_info_list}>
-          <span className={styles.list_title}>공고일자</span>{" "}
+          <span className={styles.list_title}>실종일자</span>{" "}
           <span className={styles.list_content}>
-            {formatDate(decodedData.noticeSdt)["yy.mm.dd"]} ~{" "}
-            {formatDate(decodedData.noticeEdt)["yy.mm.dd"]}
+            {formatDate(decodedData.lostDate)["yy.mm.dd"]}
           </span>
         </li>
-        <li className={styles.animal_info_list}>
+        {/* <li className={styles.animal_info_list}>
           <span className={styles.list_title}>특징</span>{" "}
           <span className={styles.list_content}>{decodedData.specialMark}</span>
         </li>
@@ -97,7 +96,7 @@ export default function IntroductionDetail() {
         <li className={styles.animal_info_list}>
           <span className={styles.list_title}>보호소 전화번호</span>{" "}
           <span className={styles.list_content}>{decodedData.careTel}</span>
-        </li>
+        </li> */}
         <li className={styles.button_container}>
           <button className={styles.zzim}>찜하기 ♥</button>
         </li>

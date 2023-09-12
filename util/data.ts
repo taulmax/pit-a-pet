@@ -14,7 +14,7 @@ export const MAIN_MENU = [
   },
   {
     title: "우리 아이 찾기",
-    link: "/find",
+    link: "/lost",
     icon: faMagnifyingGlass,
   },
   {

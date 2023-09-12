@@ -1,15 +1,14 @@
-import { IdleData, getIdle } from "@/api/introduction";
-import AnimalCard from "@/components/AnimalCard/AnimalCard";
+import { LostData, getLost } from "@/api/lost";
+import LostAnimalCard from "@/components/AnimalCard/FindAnimalCard";
 import Pagination from "@/components/Pagination";
 import styles from "@/styles/pages/introduction.module.css";
-import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next/types";
 import { useCallback } from "react";
 import { useQuery } from "react-query";
 
 // query 프롭스에 대한 타입 정의
-type IntroductionProps = {
+type LostProps = {
   query: {
     page?: string;
   };
@@ -24,13 +23,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default function Introduction({ query }: IntroductionProps) {
+export default function Lost({ query }: LostProps) {
   const router = useRouter();
   const currentPage = query.page ? Number(query.page) : 1;
 
   const onPageChange = useCallback(
     (page: number) => {
-      router.push(`/introduction?page=${page}`);
+      router.push(`/lost?page=${page}`);
       const element = document.getElementById("introduction_main_wrapper");
       if (element) {
         element.scrollTop = 0;
@@ -39,19 +38,10 @@ export default function Introduction({ query }: IntroductionProps) {
     [router]
   );
 
-  const currentDate = new Date();
-  const threeMonthsAgo = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() - 3,
-    currentDate.getDate()
-  );
-
-  const { data, isLoading, isError } = useQuery(["idle", query], () =>
-    getIdle({
+  const { data, isLoading, isError } = useQuery(["lost", query], () =>
+    getLost({
       page: currentPage,
       pageSize: 20,
-      startDate: formatDate(threeMonthsAgo)["yyyy-mm-dd"],
-      endDate: formatDate(currentDate)["yyyy-mm-dd"],
     })
   );
 
@@ -83,12 +73,12 @@ export default function Introduction({ query }: IntroductionProps) {
     <main id="introduction_main_wrapper" className={styles.content_wrapper}>
       {chunkedArray.map((item, index) => (
         <div key={`row${index}`} className={styles.animal_card_row}>
-          {item.map((idleData: IdleData, idleIndex: number) =>
-            idleData.desertionNo !== "fake" ? (
-              <AnimalCard idleData={idleData} key={idleData.desertionNo} />
+          {item.map((lostData: LostData, lostIndex: number) =>
+            lostData.lostNo !== "fake" ? (
+              <LostAnimalCard lostData={lostData} key={lostData.lostNo} />
             ) : (
               <div
-                key={idleData.desertionNo + idleIndex}
+                key={lostData.lostNo + lostIndex}
                 className={styles.animal_fake_card}
               ></div>
             )
