@@ -4,11 +4,12 @@
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 
 .image_wrapper {
     margin-right: 30px;
+    min-width: 500px;
+    min-height: 500px;
 }
 
 .animal_image {
@@ -16,7 +17,9 @@
 }
 
 .animal_info_wrapper {
-    width: 550px;
+    min-width: 500px;
+    min-height: 500px;
+    width: 500px;
     height: 500px;
     position: relative;
 }
@@ -78,11 +81,10 @@
 }
 
 .animal_info_list .list_content {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin-left: 10px;
+    margin-top: -1px;
     color: #737373;
+    line-height: 20px;
 }
 
 .button_container {
@@ -108,4 +110,59 @@
 
 .button_container button.zzim:hover {
     background-color: #E0708B;
+}
+
+@media screen and (max-width: 1439px) {
+    .image_wrapper {
+        min-width: 470px;
+        min-height: 470px;
+    }
+
+    .animal_image {
+        width: 470px !important;
+        height: 470px !important;
+    }
+
+    .animal_info_wrapper {
+        min-width: 470px;
+        min-height: 470px;
+        width: 470px;
+        height: 470px;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .introduction_detail_wrapper {
+        height: 100%;
+        flex-direction: column;
+        justify-content: initial;
+        align-items: center;
+    }
+
+    .image_wrapper {
+        margin-right: 0px;
+        margin-bottom: 12px;
+    }
+
+    .button_container {
+        width: 100%;
+        position: static;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .image_wrapper {
+        min-width: 400px;
+        min-height: 400px;
+    }
+
+    .animal_image {
+        width: 400px !important;
+        height: 400px !important;
+    }
+
+    .animal_info_wrapper {
+        min-width: 400px;
+        width: 400px;
+    }
 }
