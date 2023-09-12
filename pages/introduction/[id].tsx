@@ -1,4 +1,4 @@
-import { decodeBase64ToUTF8 } from "@/util/util";
+import { decodeBase64ToUTF8, formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
@@ -79,7 +79,8 @@ export default function IntroductionDetail() {
         <li className={styles.animal_info_list}>
           <span className={styles.list_title}>공고일자</span>{" "}
           <span className={styles.list_content}>
-            {decodedData.noticeSdt} ~ {decodedData.noticeEdt}
+            {formatDate(decodedData.noticeSdt)["yy.mm.dd"]} ~{" "}
+            {formatDate(decodedData.noticeEdt)["yy.mm.dd"]}
           </span>
         </li>
         <li className={styles.animal_info_list}>

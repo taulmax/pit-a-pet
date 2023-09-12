@@ -16,6 +16,7 @@
 }
 
 .animal_info_wrapper {
+    width: 550px;
     height: 500px;
     position: relative;
 }
