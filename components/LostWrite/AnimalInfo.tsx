@@ -210,6 +210,9 @@ export default function AnimalInfo() {
         </li>
         <li className={styles.list_item}>
           <div className={styles.item_title}>사진을 업로드해 주세요</div>
+          <div className={styles.short_description}>
+            사진은 5장까지 올릴 수 있어요. 최대한 많은 사진을 올려주세요!
+          </div>
           <div className={styles.item_content}></div>
         </li>
       </ul>
