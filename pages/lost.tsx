@@ -2,6 +2,8 @@ import { LostData, getLost } from "@/api/lost";
 import LostAnimalCard from "@/components/AnimalCard/FindAnimalCard";
 import Pagination from "@/components/Pagination";
 import styles from "@/styles/pages/introduction.module.css";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next/types";
 import { useCallback } from "react";
@@ -44,6 +46,11 @@ export default function Lost({ query }: LostProps) {
       pageSize: 20,
     })
   );
+
+  // 글쓰기 버튼 클릭
+  const onClickWriteButton = useCallback(() => {
+    router.push("/lostWrite");
+  }, [router]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -90,6 +97,11 @@ export default function Lost({ query }: LostProps) {
         pageCount={data.pageCount}
         onPageChange={onPageChange}
       />
+
+      {/* 우리 아이 찾기 글쓰기 FIXED BUTTON */}
+      <div onClick={onClickWriteButton} className={styles.write_button}>
+        <FontAwesomeIcon icon={faPen} />
+      </div>
     </main>
   );
 }
