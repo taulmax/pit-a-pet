@@ -174,6 +174,12 @@ export default function AnimalInfo() {
           </div>
         </li>
         <li className={styles.list_item}>
+          <div className={styles.item_title}>아이 이름을 알려주세요</div>
+          <div className={styles.item_content}>
+            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+          </div>
+        </li>
+        <li className={styles.list_item}>
           <div className={styles.item_title}>나이를 알려주세요</div>
           <div className={styles.item_content}>
             <input onFocus={onFocus} onBlur={onBlur} type="text" />
