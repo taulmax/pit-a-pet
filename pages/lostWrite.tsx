@@ -1,5 +1,7 @@
 import AnimalInfo from "@/components/LostWrite/AnimalInfo";
+import ContentInfo from "@/components/LostWrite/ContentInfo";
 import LostInfo from "@/components/LostWrite/LostInfo";
+import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
 import { useCallback, useRef, useState } from "react";
 
@@ -29,6 +31,8 @@ export default function LostWrite() {
     <main ref={lostWriteWrapperRef} className={styles.lostWrite_wrapper}>
       {page === 1 && <AnimalInfo />}
       {page === 2 && <LostInfo />}
+      {page === 3 && <RewardInfo />}
+      {page === 4 && <ContentInfo />}
 
       <footer className={styles.footer}>
         <div className={styles.progress_bar}>
