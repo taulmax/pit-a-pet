@@ -5,15 +5,17 @@ import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
 import { useCallback, useRef, useState } from "react";
 
+export interface IAnimalInfo {
+  name: string; // 이름
+  age: string; // 나이
+  weight: string; // 몸무게
+  furColor: string; // 털색
+  feature: string; // 특징
+}
+
 export default function LostWrite() {
   const lostWriteWrapperRef = useRef<HTMLElement | null>(null);
   const [page, setPage] = useState<number>(1);
-  // 이전 다음 눌렀을때 스크롤 맨 위로 가는 로직 넣어야함
-  // 칩이 있는지 없는지
-  // 강아지 이름
-  // 등등 필요한 정보가 더 있을지? 있으면 제목하고 게시글이 필요 없어지지 않을까..?
-  // 본인인증을 한번 해볼까
-  // 프로필에서 본인인증 할수있고, 본인인증 되어야 글쓸수 있게 하는건 어떤가...
   const onClickPreviousPage = useCallback(() => {
     if (page > 1) {
       lostWriteWrapperRef.current!.scrollTop = 0;
@@ -27,9 +29,27 @@ export default function LostWrite() {
     }
   }, [page]);
 
+  // [입력 정보]
+  // AninalInfo - 아이의 정보를 알려주세요
+  const [animalInfo, setAnimalInfo] = useState<IAnimalInfo>({
+    name: "",
+    age: "",
+    weight: "",
+    furColor: "",
+    feature: "",
+  });
+  const onChangeAnimalInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAnimalInfo((state) => ({ ...state, [e.target.id]: e.target.value }));
+    },
+    []
+  );
+
   return (
     <main ref={lostWriteWrapperRef} className={styles.lostWrite_wrapper}>
-      {page === 1 && <AnimalInfo />}
+      {page === 1 && (
+        <AnimalInfo values={animalInfo} onChange={onChangeAnimalInfo} />
+      )}
       {page === 2 && <LostInfo />}
       {page === 3 && <RewardInfo />}
       {page === 4 && <ContentInfo />}

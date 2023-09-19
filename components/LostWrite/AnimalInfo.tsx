@@ -11,12 +11,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import Input from "../form/Input";
+import { IAnimalInfo } from "@/pages/lostWrite";
 
 type animalType = "dog" | "cat" | "rest"; // 품종
 type animalSex = "boy" | "girl" | "unknown"; // 성별
 type animalNeutered = "Y" | "N" | "U"; // 중성화
 
-export default function AnimalInfo() {
+export default function AnimalInfo({
+  values: { name, age, weight, furColor, feature },
+  onChange,
+}: {
+  values: IAnimalInfo;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   const [type, setType] = useState<animalType | null>(null); // 품종
   const [sex, setSex] = useState<animalSex | null>(null); // 성별
   const [neutered, setNeutered] = useState<animalNeutered | null>(null); // 중성화
@@ -52,6 +60,7 @@ export default function AnimalInfo() {
         기재해주세요.
       </div>
       <ul className={styles.list}>
+        {/* 품종 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>품종을 알려주세요</div>
           <div
@@ -89,6 +98,8 @@ export default function AnimalInfo() {
             </div>
           </div>
         </li>
+
+        {/* 성별 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>성별을 알려주세요</div>
           <div className={styles.item_content}>
@@ -128,6 +139,8 @@ export default function AnimalInfo() {
             </div>
           </div>
         </li>
+
+        {/* 중성화 여부 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>중성화 여부를 알려주세요</div>
           <div className={styles.item_content}>
@@ -173,47 +186,59 @@ export default function AnimalInfo() {
             </div>
           </div>
         </li>
+
+        {/* 이름 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>아이 이름을 알려주세요</div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="name" value={name} onChange={onChange} />
           </div>
         </li>
+
+        {/* 나이 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>나이를 알려주세요</div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="age" value={age} onChange={onChange} />
           </div>
           <div className={styles.short_description}>
             아직 돌이 지나지 않았다면 몇 개월인지, 지났다면 몇 살인지 정확하게
             써주세요!
           </div>
         </li>
+
+        {/* 몸무게 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>몸무게를 알려주세요</div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="weight" value={weight} onChange={onChange} />
           </div>
           <div className={styles.short_description}>
             자세히 모른다면 추정 몸무게라도 알려주신다면 도움이 될거에요!
           </div>
         </li>
+
+        {/* 털색 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>털색을 알려주세요</div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="furColor" value={furColor} onChange={onChange} />
           </div>
         </li>
+
+        {/* 특징 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>특징을 알려주세요</div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="feature" value={feature} onChange={onChange} />
           </div>
           <div className={styles.short_description}>
             뒤에서 내용을 자세하게 쓸 수 있어요. 여기선 너무 자세하게 적지
             않아도 괜찮아요!
           </div>
         </li>
+
+        {/* 사진 업로드 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>사진을 업로드해 주세요</div>
           <div className={styles.short_description}>
