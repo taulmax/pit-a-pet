@@ -1,0 +1,43 @@
+.icon_select_button_wrapper {
+    display: flex;
+    margin-top: 16px;
+}
+
+.icon_select_button_wrapper .icon_button {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #DDDDDD;
+    color: #8e8e8e;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    margin: 2px 4px;
+    transition: box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.1s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.icon_select_button_wrapper .icon_button svg {
+    font-size: 34px;
+    margin-bottom: 14px;
+    pointer-events: none;
+}
+
+.icon_select_button_wrapper .icon_button span {
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.icon_select_button_wrapper .icon_button:hover {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #000000;
+}
+
+.icon_select_button_wrapper .icon_button.active {
+    border-color: transparent;
+    color: #000000;
+    box-shadow: 0 0 0 2px #000000;
+    background-color: #F7F7F7;
+}

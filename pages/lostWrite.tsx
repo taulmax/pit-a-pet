@@ -6,6 +6,9 @@ import styles from "@/styles/pages/lostWrite.module.css";
 import { useCallback, useRef, useState } from "react";
 
 export interface IAnimalInfo {
+  type: "dog" | "cat" | "rest" | ""; // 품종
+  sex: "boy" | "girl" | "unknown" | ""; // 성별
+  neutered: "Y" | "N" | "U" | ""; // 중성화
   name: string; // 이름
   age: string; // 나이
   weight: string; // 몸무게
@@ -13,7 +16,77 @@ export interface IAnimalInfo {
   feature: string; // 특징
 }
 
+export interface ILostInfo {
+  lostDate: string; // 실종 시간
+  lostPlace: string; // 실종 장소
+}
+
 export default function LostWrite() {
+  // [입력 정보]
+  // AninalInfo - 아이의 정보를 알려주세요
+  const [animalInfo, setAnimalInfo] = useState<IAnimalInfo>({
+    type: "",
+    sex: "",
+    neutered: "",
+    name: "",
+    age: "",
+    weight: "",
+    furColor: "",
+    feature: "",
+  });
+
+  const onChangeAnimalInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAnimalInfo((state) => ({ ...state, [e.target.id]: e.target.value }));
+    },
+    []
+  );
+
+  const onClickIconSelectButton = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const id = e.currentTarget.dataset.id as string;
+      const clicked = e.currentTarget.dataset.type as string;
+      if (id === clicked) {
+        setAnimalInfo((state) => ({ ...state, [id]: "" }));
+      } else {
+        setAnimalInfo((state) => ({ ...state, [id]: clicked }));
+      }
+    },
+    []
+  );
+
+  // LostInfo - 아이를 놓쳤을때의 정보를 알려주세요
+  const [lostInfo, setLostInfo] = useState<ILostInfo>({
+    lostDate: "",
+    lostPlace: "",
+  });
+
+  const onChangeLostInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setLostInfo((state) => ({ ...state, [e.target.id]: e.target.value }));
+    },
+    []
+  );
+
+  // RewardInfo - 사례금을 알려주세요
+  const [rewardInfo, setRewardInfo] = useState<string>("");
+  const onChangeRewardInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isNaN(parseFloat(e.target.value))) {
+        setRewardInfo(e.target.value);
+      }
+    },
+    []
+  );
+
+  // RewardInfo - 사례금을 알려주세요
+  const [contentInfo, setContentInfo] = useState<string>("");
+  const onChangeContentInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setContentInfo(e.target.value),
+    []
+  );
+
+  // 페이지 관련
   const lostWriteWrapperRef = useRef<HTMLElement | null>(null);
   const [page, setPage] = useState<number>(1);
   const onClickPreviousPage = useCallback(() => {
@@ -27,32 +100,32 @@ export default function LostWrite() {
       lostWriteWrapperRef.current!.scrollTop = 0;
       setPage((state) => state + 1);
     }
-  }, [page]);
-
-  // [입력 정보]
-  // AninalInfo - 아이의 정보를 알려주세요
-  const [animalInfo, setAnimalInfo] = useState<IAnimalInfo>({
-    name: "",
-    age: "",
-    weight: "",
-    furColor: "",
-    feature: "",
-  });
-  const onChangeAnimalInfo = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setAnimalInfo((state) => ({ ...state, [e.target.id]: e.target.value }));
-    },
-    []
-  );
+    console.log(animalInfo);
+  }, [animalInfo, page]);
 
   return (
     <main ref={lostWriteWrapperRef} className={styles.lostWrite_wrapper}>
+      {/* 아이의 정보를 알려주세요 */}
       {page === 1 && (
-        <AnimalInfo values={animalInfo} onChange={onChangeAnimalInfo} />
+        <AnimalInfo
+          values={animalInfo}
+          onClick={onClickIconSelectButton}
+          onChange={onChangeAnimalInfo}
+        />
       )}
-      {page === 2 && <LostInfo />}
-      {page === 3 && <RewardInfo />}
-      {page === 4 && <ContentInfo />}
+
+      {/* 아이를 놓쳤을 때의 정보를 알려주세요 */}
+      {page === 2 && <LostInfo values={lostInfo} onChange={onChangeLostInfo} />}
+
+      {/* 사례금을 알려주세요 */}
+      {page === 3 && (
+        <RewardInfo value={rewardInfo} onChange={onChangeRewardInfo} />
+      )}
+
+      {/* 보다 자세한 내용을 알려주세요 */}
+      {page === 4 && (
+        <ContentInfo value={contentInfo} onChange={onChangeContentInfo} />
+      )}
 
       <footer className={styles.footer}>
         <div className={styles.progress_bar}>

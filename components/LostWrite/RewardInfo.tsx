@@ -1,19 +1,15 @@
 import styles from "@/styles/pages/lostWrite.module.css";
-import { useCallback } from "react";
+import Input from "../form/Input";
 
 // 천단위로 콤마 넣기
 // 아래 한글로도 3456만 3300원 이런식으로도 나오게
-export default function RewardInfo() {
-  // Input Focus Event
-  const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.add(styles.active);
-  }, []);
-
-  // Input Blur Event
-  const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.remove(styles.active);
-  }, []);
-
+export default function RewardInfo({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <div className={styles.title}>사례금을 알려주세요</div>
@@ -24,7 +20,7 @@ export default function RewardInfo() {
       <ul className={styles.list}>
         <li className={styles.list_item}>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input value={value} onChange={onChange} />
           </div>
         </li>
       </ul>

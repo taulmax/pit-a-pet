@@ -1,17 +1,14 @@
 import styles from "@/styles/pages/lostWrite.module.css";
-import { useCallback } from "react";
+import Input from "../form/Input";
+import { ILostInfo } from "@/pages/lostWrite";
 
-export default function LostInfo() {
-  // Input Focus Event
-  const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.add(styles.active);
-  }, []);
-
-  // Input Blur Event
-  const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.remove(styles.active);
-  }, []);
-
+export default function LostInfo({
+  values: { lostDate, lostPlace },
+  onChange,
+}: {
+  values: ILostInfo;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <div className={styles.title}>아이를 놓쳤을 때의 정보를 알려주세요</div>
@@ -24,7 +21,7 @@ export default function LostInfo() {
             아이를 언제 놓쳤는지 알려주세요
           </div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="lostDate" value={lostDate} onChange={onChange} />
           </div>
         </li>
         <li className={styles.list_item}>
@@ -32,7 +29,7 @@ export default function LostInfo() {
             아이를 어디서 놓쳤는지 알려주세요
           </div>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input id="lostPlace" value={lostPlace} onChange={onChange} />
           </div>
           <div className={styles.short_description}>
             아이를 놓친 장소를 구체적으로 작성해주세요!

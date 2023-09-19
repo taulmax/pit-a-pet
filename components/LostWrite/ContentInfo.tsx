@@ -1,17 +1,14 @@
 import styles from "@/styles/pages/lostWrite.module.css";
-import { useCallback } from "react";
+import Input from "../form/Input";
 
-export default function ContentInfo() {
-  // Input Focus Event
-  const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.add(styles.active);
-  }, []);
-
-  // Input Blur Event
-  const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.classList.remove(styles.active);
-  }, []);
-
+// textarea로 바꾸기
+export default function ContentInfo({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <div className={styles.title}>보다 자세한 내용을 알려주세요</div>
@@ -22,7 +19,7 @@ export default function ContentInfo() {
       <ul className={styles.list}>
         <li className={styles.list_item}>
           <div className={styles.item_content}>
-            <input onFocus={onFocus} onBlur={onBlur} type="text" />
+            <Input value={value} onChange={onChange} />
           </div>
         </li>
       </ul>
