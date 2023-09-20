@@ -29,4 +29,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #8e8e8e;
+}
+
+.input_wrapper.active .suffix {
+    color: #222222;
 }
