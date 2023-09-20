@@ -20,7 +20,7 @@ export default function RewardInfo({
       <ul className={styles.list}>
         <li className={styles.list_item}>
           <div className={styles.item_content}>
-            <Input value={value} onChange={onChange} />
+            <Input suffix="₩" value={value} onChange={onChange} />
           </div>
         </li>
       </ul>
