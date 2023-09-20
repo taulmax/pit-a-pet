@@ -3,7 +3,7 @@ import ContentInfo from "@/components/LostWrite/ContentInfo";
 import LostInfo from "@/components/LostWrite/LostInfo";
 import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface IAnimalInfo {
   type: "dog" | "cat" | "rest" | ""; // 품종
@@ -88,7 +88,7 @@ export default function LostWrite() {
 
   // 페이지 관련
   const lostWriteWrapperRef = useRef<HTMLElement | null>(null);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const onClickPreviousPage = useCallback(() => {
     if (page > 1) {
       lostWriteWrapperRef.current!.scrollTop = 0;
@@ -102,6 +102,10 @@ export default function LostWrite() {
     }
     console.log(animalInfo);
   }, [animalInfo, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
 
   return (
     <main ref={lostWriteWrapperRef} className={styles.lostWrite_wrapper}>
