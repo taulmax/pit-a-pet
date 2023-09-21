@@ -105,7 +105,13 @@ export default function AnimalInfo({
         <li className={styles.list_item}>
           <div className={styles.item_title}>몸무게를 알려주세요</div>
           <div className={styles.item_content}>
-            <Input id="weight" suffix="kg" value={weight} onChange={onChange} />
+            <Input
+              id="weight"
+              suffix="kg"
+              textAlign="right"
+              value={weight}
+              onChange={onChange}
+            />
           </div>
           <div className={styles.short_description}>
             자세히 모른다면 추정 몸무게라도 알려주신다면 도움이 될거에요!

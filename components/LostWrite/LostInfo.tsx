@@ -23,6 +23,9 @@ export default function LostInfo({
           <div className={styles.item_content}>
             <Input id="lostDate" value={lostDate} onChange={onChange} />
           </div>
+          <div className={styles.short_description}>
+            (ex) 9/21 목 8시 30분경 or 2023년 9월 21일 (목) 오후 8:22
+          </div>
         </li>
         <li className={styles.list_item}>
           <div className={styles.item_title}>

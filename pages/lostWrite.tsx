@@ -91,7 +91,8 @@ export default function LostWrite() {
   // RewardInfo - 사례금을 알려주세요
   const [contentInfo, setContentInfo] = useState<string>("");
   const onChangeContentInfo = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setContentInfo(e.target.value),
+    (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+      setContentInfo(e.target.value),
     []
   );
 

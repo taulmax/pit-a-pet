@@ -12,6 +12,7 @@ interface IInput {
     | "number"
     | "time";
 
+  textAlign?: "left" | "center" | "right";
   className?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,6 +23,7 @@ export default function Input({
   id,
   type = "text",
   className = "",
+  textAlign = "center",
   value,
   onChange,
   suffix,
@@ -39,6 +41,9 @@ export default function Input({
   return (
     <div className={styles.input_wrapper}>
       <input
+        style={{
+          textAlign,
+        }}
         id={id}
         className={`${styles.custom_input} ${className}`}
         type={type}
