@@ -1,5 +1,6 @@
 import styles from "@/styles/pages/lostWrite.module.css";
 import Input from "../form/Input";
+import { numberToKoreanAmount } from "@/util/util";
 
 // 천단위로 콤마 넣기
 // 아래 한글로도 3456만 3300원 이런식으로도 나오게
@@ -10,6 +11,7 @@ export default function RewardInfo({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
+  console.log(Number(value.replace(/[^0-9]/g, "")));
   return (
     <>
       <div className={styles.title}>사례금을 알려주세요</div>
@@ -21,6 +23,10 @@ export default function RewardInfo({
         <li className={styles.list_item}>
           <div className={styles.item_content}>
             <Input suffix="₩" value={value} onChange={onChange} />
+          </div>
+          <div className={styles.short_description}>
+            {value &&
+              `(${numberToKoreanAmount(value.replace(/[^0-9]/g, ""))}원)`}
           </div>
         </li>
       </ul>

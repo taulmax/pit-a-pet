@@ -3,6 +3,7 @@ import ContentInfo from "@/components/LostWrite/ContentInfo";
 import LostInfo from "@/components/LostWrite/LostInfo";
 import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
+import { formatNumber } from "@/util/util";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface IAnimalInfo {
@@ -72,8 +73,16 @@ export default function LostWrite() {
   const [rewardInfo, setRewardInfo] = useState<string>("");
   const onChangeRewardInfo = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!isNaN(parseFloat(e.target.value))) {
-        setRewardInfo(e.target.value);
+      const inputValue = e.target.value;
+
+      if (inputValue.replaceAll(",", "").length < 10) {
+        // 첫 번째 자릿수가 0이면 제거합니다.
+        const formattedValue = inputValue.startsWith("0")
+          ? inputValue.substring(1)
+          : inputValue;
+
+        const finalFormattedValue = formatNumber(formattedValue);
+        setRewardInfo(finalFormattedValue);
       }
     },
     []
@@ -100,8 +109,7 @@ export default function LostWrite() {
       lostWriteWrapperRef.current!.scrollTop = 0;
       setPage((state) => state + 1);
     }
-    console.log(animalInfo);
-  }, [animalInfo, page]);
+  }, [page]);
 
   useEffect(() => {
     setPage(1);

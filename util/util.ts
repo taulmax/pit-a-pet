@@ -44,3 +44,36 @@ export function decodeBase64ToUTF8(encodedData: any) {
   );
   return utf8Data;
 }
+
+export function formatNumber(value: string): string {
+  // 입력된 문자열에서 숫자만 추출하여 합치고 콤마를 추가합니다.
+  const numericValue = value.replace(/[^0-9]/g, "");
+  const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return formattedValue;
+}
+
+export function numberToKoreanAmount(numberStr: string) {
+  const units = ["", "만", "억"];
+  let koreanNumber = "";
+
+  if (numberStr.length > 4) {
+    const frontNumberLength = numberStr.length % 4; // 맨 앞 숫자 길이
+    const frontNumber = numberStr.slice(0, frontNumberLength); // 맨 앞 숫자
+    const restNumber = numberStr.slice(frontNumberLength); // 나머지 숫자
+    const unitNumber = restNumber.length / 4;
+
+    if (frontNumber) {
+      koreanNumber += frontNumber + units[unitNumber] + " ";
+    }
+    for (let i = 0; i < unitNumber; i++) {
+      const tempNumber = parseInt(restNumber.slice(4 * i, 4 * (i + 1)));
+      if (tempNumber) {
+        koreanNumber += tempNumber.toString() + units[unitNumber - 1 - i] + " ";
+      }
+    }
+  } else {
+    koreanNumber = numberStr;
+  }
+
+  return koreanNumber.trim();
+}
