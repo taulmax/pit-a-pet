@@ -12,6 +12,7 @@ import {
 import Input from "../form/Input";
 import { IAnimalInfo } from "@/pages/lostWrite";
 import IconSelectButton from "../form/IconSelectButton";
+import FileUpload from "../form/FileUpload";
 
 export default function AnimalInfo({
   values: { type, sex, neutered, name, age, weight, furColor, feature },
@@ -141,10 +142,15 @@ export default function AnimalInfo({
         {/* 사진 업로드 */}
         <li className={styles.list_item}>
           <div className={styles.item_title}>사진을 업로드해 주세요</div>
-          <div className={styles.short_description}>
+          <div
+            style={{ marginBottom: "14px" }}
+            className={styles.short_description}
+          >
             사진은 5장까지 올릴 수 있어요. 최대한 많은 사진을 올려주세요!
           </div>
-          <div className={styles.item_content}></div>
+          <div className={styles.item_content}>
+            <FileUpload />
+          </div>
         </li>
       </ul>
     </>

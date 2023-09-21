@@ -1,0 +1,35 @@
+.upload_wrapper {
+    display: flex;
+}
+
+.image_upload_label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+    height: 360px;
+    border: 1px dashed #8e8e8e;
+    cursor: pointer;
+}
+
+.image_upload_label.active {
+    border: 2px solid #222222;
+}
+
+.image_upload_label.limit {
+    border: 2px solid #e14a4a;
+}
+
+.image_upload_label .upload_text {
+    color: #8e8e8e;
+    font-size: 14px;
+    margin-top: 24px;
+    pointer-events: none;
+}
+
+.image_upload_label svg {
+    font-size: 56px;
+    color: #8e8e8e;
+    pointer-events: none;
+}
