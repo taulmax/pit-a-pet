@@ -14,7 +14,7 @@ interface IInput {
 
   className?: string;
   value: string;
-  onChange: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   suffix?: string;
 }
 
@@ -26,12 +26,12 @@ export default function Input({
   onChange,
   suffix,
 }: IInput) {
-  // Input Focus Event
+  // Focus Event
   const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.target.parentElement?.classList.add(styles.active);
   }, []);
 
-  // Input Blur Event
+  // Blur Event
   const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.target.parentElement?.classList.remove(styles.active);
   }, []);
