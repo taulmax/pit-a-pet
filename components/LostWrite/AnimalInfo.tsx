@@ -146,7 +146,7 @@ export default function AnimalInfo({
             style={{ marginBottom: "14px" }}
             className={styles.short_description}
           >
-            사진은 5장까지 올릴 수 있어요. 최대한 많은 사진을 올려주세요!
+            사진은 4장까지 올릴 수 있어요. 최대한 많은 사진을 올려주세요!
           </div>
           <div className={styles.item_content}>
             <FileUpload />
