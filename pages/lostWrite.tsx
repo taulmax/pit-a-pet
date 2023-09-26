@@ -5,7 +5,9 @@ import LostInfo from "@/components/LostWrite/LostInfo";
 import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
 import { convertFilesToBlob, formatNumber } from "@/util/util";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 export interface IAnimalInfo {
   type: "dog" | "cat" | "rest" | ""; // 품종
@@ -120,6 +122,7 @@ export default function LostWrite() {
   }, [page]);
 
   const { postLost } = usePostLost();
+  const router = useRouter();
   const handleComplete = useCallback(async () => {
     try {
       const postData = {
@@ -127,15 +130,17 @@ export default function LostWrite() {
         ...lostInfo,
         reward,
         detail,
-        lostDate: "2023-09-17",
-        image: animalInfo.image,
+        lostDate: "2023-09-27",
+        image: ["1", "2", "3"],
       };
       const response = await postLost(postData);
-      console.log("POST 요청이 성공했습니다.", response);
+      toast.success("글이 성공적으로 작성됐어요!");
+      router.push("/lost");
     } catch (error) {
+      toast.error("글이 작성되지 않았어요");
       console.error("POST 요청이 실패했습니다.", error);
     }
-  }, [animalInfo, detail, lostInfo, postLost, reward]);
+  }, [animalInfo, detail, lostInfo, postLost, reward, router]);
 
   useEffect(() => {
     setPage(1);
@@ -217,3 +222,5 @@ export default function LostWrite() {
     </main>
   );
 }
+
+// image type Blob으로 다시 바꿔줘야함
