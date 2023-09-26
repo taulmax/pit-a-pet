@@ -11,8 +11,16 @@ interface IPreviewItem {
 }
 
 function PreviewItem({ file, onDelete }: IPreviewItem) {
+  const onClickPreventBubble = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    []
+  );
+
   return (
-    <div className={styles.preview_item}>
+    <div onClick={onClickPreventBubble} className={styles.preview_item}>
       <Image
         src={URL.createObjectURL(file)}
         alt={file.name}
@@ -29,6 +37,7 @@ function PreviewItem({ file, onDelete }: IPreviewItem) {
 export default function FileUpload() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onDragOver = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
@@ -65,6 +74,22 @@ export default function FileUpload() {
       e.stopPropagation();
     },
     [setFiles]
+  );
+
+  const onFileInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newFiles: File[] = Array.from(e.target.files || []);
+
+      if (files.length + newFiles.length <= 4) {
+        setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      }
+
+      // Clear the file input to allow selecting the same file again
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    },
+    [files, setFiles]
   );
 
   return (
@@ -129,6 +154,8 @@ export default function FileUpload() {
         name="images"
         multiple
         accept="image/*"
+        ref={fileInputRef}
+        onChange={onFileInputChange}
       />
     </div>
   );

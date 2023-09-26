@@ -103,6 +103,7 @@
 .preview_item img {
     width: 196px !important;
     height: 196px !important;
+    object-fit: cover;
     border-radius: 6px;
     border: 1px solid #dcdcdc;
 }
