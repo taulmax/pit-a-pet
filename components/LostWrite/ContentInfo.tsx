@@ -1,5 +1,4 @@
 import styles from "@/styles/pages/lostWrite.module.css";
-import Input from "../form/Input";
 import Textarea from "../form/Textarea";
 
 // textarea로 바꾸기
@@ -20,7 +19,7 @@ export default function ContentInfo({
       <ul className={styles.list}>
         <li className={styles.list_item}>
           <div className={styles.item_content}>
-            <Textarea value={value} onChange={onChange} />
+            <Textarea value={value} onChange={onChange} maxLength={500} />
           </div>
         </li>
       </ul>

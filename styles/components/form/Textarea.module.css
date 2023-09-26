@@ -21,3 +21,12 @@
     overflow-y: auto;
     resize: none;
 }
+
+/* char_count */
+.char_count {
+    display: flex;
+    margin-top: 8px;
+    justify-content: end;
+    color: #717171;
+    font-size: 14px;
+}
