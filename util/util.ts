@@ -77,3 +77,15 @@ export function numberToKoreanAmount(numberStr: string) {
 
   return koreanNumber.trim();
 }
+
+// 기존 코드를 Blob으로 변환하여 files 배열을 업데이트하는 함수
+export function convertFilesToBlob(newFiles: File[]): Blob[] {
+  const blobArray: Blob[] = [];
+
+  newFiles.forEach(function (file: File) {
+    const blob: Blob = new Blob([file]);
+    blobArray.push(blob);
+  });
+
+  return blobArray;
+}

@@ -35,8 +35,13 @@ function PreviewItem({ file, onDelete }: IPreviewItem) {
   );
 }
 
-export default function FileUpload() {
-  const [files, setFiles] = useState<File[]>([]);
+export default function FileUpload({
+  files,
+  setFiles,
+}: {
+  files: File[];
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
+}) {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 

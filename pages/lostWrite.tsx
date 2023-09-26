@@ -8,13 +8,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface IAnimalInfo {
   type: "dog" | "cat" | "rest" | ""; // 품종
-  sex: "boy" | "girl" | "unknown" | ""; // 성별
-  neutered: "Y" | "N" | "U" | ""; // 중성화
+  sexCd: "boy" | "girl" | "unknown" | ""; // 성별
+  neuterYn: "Y" | "N" | "U" | ""; // 중성화
   name: string; // 이름
   age: string; // 나이
   weight: string; // 몸무게
   furColor: string; // 털색
   feature: string; // 특징
+  image: Blob[]; // 아이 이미지
 }
 
 export interface ILostInfo {
@@ -27,14 +28,20 @@ export default function LostWrite() {
   // AninalInfo - 아이의 정보를 알려주세요
   const [animalInfo, setAnimalInfo] = useState<IAnimalInfo>({
     type: "",
-    sex: "",
-    neutered: "",
+    sexCd: "",
+    neuterYn: "",
     name: "",
     age: "",
     weight: "",
     furColor: "",
     feature: "",
+    image: [],
   });
+
+  const [files, setFiles] = useState<File[]>([]);
+  useEffect(() => {
+    setAnimalInfo((state) => ({ ...state, image: files }));
+  }, [files]);
 
   const onChangeAnimalInfo = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +77,7 @@ export default function LostWrite() {
   );
 
   // RewardInfo - 사례금을 알려주세요
-  const [rewardInfo, setRewardInfo] = useState<string>("");
+  const [reward, setReward] = useState<string>("");
   const onChangeRewardInfo = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = e.target.value;
@@ -82,17 +89,16 @@ export default function LostWrite() {
           : inputValue;
 
         const finalFormattedValue = formatNumber(formattedValue);
-        setRewardInfo(finalFormattedValue);
+        setReward(finalFormattedValue);
       }
     },
     []
   );
 
-  // RewardInfo - 사례금을 알려주세요
-  const [contentInfo, setContentInfo] = useState<string>("");
+  // contentInfo - 내용을 알려주세요
+  const [detail, setDetail] = useState<string>("");
   const onChangeContentInfo = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-      setContentInfo(e.target.value),
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => setDetail(e.target.value),
     []
   );
 
@@ -112,6 +118,8 @@ export default function LostWrite() {
     }
   }, [page]);
 
+  const postLost = () => "";
+
   useEffect(() => {
     setPage(1);
   }, []);
@@ -124,6 +132,8 @@ export default function LostWrite() {
           values={animalInfo}
           onClick={onClickIconSelectButton}
           onChange={onChangeAnimalInfo}
+          files={files}
+          setFiles={setFiles}
         />
       )}
 
@@ -132,12 +142,12 @@ export default function LostWrite() {
 
       {/* 사례금을 알려주세요 */}
       {page === 3 && (
-        <RewardInfo value={rewardInfo} onChange={onChangeRewardInfo} />
+        <RewardInfo value={reward} onChange={onChangeRewardInfo} />
       )}
 
       {/* 보다 자세한 내용을 알려주세요 */}
       {page === 4 && (
-        <ContentInfo value={contentInfo} onChange={onChangeContentInfo} />
+        <ContentInfo value={detail} onChange={onChangeContentInfo} />
       )}
 
       <footer className={styles.footer}>
@@ -175,9 +185,16 @@ export default function LostWrite() {
           <button onClick={onClickPreviousPage} className={styles.back}>
             이전
           </button>
-          <button onClick={onClickNextPage} className={styles.next}>
-            다음
-          </button>
+          {page < 4 && (
+            <button onClick={onClickNextPage} className={styles.next}>
+              다음
+            </button>
+          )}
+          {page === 4 && (
+            <button onClick={postLost} className={styles.next}>
+              다음
+            </button>
+          )}
         </div>
       </footer>
     </main>

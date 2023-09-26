@@ -15,13 +15,17 @@ import IconSelectButton from "../form/IconSelectButton";
 import FileUpload from "../form/FileUpload";
 
 export default function AnimalInfo({
-  values: { type, sex, neutered, name, age, weight, furColor, feature },
+  values: { type, sexCd, neuterYn, name, age, weight, furColor, feature },
   onClick,
   onChange,
+  files,
+  setFiles,
 }: {
   values: IAnimalInfo;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  files: File[];
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
 }) {
   return (
     <>
@@ -53,8 +57,8 @@ export default function AnimalInfo({
           <div className={styles.item_title}>성별을 알려주세요</div>
           <div className={styles.item_content}>
             <IconSelectButton
-              id="sex"
-              value={sex}
+              id="sexCd"
+              value={sexCd}
               onClick={onClick}
               list={[
                 { data: "boy", name: "남자", icon: faMars },
@@ -70,8 +74,8 @@ export default function AnimalInfo({
           <div className={styles.item_title}>중성화 여부를 알려주세요</div>
           <div className={styles.item_content}>
             <IconSelectButton
-              id="neutered"
-              value={neutered}
+              id="neuterYn"
+              value={neuterYn}
               onClick={onClick}
               list={[
                 { data: "Y", name: "했어요", icon: faCircle },
@@ -149,7 +153,7 @@ export default function AnimalInfo({
             사진은 4장까지 올릴 수 있어요. 최대한 많은 사진을 올려주세요!
           </div>
           <div className={styles.item_content}>
-            <FileUpload />
+            <FileUpload files={files} setFiles={setFiles} />
           </div>
         </li>
       </ul>
