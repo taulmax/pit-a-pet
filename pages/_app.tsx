@@ -1,5 +1,7 @@
 import "@/styles/reset.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Header";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -25,6 +27,19 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
       )}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Slide}
+        theme="colored"
+      />
     </QueryClientProvider>
   );
 }

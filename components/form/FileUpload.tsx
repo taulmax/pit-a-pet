@@ -4,6 +4,7 @@ import { faFileArrowUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
+import { toast } from "react-toastify";
 
 interface IPreviewItem {
   file: File;
@@ -59,6 +60,8 @@ export default function FileUpload() {
       // 현재 이미지의 개수와 추가하려는 이미지의 개수를 합산하여 4개를 넘지 않도록 처리
       if (files.length + newFiles.length <= 4) {
         setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      } else {
+        toast.error("이미지는 4장까지 업로드 가능해요!");
       }
     },
     [files, setFiles]
@@ -82,6 +85,8 @@ export default function FileUpload() {
 
       if (files.length + newFiles.length <= 4) {
         setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      } else {
+        toast.error("이미지는 4장까지 업로드 가능해요!");
       }
 
       // Clear the file input to allow selecting the same file again
