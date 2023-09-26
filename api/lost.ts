@@ -25,7 +25,8 @@ export interface PostLostData {
   weight: string;
   furColor: string;
   feature: string;
-  image: Blob[];
+  // image: Blob[];
+  image: any[];
   lostPlace: string;
   lostDate: string;
   reward: string;
