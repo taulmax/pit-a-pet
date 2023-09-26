@@ -1,9 +1,10 @@
+import { usePostLost } from "@/api/lost";
 import AnimalInfo from "@/components/LostWrite/AnimalInfo";
 import ContentInfo from "@/components/LostWrite/ContentInfo";
 import LostInfo from "@/components/LostWrite/LostInfo";
 import RewardInfo from "@/components/LostWrite/RewardInfo";
 import styles from "@/styles/pages/lostWrite.module.css";
-import { formatNumber } from "@/util/util";
+import { convertFilesToBlob, formatNumber } from "@/util/util";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface IAnimalInfo {
@@ -40,7 +41,7 @@ export default function LostWrite() {
 
   const [files, setFiles] = useState<File[]>([]);
   useEffect(() => {
-    setAnimalInfo((state) => ({ ...state, image: files }));
+    setAnimalInfo((state) => ({ ...state, image: convertFilesToBlob(files) }));
   }, [files]);
 
   const onChangeAnimalInfo = useCallback(
@@ -118,7 +119,23 @@ export default function LostWrite() {
     }
   }, [page]);
 
-  const postLost = () => "";
+  const { postLost } = usePostLost();
+  const handleComplete = useCallback(async () => {
+    try {
+      const postData = {
+        ...animalInfo,
+        ...lostInfo,
+        reward,
+        detail,
+        lostDate: "2023-09-17",
+        image: animalInfo.image,
+      };
+      const response = await postLost(postData);
+      console.log("POST 요청이 성공했습니다.", response);
+    } catch (error) {
+      console.error("POST 요청이 실패했습니다.", error);
+    }
+  }, [animalInfo, detail, lostInfo, postLost, reward]);
 
   useEffect(() => {
     setPage(1);
@@ -191,8 +208,8 @@ export default function LostWrite() {
             </button>
           )}
           {page === 4 && (
-            <button onClick={postLost} className={styles.next}>
-              다음
+            <button onClick={handleComplete} className={styles.next}>
+              완료
             </button>
           )}
         </div>
