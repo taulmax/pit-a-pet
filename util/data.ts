@@ -1,5 +1,5 @@
+import { faMap } from "@fortawesome/free-regular-svg-icons";
 import {
-  faCircleInfo,
   faGlobe,
   faMagnifyingGlass,
   faPaw,
@@ -13,14 +13,14 @@ export const MAIN_MENU = [
     icon: faPaw,
   },
   {
-    title: "우리 아이 찾기",
+    title: "내 아이가 사라졌어요",
     link: "/lost",
     icon: faMagnifyingGlass,
   },
   {
-    title: "반려동물 관련정보",
-    link: "/info",
-    icon: faCircleInfo,
+    title: "주변 동물 시설",
+    link: "/map",
+    icon: faMap,
   },
   {
     title: "커뮤니티",
