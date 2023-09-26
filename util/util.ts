@@ -83,8 +83,25 @@ export function convertFilesToBlob(newFiles: File[]): Blob[] {
   const blobArray: Blob[] = [];
 
   newFiles.forEach(function (file: File) {
-    const blob: Blob = new Blob([file]);
-    blobArray.push(blob);
+    try {
+      // 파일이 유효한지 확인
+      if (!file || !file.size || !file.type) {
+        console.error("Invalid file:", file);
+        return;
+      }
+
+      const blob: Blob = new Blob([file]);
+
+      // Blob이 올바르게 생성되었는지 확인
+      if (!blob) {
+        console.error("Blob creation failed for file:", file);
+        return;
+      }
+
+      blobArray.push(blob);
+    } catch (error) {
+      console.error("Error converting file to Blob:", error);
+    }
   });
 
   return blobArray;
