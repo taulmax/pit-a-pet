@@ -11,7 +11,6 @@ export default function RewardInfo({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  console.log(Number(value.replace(/[^0-9]/g, "")));
   return (
     <>
       <div className={styles.title}>사례금을 알려주세요</div>
