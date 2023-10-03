@@ -25,8 +25,7 @@ export interface PostLostData {
   weight: string;
   furColor: string;
   feature: string;
-  // image: Blob[];
-  image: any[];
+  image: Blob[];
   lostPlace: string;
   lostDate: string;
   reward: string;
@@ -42,25 +41,45 @@ export const getLost = async (params: {
   return response.data;
 };
 
-// 우리 아이 찾기 POST
-export const postLost = async (postData: PostLostData): Promise<LostData> => {
+export const postLost = async (postData: FormData): Promise<LostData> => {
   const response = await axios.post("/lost", postData);
   return response.data;
 };
 
-// React Query를 사용하여 POST 요청을 처리하는 Hook을 생성합니다.
 export const usePostLost = () => {
   const queryClient = useQueryClient();
 
-  // useMutation Hook을 사용하여 POST 요청을 처리합니다.
   const { mutateAsync } = useMutation(postLost, {
-    // POST 요청이 성공할 때 실행됩니다.
     onSuccess: () => {
-      // 이 부분에 필요한 작업을 추가할 수 있습니다.
-      // 예를 들어, 데이터를 다시 가져오는 등의 작업을 수행할 수 있습니다.
-      queryClient.invalidateQueries("lostData"); // 예제에서 "lostData"는 데이터를 가져오는 쿼리의 키입니다.
+      queryClient.invalidateQueries("lostData");
     },
   });
 
-  return { postLost: mutateAsync };
+  const postLostWithFormData = async (postData: PostLostData) => {
+    const formData = new FormData();
+
+    // PostLostData 객체의 속성들을 FormData에 추가
+    formData.append("type", postData.type);
+    formData.append("sexCd", postData.sexCd);
+    formData.append("neuterYn", postData.neuterYn);
+    formData.append("age", postData.age);
+    formData.append("weight", postData.weight);
+    formData.append("furColor", postData.furColor);
+    formData.append("feature", postData.feature);
+
+    // 이미지 파일들을 FormData에 추가
+    for (let i = 0; i < postData.image.length; i++) {
+      formData.append("image", postData.image[i]);
+    }
+
+    formData.append("lostPlace", postData.lostPlace);
+    formData.append("lostDate", postData.lostDate);
+    formData.append("reward", postData.reward);
+    formData.append("detail", postData.detail);
+
+    // postLost 함수를 호출하여 FormData를 서버로 전송
+    return mutateAsync(formData);
+  };
+
+  return { postLost: postLostWithFormData };
 };

@@ -130,10 +130,12 @@ export default function LostWrite() {
         ...lostInfo,
         reward,
         detail,
+
+        // 밑에 애들은 나중에 치워줘야함
         lostDate: "2023-09-27",
-        image: ["1", "2", "3"],
       };
       const response = await postLost(postData);
+      console.log(response);
       toast.success("글이 성공적으로 작성됐어요!");
       router.push("/lost");
     } catch (error) {
