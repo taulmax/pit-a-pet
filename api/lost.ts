@@ -77,9 +77,6 @@ export const usePostLost = () => {
     formData.append("reward", postData.reward);
     formData.append("detail", postData.detail);
 
-    // 콘솔 지워줘야함
-    console.log(formData);
-
     // postLost 함수를 호출하여 FormData를 서버로 전송
     return mutateAsync(formData);
   };

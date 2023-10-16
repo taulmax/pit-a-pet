@@ -1,5 +1,6 @@
 // pages/map.tsx
 import React, { useCallback, useEffect, useState } from "react";
+import styles from "@/styles/components/map/NaverMap.module.css";
 
 export default function NaverMap() {
   const [location, setLocation] = useState<{ lat: number; lng: number }>({
@@ -55,17 +56,12 @@ export default function NaverMap() {
   }, [initializeMap]);
 
   return (
-    <div>
-      <h1>Naver Map</h1>
-      <div
-        id="map"
-        style={{
-          width: "100%",
-          height: "500px",
-          filter: loading ? "blur(5px)" : "none", // 로딩 중일 때 블러 처리
-        }}
-      ></div>
-      {loading && <p>Loading...</p>}
-    </div>
+    <div
+      id="map"
+      className={styles.map}
+      style={{
+        filter: loading ? "blur(5px)" : "none", // 로딩 중일 때 블러 처리
+      }}
+    ></div>
   );
 }
