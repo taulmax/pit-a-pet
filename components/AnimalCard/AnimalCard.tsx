@@ -3,14 +3,18 @@ import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
 import { IdleData } from "@/api/introduction";
 import { encodeDataToBase64, formatDate } from "@/util/util";
+import { useQuery } from "react-query";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function AnimalCard({ idleData }: { idleData: IdleData }) {
+  const { setIdleDetail } = useGlobalState();
+
   return (
     <Link
       href={{
         pathname: `/introduction/${idleData.desertionNo}`,
-        query: { data: encodeDataToBase64(idleData) },
       }}
+      onClick={() => setIdleDetail(idleData)}
     >
       <div className={styles.animal_card}>
         <Image

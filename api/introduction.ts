@@ -34,3 +34,8 @@ export const getIdle = async (params: {
   const response = await axios.get("/idle/data", { params });
   return response.data;
 };
+
+export const getIdleDetail = async (desertionNo: string): Promise<IdleData> => {
+  const response = await axios.get("/idle/detail", { params: { desertionNo } });
+  return response.data;
+};
