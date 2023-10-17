@@ -5,3 +5,16 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     z-index: 5;
 }
+
+.title {
+    font-size: 18px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+}
+
+.title span {
+    font-family: 'NanumSquareBold';
+    color: #CBB395;
+}
