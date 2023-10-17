@@ -2,8 +2,7 @@ import Image from "next/image";
 import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
 import { IdleData } from "@/api/introduction";
-import { encodeDataToBase64, formatDate } from "@/util/util";
-import { useQuery } from "react-query";
+import { formatDate } from "@/util/util";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function AnimalCard({ idleData }: { idleData: IdleData }) {
