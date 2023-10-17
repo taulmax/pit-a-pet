@@ -1,22 +1,24 @@
 import Image from "next/image";
 import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
-import { IdleData } from "@/api/introduction";
-import { encodeDataToBase64, formatDate } from "@/util/util";
+import { formatDate } from "@/util/util";
 import { LostData } from "@/api/lost";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
+  const { setLostDetail } = useGlobalState();
+
   return (
     <Link
       href={{
         pathname: `/lost/${lostData.lostNo}`,
-        query: { data: encodeDataToBase64(lostData) },
       }}
+      onClick={() => setLostDetail(lostData)}
     >
       <div className={styles.animal_card}>
         <Image
           className={styles.animal_card_image}
-          src={lostData.image}
+          src={lostData.images.image1}
           alt="thumbnail"
           priority={true}
           width={100}

@@ -8,7 +8,13 @@ export interface LostData {
   lostDate: string;
   title: string;
   description: string;
-  image: string;
+  images: {
+    lostNo: string;
+    image1: string; // 이미지 1
+    image2?: string; // 이미지 2
+    image3?: string; // 이미지 3
+    image4?: string; // 이미지 4
+  };
   tel: string;
   reward: string;
   type: string;
@@ -82,4 +88,9 @@ export const usePostLost = () => {
   };
 
   return { postLost: postLostWithFormData };
+};
+
+export const getLostDetail = async (lostNo: string): Promise<LostData> => {
+  const response = await axios.get("/lost/detail", { params: { lostNo } });
+  return response.data;
 };

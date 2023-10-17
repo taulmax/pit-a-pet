@@ -1,4 +1,5 @@
 import { IdleData } from "@/api/introduction";
+import { LostData } from "@/api/lost";
 import {
   createContext,
   useContext,
@@ -13,6 +14,11 @@ interface GlobalState {
   idleDetail: IdleData | null;
   setIdleDetail: Dispatch<SetStateAction<IdleData | null>>;
   resetIdleDetail: () => void;
+
+  // 실종 신고 상세보기
+  lostDetail: LostData | null;
+  setLostDetail: Dispatch<SetStateAction<LostData | null>>;
+  resetLostDetail: () => void;
 }
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -25,9 +31,19 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
   const [idleDetail, setIdleDetail] = useState<IdleData | null>(null);
   const resetIdleDetail = () => setIdleDetail(null);
 
+  const [lostDetail, setLostDetail] = useState<LostData | null>(null);
+  const resetLostDetail = () => setLostDetail(null);
+
   return (
     <GlobalStateContext.Provider
-      value={{ idleDetail, setIdleDetail, resetIdleDetail }}
+      value={{
+        idleDetail,
+        setIdleDetail,
+        resetIdleDetail,
+        lostDetail,
+        setLostDetail,
+        resetLostDetail,
+      }}
     >
       {children}
     </GlobalStateContext.Provider>

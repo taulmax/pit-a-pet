@@ -1,5 +1,5 @@
 import { LostData, getLost } from "@/api/lost";
-import LostAnimalCard from "@/components/AnimalCard/FindAnimalCard";
+import LostAnimalCard from "@/components/AnimalCard/LostAnimalCard";
 import Pagination from "@/components/Pagination";
 import styles from "@/styles/pages/introduction.module.css";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
@@ -61,11 +61,20 @@ export default function Lost({ query }: LostProps) {
   }
 
   if (!data?.data.length) {
-    return <div>No data available</div>;
+    return (
+      <main id="introduction_main_wrapper" className={styles.content_wrapper}>
+        <div>No data available</div>
+
+        {/* 우리 아이 찾기 글쓰기 FIXED BUTTON */}
+        <div onClick={onClickWriteButton} className={styles.write_button}>
+          <FontAwesomeIcon icon={faPen} />
+        </div>
+      </main>
+    );
   }
 
   const chunkSize = 4;
-  const fakeValue = { desertionNo: "fake" };
+  const fakeValue = { lostNo: "fake" };
   const chunkedArray = [];
 
   for (let i = 0; i < data?.data.length; i += chunkSize) {
@@ -82,7 +91,7 @@ export default function Lost({ query }: LostProps) {
         <div key={`row${index}`} className={styles.animal_card_row}>
           {item.map((lostData: LostData, lostIndex: number) =>
             lostData.lostNo !== "fake" ? (
-              <LostAnimalCard lostData={lostData} key={lostData.lostNo} />
+              <LostAnimalCard key={lostData.lostNo} lostData={lostData} />
             ) : (
               <div
                 key={lostData.lostNo + lostIndex}
