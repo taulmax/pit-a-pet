@@ -20,7 +20,7 @@ export default function IntroductionDetail() {
     () => getIdleDetail(id as string),
     {
       // 캐시 설정
-      enabled: !idleDetail, // idleDetail이 없을 때만 요청을 보냄
+      enabled: !idleDetail && !!id, // idleDetail이 없을 때만 요청을 보냄
     }
   );
 
