@@ -1,9 +1,9 @@
-import { decodeBase64ToUTF8, formatDate } from "@/util/util";
+import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { LostData, getLostDetail } from "@/api/lost";
+import { useEffect } from "react";
+import { getLostDetail } from "@/api/lost";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
 
