@@ -2,6 +2,7 @@ import { useMutation } from "react-query";
 import axios from "./axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export interface IUseLogin {
   username: string;
@@ -10,6 +11,7 @@ export interface IUseLogin {
 
 export const useLogin = () => {
   const router = useRouter();
+  const { setIsLogin } = useGlobalState();
   const login = useMutation(loginUser);
 
   async function loginUser({ username, password }: IUseLogin) {
@@ -21,6 +23,7 @@ export const useLogin = () => {
     try {
       const response = await login.mutateAsync(credentials);
       router.push("/");
+      setIsLogin(true);
       localStorage.setItem("token", response.access_token);
     } catch (error) {
       console.error("로그인 실패:", error);

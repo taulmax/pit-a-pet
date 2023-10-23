@@ -10,6 +10,10 @@ import {
 } from "react";
 
 interface GlobalState {
+  // 로그인
+  isLogin: boolean;
+  setIsLogin: Dispatch<SetStateAction<boolean>>;
+
   // 아이들 소개 상세보기
   idleDetail: IdleData | null;
   setIdleDetail: Dispatch<SetStateAction<IdleData | null>>;
@@ -28,6 +32,8 @@ type GlobalStateProviderProps = {
 };
 
 export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+
   const [idleDetail, setIdleDetail] = useState<IdleData | null>(null);
   const resetIdleDetail = () => setIdleDetail(null);
 
@@ -37,6 +43,8 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
   return (
     <GlobalStateContext.Provider
       value={{
+        isLogin,
+        setIsLogin,
         idleDetail,
         setIdleDetail,
         resetIdleDetail,

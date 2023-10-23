@@ -7,9 +7,16 @@ import { useCallback, useState } from "react";
 import Button from "./Button";
 import { MAIN_MENU } from "@/util/data";
 import { useRouter } from "next/router";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function Header() {
   const AUTH_PAGE = ["/login", "/resgister"];
+  const { isLogin, setIsLogin } = useGlobalState();
+
+  const onClickLogout = useCallback(() => {
+    setIsLogin(false);
+    localStorage.removeItem("token");
+  }, [setIsLogin]);
 
   const { pathname } = useRouter();
   const [isBurgerMenuOn, setIsBurgerMenuOn] = useState(false);
@@ -36,9 +43,13 @@ export default function Header() {
 
           {/* 로그인 / 로그아웃 */}
           <div className={styles.auth_wrapper}>
-            <Link href="/login">
-              <span>로그인</span>
-            </Link>
+            {isLogin ? (
+              <span onClick={onClickLogout}>로그아웃</span>
+            ) : (
+              <Link href="/login">
+                <span>로그인</span>
+              </Link>
+            )}
           </div>
         </>
       )}
