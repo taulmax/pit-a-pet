@@ -35,3 +35,7 @@
 .input_wrapper.active .suffix {
     color: #222222;
 }
+
+.input_wrapper.w100p {
+    width: 100% !important;
+}

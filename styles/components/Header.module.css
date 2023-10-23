@@ -35,6 +35,15 @@
     text-align: end;
 }
 
+.main_header .auth_wrapper span {
+    color: #737373;
+    cursor: pointer;
+}
+
+.main_header .auth_wrapper span:hover {
+    color: #CBB395;
+}
+
 /* 버거메뉴 */
 .burger_menu {
     display: none;

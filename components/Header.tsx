@@ -24,15 +24,22 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* 네비게이션 */}
-      <div className={styles.nav_wrapper}>
-        <Nav />
-      </div>
+      {/* 로그인 페이지에서는 로고만 보이게 */}
+      {pathname !== "/login" && (
+        <>
+          {/* 네비게이션 */}
+          <div className={styles.nav_wrapper}>
+            <Nav />
+          </div>
 
-      {/* 로그인 / 로그아웃 */}
-      <div className={styles.auth_wrapper}>
-        <span>로그인</span>
-      </div>
+          {/* 로그인 / 로그아웃 */}
+          <div className={styles.auth_wrapper}>
+            <Link href="/login">
+              <span>로그인</span>
+            </Link>
+          </div>
+        </>
+      )}
 
       {/* 반응형 버거메뉴 */}
       <FontAwesomeIcon
@@ -54,7 +61,9 @@ export default function Header() {
           />
         </header>
         <div className={`pl20 pr20 pb20 ${styles.login_wrapper}`}>
-          <Button color="logo" text="로그인" />
+          <Link href="/login">
+            <Button color="logo" text="로그인" onClick={onClickBurgerMenu} />
+          </Link>
         </div>
         <Link href="/">
           <li

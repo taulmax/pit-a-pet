@@ -197,6 +197,10 @@ dialog {
     padding: 1em;
 }
 
+input[type=password] {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /****************************************/
 /**************** GLOBAL ****************/
 /****************************************/

@@ -1,0 +1,45 @@
+.login_page_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login_box {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.login_box h1 {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+}
+
+.login_box .is_auth {
+    margin: 8px 0px;
+    font-size: 14px;
+    color: #222222;
+}
+
+.login_box .is_auth span a {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.login_box .is_auth span a:hover {
+    font-family: "NanumSquareBold";
+}
+
+.login_box button {
+    margin-bottom: 8px;
+}
+
+.login_box .find {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    margin-top: 12px;
+    color: #222222;
+}

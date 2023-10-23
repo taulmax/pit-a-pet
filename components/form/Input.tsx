@@ -17,6 +17,8 @@ interface IInput {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   suffix?: string;
+  width?: string;
+  placeholder?: string;
 }
 
 export default function Input({
@@ -27,6 +29,8 @@ export default function Input({
   value,
   onChange,
   suffix,
+  width,
+  placeholder,
 }: IInput) {
   // Focus Event
   const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
@@ -39,7 +43,7 @@ export default function Input({
   }, []);
 
   return (
-    <div className={styles.input_wrapper}>
+    <div className={`${styles.input_wrapper} ${width ? width : ""}`}>
       <input
         style={{
           textAlign,
@@ -51,6 +55,7 @@ export default function Input({
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        placeholder={placeholder}
       />
       {suffix && <div className={styles.suffix}>{suffix}</div>}
     </div>
