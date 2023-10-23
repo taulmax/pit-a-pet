@@ -9,6 +9,8 @@ import { MAIN_MENU } from "@/util/data";
 import { useRouter } from "next/router";
 
 export default function Header() {
+  const AUTH_PAGE = ["/login", "/resgister"];
+
   const { pathname } = useRouter();
   const [isBurgerMenuOn, setIsBurgerMenuOn] = useState(false);
   const onClickBurgerMenu = useCallback(() => {
@@ -25,7 +27,7 @@ export default function Header() {
       </div>
 
       {/* 로그인 페이지에서는 로고만 보이게 */}
-      {pathname !== "/login" && (
+      {!AUTH_PAGE.includes(pathname) && (
         <>
           {/* 네비게이션 */}
           <div className={styles.nav_wrapper}>

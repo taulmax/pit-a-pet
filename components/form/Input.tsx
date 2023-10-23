@@ -16,6 +16,7 @@ interface IInput {
   className?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp?: (e: any) => void;
   suffix?: string;
   width?: string;
   placeholder?: string;
@@ -28,6 +29,7 @@ export default function Input({
   textAlign = "center",
   value,
   onChange,
+  onKeyUp,
   suffix,
   width,
   placeholder,
@@ -55,6 +57,7 @@ export default function Input({
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyUp={onKeyUp}
         placeholder={placeholder}
       />
       {suffix && <div className={styles.suffix}>{suffix}</div>}
