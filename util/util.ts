@@ -106,3 +106,28 @@ export function convertFilesToBlob(newFiles: File[]): Blob[] {
 
   return blobArray;
 }
+
+export function formatTimeDifference(timestamp: string): string {
+  const currentTime = new Date();
+  const pastTime = new Date(timestamp);
+  const timeDifference = (currentTime.getTime() - pastTime.getTime()) / 1000; // 차이를 초로 계산
+
+  if (timeDifference < 60) {
+    return `${Math.floor(timeDifference)}초 전`;
+  } else if (timeDifference < 3600) {
+    return `${Math.floor(timeDifference / 60)}분 전`;
+  } else if (timeDifference < 86400) {
+    return `${Math.floor(timeDifference / 3600)}시간 전`;
+  } else if (timeDifference < 604800) {
+    return `${Math.floor(timeDifference / 86400)}일 전`;
+  } else if (timeDifference < 2419200) {
+    const weeks = Math.floor(timeDifference / 604800);
+    return weeks === 1 ? "1주일 전" : `${weeks}주일 전`;
+  } else if (timeDifference < 29030400) {
+    const months = Math.floor(timeDifference / 2419200);
+    return months === 1 ? "1개월 전" : `${months}개월 전`;
+  } else {
+    const years = Math.floor(timeDifference / 29030400);
+    return years === 1 ? "1년 전" : `${years}년 전`;
+  }
+}

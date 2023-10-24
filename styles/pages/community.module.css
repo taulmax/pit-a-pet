@@ -1,0 +1,123 @@
+.community_main_wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0px 360px;
+}
+
+.community_main_wrapper header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 48px;
+}
+
+.community_main_wrapper header .community_recent_or_hot_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #CBB395;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.community_main_wrapper header .community_recent_or_hot_tab div {
+    color: #FFFFFF;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.community_main_wrapper header .community_recent_or_hot_tab div:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.community_main_wrapper header .community_recent_or_hot_tab div:first-child {
+    margin-right: 4px;
+}
+
+.community_main_wrapper header .community_recent_or_hot_tab div.active {
+    background-color: #FFFFFF;
+    color: #CBB395;
+}
+
+.community_main_wrapper header {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.community_main_wrapper ul {
+    width: 100%;
+}
+
+.community_main_wrapper ul li {
+    display: flex;
+}
+
+.community_main_wrapper ul li.community_th {
+    height: 32px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.community_main_wrapper ul li.community_tr {
+    height: 48px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.community_main_wrapper ul li.community_tr:hover {
+    background-color: #e7d9c8;
+    cursor: pointer;
+}
+
+.community_main_wrapper ul li div.number {
+    width: 15%;
+}
+
+.community_main_wrapper ul li div.title {
+    width: 40%;
+}
+
+.community_main_wrapper ul li div.author {
+    width: 15%;
+}
+
+.community_main_wrapper ul li div.date {
+    width: 15%;
+}
+
+.community_main_wrapper ul li div.visit {
+    width: 8%;
+}
+
+.community_main_wrapper ul li div.thumbsup {
+    width: 7%;
+}
+
+/* 글쓰기 FIXED BUTTON */
+.write_button {
+    position: fixed;
+    background-color: #CBB395;
+    right: 70px;
+    bottom: 70px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.write_button:hover {
+    background-color: white;
+    border: 2px solid #CBB395;
+    color: #CBB395;
+}
