@@ -30,6 +30,13 @@ export default function Community({ query }: CommunityProps) {
   const currentPage = query.page ? Number(query.page) : 1;
   const currentType = query.type ? query.type : "recent";
 
+  const onClickStory = useCallback(
+    (id: number) => {
+      router.push(`/community/${id}`);
+    },
+    [router]
+  );
+
   const onPageChange = useCallback(
     (page: number) => {
       router.push(`/community?page=${page}`);
@@ -99,7 +106,11 @@ export default function Community({ query }: CommunityProps) {
           <div className={styles.thumbsup}>추천</div>
         </li>
         {data.data.map((story) => (
-          <li key={story.post_id} className={styles.community_tr}>
+          <li
+            onClick={() => onClickStory(story.post_id)}
+            key={story.post_id}
+            className={styles.community_tr}
+          >
             <div className={styles.number}>{story.post_id}</div>
             <div className={styles.title}>{story.title}</div>
             <div className={styles.author}>{story.username}</div>

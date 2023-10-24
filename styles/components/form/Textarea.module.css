@@ -30,3 +30,13 @@
     color: #717171;
     font-size: 14px;
 }
+
+.textarea_wrapper.w100p {
+    width: 100% !important;
+}
+
+.textarea_wrapper.reply {
+    width: 100% !important;
+    height: 100px !important;
+    font-size: 14px;
+}

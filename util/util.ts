@@ -20,12 +20,18 @@ export function formatDate(inputDate: string | Date) {
   const yyYear = yyyyYear.toString().slice(2);
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줍니다.
   const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours < 12 ? "오전" : "오후";
+  const hh = (hours % 12).toString().padStart(2, "0");
+  const mm = minutes.toString().padStart(2, "0");
 
   return {
     "yy.mm.dd": `${yyYear}.${month}.${day}`,
     "yyyy.mm.dd": `${yyyyYear}.${month}.${day}`,
     "yy-mm-dd": `${yyYear}-${month}-${day}`,
     "yyyy-mm-dd": `${yyyyYear}-${month}-${day}`,
+    timestamp: `${yyyyYear}년 ${month}월 ${day}일 ${ampm} ${hh}:${mm}`,
   };
 }
 

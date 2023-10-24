@@ -7,6 +7,7 @@ interface ITextarea {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number; // 최대 글자 수 추가
+  reply?: boolean;
 }
 
 export default function Textarea({
@@ -15,6 +16,7 @@ export default function Textarea({
   value,
   onChange,
   maxLength, // 기본값은 500
+  reply,
 }: ITextarea) {
   const [charCount, setCharCount] = useState(value.length);
 
@@ -30,7 +32,7 @@ export default function Textarea({
 
   // 글자 수가 변경될 때 호출되는 핸들러
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (!maxLength) return;
+    if (!maxLength) return onChange(e);
 
     const text = e.target.value;
     if (text.length <= maxLength) {
@@ -41,7 +43,9 @@ export default function Textarea({
 
   return (
     <>
-      <div className={styles.textarea_wrapper}>
+      <div
+        className={`${styles.textarea_wrapper} ${reply ? styles.reply : ""}`}
+      >
         <textarea
           className={`${styles.custom_textarea} ${className}`}
           id={id}
