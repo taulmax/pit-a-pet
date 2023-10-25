@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
+    height: 36px;
 }
 
 .story_title {

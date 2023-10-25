@@ -7,6 +7,7 @@ import {
   ReactNode,
   SetStateAction,
   Dispatch,
+  useEffect,
 } from "react";
 
 interface GlobalState {
@@ -39,6 +40,13 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
 
   const [lostDetail, setLostDetail] = useState<LostData | null>(null);
   const resetLostDetail = () => setLostDetail(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLogin(true);
+    }
+  }, []);
 
   return (
     <GlobalStateContext.Provider

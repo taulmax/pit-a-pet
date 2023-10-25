@@ -1,0 +1,9 @@
+.community_write_wrapper {
+    padding: 0px 360px;
+}
+
+.button_wrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 12px;
+}

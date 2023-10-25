@@ -14,7 +14,7 @@ import { useCallback, useState } from "react";
 import Button from "@/components/Button";
 import { formatDate, formatTimeDifference } from "@/util/util";
 
-export default function LostDetail() {
+export default function StoryDetail() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -27,8 +27,12 @@ export default function LostDetail() {
   );
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
-  const { data, isLoading, isError } = useQuery("StoryDetail", () =>
-    getStoryDetail(id as string)
+  const { data, isLoading, isError } = useQuery(
+    "StoryDetail",
+    () => getStoryDetail(id as string),
+    {
+      enabled: !!id,
+    }
   );
 
   console.log(data);

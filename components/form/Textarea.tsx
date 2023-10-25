@@ -8,6 +8,8 @@ interface ITextarea {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number; // 최대 글자 수 추가
   reply?: boolean;
+  width?: string;
+  placeholder?: string;
 }
 
 export default function Textarea({
@@ -17,6 +19,8 @@ export default function Textarea({
   onChange,
   maxLength, // 기본값은 500
   reply,
+  width,
+  placeholder,
 }: ITextarea) {
   const [charCount, setCharCount] = useState(value.length);
 
@@ -44,7 +48,9 @@ export default function Textarea({
   return (
     <>
       <div
-        className={`${styles.textarea_wrapper} ${reply ? styles.reply : ""}`}
+        className={`${styles.textarea_wrapper} ${reply ? styles.reply : ""} ${
+          width ? width : ""
+        }`}
       >
         <textarea
           className={`${styles.custom_textarea} ${className}`}
@@ -53,6 +59,7 @@ export default function Textarea({
           onChange={handleTextChange}
           onFocus={onFocus}
           onBlur={onBlur}
+          placeholder={placeholder}
           maxLength={maxLength} // 최대 글자 수 설정
         />
       </div>
