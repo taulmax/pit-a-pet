@@ -1,11 +1,13 @@
 import { getStory } from "@/api/community";
+import LoginDialog from "@/components/form/LoginDialog";
+import { useGlobalState } from "@/context/GlobalStateContext";
 import styles from "@/styles/pages/community.module.css";
 import { formatTimeDifference } from "@/util/util";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useQuery } from "react-query";
 
 // query 프롭스에 대한 타입 정의
@@ -29,6 +31,9 @@ export default function Community({ query }: CommunityProps) {
   const router = useRouter();
   const currentPage = query.page ? Number(query.page) : 1;
   const currentType = query.type ? query.type : "recent";
+
+  const { isLogin } = useGlobalState();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const onClickStory = useCallback(
     (id: number) => {
@@ -57,8 +62,12 @@ export default function Community({ query }: CommunityProps) {
 
   // 글쓰기 버튼 클릭
   const onClickWriteButton = useCallback(() => {
-    router.push("/communityWrite");
-  }, [router]);
+    if (isLogin) {
+      router.push("/communityWrite");
+    } else {
+      dialogRef.current?.showModal();
+    }
+  }, [isLogin, router]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -127,6 +136,9 @@ export default function Community({ query }: CommunityProps) {
       <div onClick={onClickWriteButton} className={styles.write_button}>
         <FontAwesomeIcon icon={faPen} />
       </div>
+      <dialog ref={dialogRef}>
+        <LoginDialog dialogRef={dialogRef} />
+      </dialog>
     </main>
   );
 }

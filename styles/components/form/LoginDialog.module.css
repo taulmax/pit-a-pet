@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.dialog_wrapper header {
+.dialog_wrapper .header {
     width: 100%;
     display: flex;
     justify-content: end;
@@ -18,7 +18,7 @@
     padding: 30px;
 }
 
-.dialog_wrapper header svg {
+.dialog_wrapper .header svg {
     cursor: pointer;
     color: #b8b8b8;
 }

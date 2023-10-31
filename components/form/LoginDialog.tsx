@@ -22,9 +22,9 @@ export default function LoginDialog({ dialogRef }: ILoginDialog) {
 
   return (
     <div className={styles.dialog_wrapper}>
-      <header>
+      <div className={styles.header}>
         <FontAwesomeIcon icon={faX} onClick={closeModal} />
-      </header>
+      </div>
       <div className={styles.dialog_contents}>
         <h1>로그인이 필요한 서비스에요.</h1>
         <div className={styles.description}>
