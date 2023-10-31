@@ -6,8 +6,10 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next/types";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useQuery } from "react-query";
+import { useGlobalState } from "@/context/GlobalStateContext";
+import LoginDialog from "@/components/form/LoginDialog";
 
 // query 프롭스에 대한 타입 정의
 type LostProps = {
@@ -28,6 +30,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Lost({ query }: LostProps) {
   const router = useRouter();
   const currentPage = query.page ? Number(query.page) : 1;
+  const { isLogin } = useGlobalState();
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const onPageChange = useCallback(
     (page: number) => {
@@ -49,8 +54,12 @@ export default function Lost({ query }: LostProps) {
 
   // 글쓰기 버튼 클릭
   const onClickWriteButton = useCallback(() => {
-    router.push("/lostWrite");
-  }, [router]);
+    if (isLogin) {
+      router.push("/lostWrite");
+    } else {
+      dialogRef.current?.showModal();
+    }
+  }, [isLogin, router]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -111,6 +120,9 @@ export default function Lost({ query }: LostProps) {
       <div onClick={onClickWriteButton} className={styles.write_button}>
         <FontAwesomeIcon icon={faPen} />
       </div>
+      <dialog ref={dialogRef}>
+        <LoginDialog dialogRef={dialogRef} />
+      </dialog>
     </main>
   );
 }

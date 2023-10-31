@@ -1,0 +1,36 @@
+.dialog_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dialog_wrapper header {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 8px 12px 0px 12px;
+}
+
+.dialog_wrapper .dialog_contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.dialog_wrapper header svg {
+    cursor: pointer;
+    color: #b8b8b8;
+}
+
+.dialog_wrapper h1 {
+    font-size: 24px;
+    color: #222222;
+    margin-bottom: 20px;
+}
+
+.dialog_wrapper .description {
+    color: #737373;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
