@@ -1,13 +1,16 @@
 // pages/map.tsx
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "@/styles/components/map/NaverMap.module.css";
+import { CURRENT_LOCATION_MARKER, PLACE_LOCATION_MARKER } from "@/util/data";
 
 export default function NaverMap({
   location,
   mapLoading,
+  placeData,
 }: {
   location: { lat: number; lng: number };
   mapLoading: boolean;
+  placeData: any[];
 }) {
   const initializeMap = useCallback(() => {
     const naver = window.naver;
@@ -18,9 +21,30 @@ export default function NaverMap({
       };
       const map = new naver.maps.Map("map", mapOptions);
 
-      // 나머지 지도 초기화 로직 추가
+      let marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(location.lat, location.lng),
+        map: map,
+        icon: {
+          content: CURRENT_LOCATION_MARKER(),
+          anchor: new naver.maps.Point(15, 15), // 이미지의 중심 지점 설정
+        },
+      });
+
+      // placeData에 있는 위경도 배열을 사용하여 마커를 생성하고 지도에 추가
+      if (placeData && placeData.length > 0) {
+        placeData.forEach((place) => {
+          const placeMarker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(place.y, place.x),
+            map: map,
+            icon: {
+              content: PLACE_LOCATION_MARKER(place.place_name),
+              anchor: new naver.maps.Point(15, 15), // 이미지의 중심 지점 설정
+            },
+          });
+        });
+      }
     }
-  }, [location]);
+  }, [location, placeData]);
 
   useEffect(() => {
     if (!window.naver) {
@@ -35,6 +59,10 @@ export default function NaverMap({
       initializeMap();
     }
   }, [initializeMap]);
+
+  useEffect(() => {
+    console.log(placeData);
+  }, [placeData]);
 
   return (
     <div

@@ -8,7 +8,7 @@ import {
   faStethoscope,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
 export async function getServerSideProps() {
@@ -27,8 +27,6 @@ export default function Map({
   const [tab, setTab] = useState<
     "동물병원" | "동물보호소" | "동물등록 대행업체"
   >("동물병원");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const [location, setLocation] = useState<{ lat: number; lng: number }>({
     lat: 37.5665,
@@ -65,17 +63,24 @@ export default function Map({
         NEXT_KAKAO_REST_API_KEY
       ),
     {
-      enabled: !mapLoading,
+      enabled: !mapLoading && tab === "동물병원",
     }
   );
 
-  console.log(kakaoAnimalHospital);
+  const placeData = useMemo(() => {
+    if (tab === "동물병원") return kakaoAnimalHospital.data?.documents;
+    else undefined;
+  }, [kakaoAnimalHospital.data?.documents, tab]);
 
   return (
     <div className={styles.map_wrapper}>
       <div className={styles.naver_map_wrapper}>
         {/* 네이버 맵 */}
-        <NaverMap location={location} mapLoading={mapLoading} />
+        <NaverMap
+          location={location}
+          mapLoading={mapLoading}
+          placeData={placeData}
+        />
 
         {/* 플로팅 탭 */}
         <ul className={styles.floating_tab}>

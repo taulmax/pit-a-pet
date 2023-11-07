@@ -13,7 +13,7 @@ export const getKakaoAnimalHospital = async (
         category_group_code: "HP8",
         x: String(lng),
         y: String(lat),
-        radius: 5000,
+        radius: 3000,
       },
       headers: {
         Authorization: `KakaoAK ${authorization}`,

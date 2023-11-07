@@ -28,3 +28,9 @@ export const MAIN_MENU = [
     icon: faGlobe,
   },
 ];
+
+export const CURRENT_LOCATION_MARKER = () =>
+  '<img src="./img/map-marker.png" style="width: 30px; height: 30px;">';
+
+export const PLACE_LOCATION_MARKER = (place_name: string) =>
+  `<div style="display:flex;align-items:center;"><img src="./img/map-marker-blue.png" style="width: 32px; height: 32px; z-index:10;"><span style="background-color:white;padding:10px 14px;border-radius:20px;margin-left:-12px;border:1px solid #c6c6c6;font-size:14px;font-family:'NanumSquareBold'">${place_name}</span></div>`;
