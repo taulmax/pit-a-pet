@@ -107,7 +107,7 @@ export default function Map({
           </li>
         </ul>
       </div>
-      <MapList tab={tab} />
+      <MapList tab={tab} placeData={placeData} />
     </div>
   );
 }
