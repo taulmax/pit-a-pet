@@ -2,32 +2,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "@/styles/components/map/NaverMap.module.css";
 
-export default function NaverMap() {
-  const [location, setLocation] = useState<{ lat: number; lng: number }>({
-    lat: 37.5665,
-    lng: 126.978,
-  });
-  const [loading, setLoading] = useState(true);
-
-  // 내 위치 탐색 허용 / 비허용
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      const timeoutId = setTimeout(() => {
-        setLoading(false);
-      }, 10000); // 10초 동안 대기
-
-      navigator.geolocation.getCurrentPosition(
-        ({ coords: { latitude, longitude } }) => {
-          clearTimeout(timeoutId); // 내 위치 정보를 받으면 타임아웃 제거
-          setLocation({ lat: latitude, lng: longitude });
-          setLoading(false);
-        }
-      );
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
+export default function NaverMap({
+  location,
+  mapLoading,
+}: {
+  location: { lat: number; lng: number };
+  mapLoading: boolean;
+}) {
   const initializeMap = useCallback(() => {
     const naver = window.naver;
     if (naver) {
@@ -60,7 +41,7 @@ export default function NaverMap() {
       id="map"
       className={styles.map}
       style={{
-        filter: loading ? "blur(5px)" : "none", // 로딩 중일 때 블러 처리
+        filter: mapLoading ? "blur(5px)" : "none", // 로딩 중일 때 블러 처리
       }}
     ></div>
   );

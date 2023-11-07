@@ -1,3 +1,4 @@
+import { getKakaoAnimalHospital } from "@/api/map";
 import MapList from "@/components/map/MapList";
 import NaverMap from "@/components/map/NaverMap";
 import styles from "@/styles/pages/map.module.css";
@@ -7,16 +8,76 @@ import {
   faStethoscope,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
-export default function Map() {
+export async function getServerSideProps() {
+  const NEXT_KAKAO_REST_API_KEY = process.env.NEXT_KAKAO_REST_API_KEY; // 서버 환경 변수를 가져옴
+
+  return {
+    props: { NEXT_KAKAO_REST_API_KEY },
+  };
+}
+
+export default function Map({
+  NEXT_KAKAO_REST_API_KEY,
+}: {
+  NEXT_KAKAO_REST_API_KEY: string;
+}) {
   const [tab, setTab] = useState<
     "동물병원" | "동물보호소" | "동물등록 대행업체"
   >("동물병원");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+
+  const [location, setLocation] = useState<{ lat: number; lng: number }>({
+    lat: 37.5665,
+    lng: 126.978,
+  });
+  const [mapLoading, setMapLoading] = useState(true);
+
+  // 내 위치 탐색 허용 / 비허용
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      const timeoutId = setTimeout(() => {
+        setMapLoading(false);
+      }, 10000); // 10초 동안 대기
+
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          clearTimeout(timeoutId); // 내 위치 정보를 받으면 타임아웃 제거
+          setLocation({ lat: latitude, lng: longitude });
+          setMapLoading(false);
+        }
+      );
+    } else {
+      setMapLoading(false);
+    }
+  }, []);
+
+  // 카카오 API로 동물병원 가져오기
+  const kakaoAnimalHospital = useQuery(
+    ["kakaoAnimalHospital", "동물병원"],
+    () =>
+      getKakaoAnimalHospital(
+        location.lat,
+        location.lng,
+        NEXT_KAKAO_REST_API_KEY
+      ),
+    {
+      enabled: !mapLoading,
+    }
+  );
+
+  console.log(kakaoAnimalHospital);
+
   return (
     <div className={styles.map_wrapper}>
       <div className={styles.naver_map_wrapper}>
-        <NaverMap />
+        {/* 네이버 맵 */}
+        <NaverMap location={location} mapLoading={mapLoading} />
+
+        {/* 플로팅 탭 */}
         <ul className={styles.floating_tab}>
           <li
             className={tab === "동물병원" ? styles.active : ""}
