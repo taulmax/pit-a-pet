@@ -1,4 +1,4 @@
-import { getKakaoAnimalHospital } from "@/api/map";
+import { getKakaoMap } from "@/api/map";
 import MapList from "@/components/map/MapList";
 import NaverMap from "@/components/map/NaverMap";
 import styles from "@/styles/pages/map.module.css";
@@ -55,22 +55,17 @@ export default function Map({
 
   // 카카오 API로 동물병원 가져오기
   const kakaoAnimalHospital = useQuery(
-    ["kakaoAnimalHospital", "동물병원"],
-    () =>
-      getKakaoAnimalHospital(
-        location.lat,
-        location.lng,
-        NEXT_KAKAO_REST_API_KEY
-      ),
+    ["kakaoAnimalHospital", tab],
+    () => getKakaoMap(tab, location.lat, location.lng, NEXT_KAKAO_REST_API_KEY),
     {
-      enabled: !mapLoading && tab === "동물병원",
+      enabled: !mapLoading,
     }
   );
 
-  const placeData = useMemo(() => {
-    if (tab === "동물병원") return kakaoAnimalHospital.data?.documents;
-    else undefined;
-  }, [kakaoAnimalHospital.data?.documents, tab]);
+  const placeData = useMemo(
+    () => kakaoAnimalHospital.data?.documents,
+    [kakaoAnimalHospital.data?.documents]
+  );
 
   return (
     <div className={styles.map_wrapper}>

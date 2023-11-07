@@ -12,8 +12,7 @@ export default function MapList({ tab, placeData }: IMapList) {
         주변&nbsp;<span>{tab}</span>&nbsp;검색결과
       </h1>
       <ul className={styles.content_list}>
-        {placeData &&
-          placeData.length > 0 &&
+        {placeData && placeData.length > 0 ? (
           placeData.map((place) => (
             <li key={place.id} className={styles.content}>
               <header>
@@ -30,7 +29,10 @@ export default function MapList({ tab, placeData }: IMapList) {
               )}
               {place.phone && <div className={styles.phone}>{place.phone}</div>}
             </li>
-          ))}
+          ))
+        ) : (
+          <li className={styles.content}>검색 결과가 없어요.</li>
+        )}
       </ul>
     </div>
   );
