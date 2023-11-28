@@ -15,13 +15,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #CBB395;
+    background-color: #cbb395;
     border-radius: 8px;
     padding: 8px 12px;
 }
 
 .community_main_wrapper header .community_recent_or_hot_tab div {
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 6px 8px;
     border-radius: 8px;
     font-size: 14px;
@@ -37,8 +37,8 @@
 }
 
 .community_main_wrapper header .community_recent_or_hot_tab div.active {
-    background-color: #FFFFFF;
-    color: #CBB395;
+    background-color: #ffffff;
+    color: #cbb395;
 }
 
 .community_main_wrapper header {
@@ -48,6 +48,8 @@
 
 .community_main_wrapper ul {
     width: 100%;
+    max-height: 80%;
+    overflow-y: scroll;
 }
 
 .community_main_wrapper ul li {
@@ -100,7 +102,7 @@
 /* 글쓰기 FIXED BUTTON */
 .write_button {
     position: fixed;
-    background-color: #CBB395;
+    background-color: #cbb395;
     right: 70px;
     bottom: 70px;
     width: 70px;
@@ -118,6 +120,6 @@
 
 .write_button:hover {
     background-color: white;
-    border: 2px solid #CBB395;
-    color: #CBB395;
+    border: 2px solid #cbb395;
+    color: #cbb395;
 }
