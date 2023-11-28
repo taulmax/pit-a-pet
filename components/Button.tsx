@@ -3,7 +3,9 @@ import styles from "@/styles/components/Button.module.css";
 interface IButton {
   text: string;
   color?: string;
+  textColor?: string;
   className?: string;
+  icon?: any;
   onClick?: (e: any) => void;
   disabled?: boolean;
 }
@@ -11,7 +13,9 @@ interface IButton {
 export default function Button({
   text,
   color = "blue",
+  textColor = "white",
   className = "",
+  icon,
   onClick,
   disabled = false,
 }: IButton) {
@@ -19,8 +23,9 @@ export default function Button({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${styles.my_button} ${styles[color]} ${styles[className]}`}
+      className={`${styles.my_button} ${styles[color]} ${styles[className]} ${styles[textColor]}`}
     >
+      {icon && icon}
       {text}
     </button>
   );

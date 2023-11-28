@@ -5,6 +5,8 @@ import styles from "@/styles/pages/login.module.css";
 import inputStyles from "@/styles/components/form/Input.module.css";
 import Link from "next/link";
 import { useLogin } from "@/api/login";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faN } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -47,6 +49,27 @@ export default function Login() {
           </span>
         </div>
         <Button text="로그인" disabled={isLoading} onClick={onClickLogin} />
+        <Button
+          text="카카오 계정으로 시작하기"
+          disabled={isLoading}
+          onClick={onClickLogin}
+          color="kakao"
+          textColor="text_kakao"
+          icon={
+            <FontAwesomeIcon
+              icon={faComment}
+              fontSize="18px"
+              style={{ marginRight: "8px" }}
+            />
+          }
+        />
+        {/* <Button
+          text="네이버 계정으로 시작하기"
+          disabled={isLoading}
+          onClick={onClickLogin}
+          color="naver"
+          icon={<FontAwesomeIcon icon={faN} />}
+        /> */}
         <div className={styles.find}>
           <span>아이디 찾기</span>
           <span>&nbsp;|&nbsp;</span>

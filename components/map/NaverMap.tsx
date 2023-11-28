@@ -47,6 +47,7 @@ export default function NaverMap({
   }, [location, placeData]);
 
   useEffect(() => {
+    console.log(!!window.naver);
     if (!window.naver) {
       // 네이버 지도 스크립트 로딩
       const script = document.createElement("script");
