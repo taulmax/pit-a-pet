@@ -19,6 +19,8 @@
 .animal_info_wrapper {
     min-width: 500px;
     width: 500px;
+    min-height: 500px;
+    height: 500px;
     position: relative;
 }
 
@@ -143,6 +145,8 @@
     .animal_info_wrapper {
         min-width: 470px;
         width: 470px;
+        min-height: 470px;
+        height: 470px;
     }
 }
 

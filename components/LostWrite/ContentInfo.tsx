@@ -20,7 +20,7 @@ export default function ContentInfo({
       <ul className={styles.list}>
         <li className={styles.list_item}>
           <div className={styles.item_content}>
-            <Textarea value={value} onChange={onChange} maxLength={500} />
+            <Textarea value={value} onChange={onChange} maxLength={200} />
           </div>
         </li>
       </ul>
