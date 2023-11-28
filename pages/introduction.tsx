@@ -56,6 +56,11 @@ export default function Introduction({ query }: IntroductionProps) {
     })
   );
 
+  const onChangeSelect = useCallback(
+    async (e: React.ChangeEvent<HTMLSelectElement>) => {},
+    []
+  );
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -85,26 +90,47 @@ export default function Introduction({ query }: IntroductionProps) {
       <header className={styles.filter_header}>
         <div className={styles.filter_wrapper}>
           <Select
+            id="type"
             option={[
               { id: "", value: "", text: "품종을 선택해주세요" },
-              { id: "dog", value: "dog", text: "강아지" },
-              { id: "cat", value: "cat", text: "고양이" },
-              { id: "rest", value: "rest", text: "기타" },
+              { id: "dog", value: "개", text: "강아지" },
+              { id: "cat", value: "고양이", text: "고양이" },
+              { id: "rest", value: "기타", text: "기타" },
             ]}
+            onChange={onChangeSelect}
           />
           <Select
+            id="isUnderProtection"
             option={[
               { id: "", value: "", text: "보호 여부를 선택해주세요" },
               { id: "protected", value: "protected", text: "보호중" },
               { id: "unprotected", value: "unprotected", text: "보호종료" },
             ]}
+            onChange={onChangeSelect}
           />
           <Select
+            id="region"
             option={[
               { id: "", value: "", text: "지역을 선택해주세요" },
               { id: "seoul", value: "seoul", text: "서울" },
+              { id: "busan", value: "busan", text: "부산" },
+              { id: "daegue", value: "daegue", text: "대구" },
+              { id: "incheon", value: "incheon", text: "인천" },
+              { id: "gwangju", value: "gwangju", text: "광주" },
+              { id: "daejun", value: "daejun", text: "대전" },
+              { id: "ulsan", value: "ulsan", text: "울산" },
+              { id: "sejong", value: "sejong", text: "세종" },
               { id: "gyeongi", value: "gyeongi", text: "경기도" },
+              { id: "gangwon", value: "gangwon", text: "강원도" },
+              { id: "chungbuk", value: "chungbuk", text: "충청북도" },
+              { id: "chungnam", value: "chungnam", text: "충청남도" },
+              { id: "junbuk", value: "junbuk", text: "전라북도" },
+              { id: "junnam", value: "junnam", text: "전라남도" },
+              { id: "gyeongbuk", value: "gyeongbuk", text: "경상북도" },
+              { id: "gyeongnam", value: "gyeongnam", text: "경상남도" },
+              { id: "jeju", value: "jeju", text: "제주" },
             ]}
+            onChange={onChangeSelect}
           />
         </div>
       </header>

@@ -2,15 +2,16 @@ import { useCallback } from "react";
 import styles from "@/styles/components/form/Select.module.css";
 
 interface ISelect {
+  id: string;
   option: {
     id: string;
     text: string;
     value: any;
   }[];
-  // onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export function Select({ option }: ISelect) {
+export function Select({ id, option, onChange }: ISelect) {
   // Focus Event
   const onFocus = useCallback((e: React.FocusEvent<HTMLSelectElement>) => {
     e.target.parentElement?.classList.add(styles.active);
@@ -23,7 +24,7 @@ export function Select({ option }: ISelect) {
 
   return (
     <div className={styles.select_wrapper}>
-      <select onFocus={onFocus} onBlur={onBlur}>
+      <select id={id} onFocus={onFocus} onBlur={onBlur} onChange={onChange}>
         {option.map((item) => (
           <option key={item.text} id={item.id} value={item.value}>
             {item.text}
