@@ -1,0 +1,19 @@
+.select_wrapper {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px #b0b0b0;
+    margin-top: 16px;
+    padding: 0px 12px;
+}
+
+.select_wrapper.active {
+    box-shadow: inset 0 0 0 2px #222222;
+}
+
+.select_wrapper select {
+    width: 100%;
+}

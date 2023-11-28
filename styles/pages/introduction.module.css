@@ -42,6 +42,19 @@
     color: #CBB395;
 }
 
+.filter_header {
+    display: flex;
+    justify-content: center;
+}
+
+.filter_wrapper {
+    display: flex;
+}
+
+.filter_wrapper div {
+    margin: 0px 2px;
+}
+
 @media screen and (max-width: 1023px) {
     .animal_fake_card {
         width: 150px;

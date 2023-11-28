@@ -1,6 +1,7 @@
 import { IdleData, getIdle } from "@/api/introduction";
 import AnimalCard from "@/components/AnimalCard/AnimalCard";
 import Pagination from "@/components/Pagination";
+import { Select } from "@/components/form/Select";
 import styles from "@/styles/pages/introduction.module.css";
 import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
@@ -81,6 +82,32 @@ export default function Introduction({ query }: IntroductionProps) {
 
   return (
     <main id="introduction_main_wrapper" className={styles.content_wrapper}>
+      <header className={styles.filter_header}>
+        <div className={styles.filter_wrapper}>
+          <Select
+            option={[
+              { id: "", value: "", text: "품종을 선택해주세요" },
+              { id: "dog", value: "dog", text: "강아지" },
+              { id: "cat", value: "cat", text: "고양이" },
+              { id: "rest", value: "rest", text: "기타" },
+            ]}
+          />
+          <Select
+            option={[
+              { id: "", value: "", text: "보호 여부를 선택해주세요" },
+              { id: "protected", value: "protected", text: "보호중" },
+              { id: "unprotected", value: "unprotected", text: "보호종료" },
+            ]}
+          />
+          <Select
+            option={[
+              { id: "", value: "", text: "지역을 선택해주세요" },
+              { id: "seoul", value: "seoul", text: "서울" },
+              { id: "gyeongi", value: "gyeongi", text: "경기도" },
+            ]}
+          />
+        </div>
+      </header>
       {chunkedArray.map((item, index) => (
         <div key={`row${index}`} className={styles.animal_card_row}>
           {item.map((idleData: IdleData, idleIndex: number) =>
