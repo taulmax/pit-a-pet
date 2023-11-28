@@ -13,7 +13,7 @@ export interface IAnimalInfo {
   type: "dog" | "cat" | "rest" | ""; // 품종
   sexCd: "boy" | "girl" | "unknown" | ""; // 성별
   neuterYn: "Y" | "N" | "U" | ""; // 중성화
-  name: string; // 이름
+  petName: string; // 이름
   age: string; // 나이
   weight: string; // 몸무게
   furColor: string; // 털색
@@ -33,7 +33,7 @@ export default function LostWrite() {
     type: "",
     sexCd: "",
     neuterYn: "",
-    name: "",
+    petName: "",
     age: "",
     weight: "",
     furColor: "",
@@ -71,10 +71,17 @@ export default function LostWrite() {
     lostDate: "",
     lostPlace: "",
   });
+  const [tel, setTel] = useState<string>("");
 
   const onChangeLostInfo = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setLostInfo((state) => ({ ...state, [e.target.id]: e.target.value }));
+    },
+    []
+  );
+  const onChangeTelInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTel(e.target.value);
     },
     []
   );
@@ -128,11 +135,10 @@ export default function LostWrite() {
       const postData = {
         ...animalInfo,
         ...lostInfo,
+        tel,
         reward,
         detail,
-
-        // 밑에 애들은 나중에 치워줘야함
-        lostDate: "2023-09-27",
+        lostDate: "2023-11-28",
       };
       const response = await postLost(postData);
       console.log(response);
@@ -142,7 +148,7 @@ export default function LostWrite() {
       toast.error("글이 작성되지 않았어요");
       console.error("POST 요청이 실패했습니다.", error);
     }
-  }, [animalInfo, detail, lostInfo, postLost, reward, router]);
+  }, [animalInfo, detail, lostInfo, postLost, reward, router, tel]);
 
   useEffect(() => {
     setPage(1);
@@ -162,7 +168,14 @@ export default function LostWrite() {
       )}
 
       {/* 아이를 놓쳤을 때의 정보를 알려주세요 */}
-      {page === 2 && <LostInfo values={lostInfo} onChange={onChangeLostInfo} />}
+      {page === 2 && (
+        <LostInfo
+          values={lostInfo}
+          onChange={onChangeLostInfo}
+          tel={tel}
+          onChangeTelInfo={onChangeTelInfo}
+        />
+      )}
 
       {/* 사례금을 알려주세요 */}
       {page === 3 && (
@@ -224,5 +237,3 @@ export default function LostWrite() {
     </main>
   );
 }
-
-// image type Blob으로 다시 바꿔줘야함

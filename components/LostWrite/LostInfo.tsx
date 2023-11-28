@@ -5,9 +5,13 @@ import { ILostInfo } from "@/pages/lostWrite";
 export default function LostInfo({
   values: { lostDate, lostPlace },
   onChange,
+  tel,
+  onChangeTelInfo,
 }: {
   values: ILostInfo;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  tel: string;
+  onChangeTelInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <>
@@ -36,6 +40,14 @@ export default function LostInfo({
           </div>
           <div className={styles.short_description}>
             아이를 놓친 장소를 구체적으로 작성해주세요!
+          </div>
+        </li>
+        <li className={styles.list_item}>
+          <div className={styles.item_title}>
+            보호자분의 전화번호를 알려주세요
+          </div>
+          <div className={styles.item_content}>
+            <Input id="tel" value={tel} onChange={onChangeTelInfo} />
           </div>
         </li>
       </ul>

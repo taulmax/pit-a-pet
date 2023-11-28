@@ -18,9 +18,7 @@
 
 .animal_info_wrapper {
     min-width: 500px;
-    min-height: 500px;
     width: 500px;
-    height: 500px;
     position: relative;
 }
 
@@ -73,6 +71,15 @@
     font-size: 18px;
     margin: 20px 0px;
     display: flex;
+}
+
+.animal_info_list.block {
+    display: block;
+}
+
+.animal_info_list.block .list_content {
+    margin-left: 0px;
+    margin-top: 10px;
 }
 
 .animal_info_list .list_title {
@@ -135,9 +142,7 @@
 
     .animal_info_wrapper {
         min-width: 470px;
-        min-height: 470px;
         width: 470px;
-        height: 470px;
     }
 }
 

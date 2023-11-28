@@ -1,5 +1,6 @@
 import styles from "@/styles/pages/lostWrite.module.css";
 import Textarea from "../form/Textarea";
+import Input from "../form/Input";
 
 // textarea로 바꾸기
 export default function ContentInfo({

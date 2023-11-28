@@ -15,7 +15,7 @@ import IconSelectButton from "../form/IconSelectButton";
 import FileUpload from "../form/FileUpload";
 
 export default function AnimalInfo({
-  values: { type, sexCd, neuterYn, name, age, weight, furColor, feature },
+  values: { type, sexCd, neuterYn, petName, age, weight, furColor, feature },
   onClick,
   onChange,
   files,
@@ -90,7 +90,7 @@ export default function AnimalInfo({
         <li className={styles.list_item}>
           <div className={styles.item_title}>아이 이름을 알려주세요</div>
           <div className={styles.item_content}>
-            <Input id="name" value={name} onChange={onChange} />
+            <Input id="petName" value={petName} onChange={onChange} />
           </div>
         </li>
 
