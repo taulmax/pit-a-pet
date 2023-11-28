@@ -74,9 +74,13 @@ export default function Header() {
           />
         </header>
         <div className={`pl20 pr20 pb20 ${styles.login_wrapper}`}>
-          <Link href="/login">
-            <Button color="logo" text="로그인" onClick={onClickBurgerMenu} />
-          </Link>
+          {isLogin ? (
+            <Button color="logo" text="로그아웃" onClick={onClickLogout} />
+          ) : (
+            <Link href="/login">
+              <Button color="logo" text="로그인" onClick={onClickBurgerMenu} />
+            </Link>
+          )}
         </div>
         <Link href="/">
           <li
