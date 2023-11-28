@@ -137,3 +137,16 @@ export function formatTimeDifference(timestamp: string): string {
     return years === 1 ? "1년 전" : `${years}년 전`;
   }
 }
+
+export const koreanType = (type: string) => {
+  switch (type) {
+    case "dog":
+      return "강아지";
+    case "cat":
+      return "고양이";
+    case "rest":
+      return "기타";
+    default:
+      return "기타";
+  }
+};

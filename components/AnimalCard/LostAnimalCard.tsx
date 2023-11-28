@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
-import { formatDate } from "@/util/util";
+import { formatDate, koreanType } from "@/util/util";
 import { LostData } from "@/api/lost";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
@@ -26,18 +26,9 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
         />
         <div className={styles.tag_list_wrapper}>
           <div className={styles.animal_tag_wrapper}>
-            {/* <span
-              className={
-                lostData.processState === "보호중"
-                  ? styles.protected
-                  : styles.process_state
-              }
-            >
-              {lostData.processState}
-            </span> */}
-            {lostData.sexCd === "수컷" ? (
+            {lostData.sexCd === "boy" ? (
               <span className={styles.male}>남자</span>
-            ) : lostData.sexCd === "암컷" ? (
+            ) : lostData.sexCd === "girl" ? (
               <span className={styles.female}>여자</span>
             ) : (
               <></>
@@ -51,8 +42,10 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
               </div>
             </li>
             <li className={styles.animal_card_list}>
-              <div className={styles.list_title}>품종</div>
-              <div className={styles.list_content}>{lostData.type}</div>
+              <div className={styles.list_title}>이름</div>
+              <div className={styles.list_content}>
+                [{koreanType(lostData.type)}] {lostData.petName}
+              </div>
             </li>
             <li className={styles.animal_card_list}>
               <div className={styles.list_title}>실종지역</div>
@@ -60,7 +53,9 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
             </li>
             <li className={styles.animal_card_list}>
               <div className={styles.list_title}>보상</div>
-              <div className={styles.list_content}>{lostData.reward}</div>
+              <div className={styles.list_content}>
+                {lostData.reward ? `${lostData.reward} ₩` : "X"}
+              </div>
             </li>
           </ul>
         </div>

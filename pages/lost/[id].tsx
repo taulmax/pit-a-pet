@@ -1,8 +1,8 @@
-import { formatDate } from "@/util/util";
+import { formatDate, koreanType } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { getLostDetail } from "@/api/lost";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
@@ -13,20 +13,6 @@ export default function LostDetail() {
 
   // 실종 상세정보 전역상태
   const { lostDetail, setLostDetail } = useGlobalState();
-
-  // 품종 한글로
-  const koreanType = useCallback((type: string) => {
-    switch (type) {
-      case "dog":
-        return "강아지";
-      case "cat":
-        return "고양이";
-      case "rest":
-        return "기타";
-      default:
-        return "기타";
-    }
-  }, []);
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
   const { data, error } = useQuery(
@@ -103,7 +89,9 @@ export default function LostDetail() {
         </li>
         <li className={styles.animal_info_list}>
           <span className={styles.list_title}>사례금</span>{" "}
-          <span className={styles.list_content}>{lostDetail.reward} 원</span>
+          <span className={styles.list_content}>
+            {lostDetail.reward ? `${lostDetail.reward} ₩` : "X"}
+          </span>
         </li>
         <li className={`${styles.animal_info_list} ${styles.block}`}>
           <span className={styles.list_title}>내용</span>{" "}
