@@ -1,4 +1,5 @@
 import { IdleData } from "@/api/introduction";
+import { getMyPage } from "@/api/login";
 import { LostData } from "@/api/lost";
 import {
   createContext,
@@ -24,6 +25,11 @@ interface GlobalState {
   lostDetail: LostData | null;
   setLostDetail: Dispatch<SetStateAction<LostData | null>>;
   resetLostDetail: () => void;
+
+  // 마이페이지 데이터
+  myPageData: any;
+  setMyPageData: Dispatch<SetStateAction<null>>;
+  resetMyPageData: () => void;
 }
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -41,11 +47,26 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
   const [lostDetail, setLostDetail] = useState<LostData | null>(null);
   const resetLostDetail = () => setLostDetail(null);
 
+  const [myPageData, setMyPageData] = useState(null);
+  const resetMyPageData = () => setMyPageData(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setIsLogin(true);
-    }
+
+    const fetchData = async () => {
+      if (token) {
+        setIsLogin(true);
+        try {
+          const myPageResponse = await getMyPage();
+          setMyPageData(myPageResponse);
+          console.log(myPageResponse);
+        } catch (error) {
+          console.error("Error fetching my page:", error);
+        }
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -59,6 +80,9 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
         lostDetail,
         setLostDetail,
         resetLostDetail,
+        myPageData,
+        setMyPageData,
+        resetMyPageData,
       }}
     >
       {children}

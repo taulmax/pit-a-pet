@@ -11,13 +11,15 @@ import {
 } from "@/api/introduction";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
+import { getMyPage } from "@/api/login";
 
 export default function IntroductionDetail() {
   const router = useRouter();
   const { id } = router.query;
 
   // 아이들 상세정보 전역상태
-  const { idleDetail, setIdleDetail } = useGlobalState();
+  const { idleDetail, setIdleDetail, myPageData, setMyPageData } =
+    useGlobalState();
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
   const { data, error } = useQuery(
@@ -37,12 +39,27 @@ export default function IntroductionDetail() {
 
   const [isZzim, setIsZzim] = useState<boolean>(false);
 
+  function isDesertionNoInDibList(dibList: any, targetDesertionNo: any) {
+    return dibList.some((item: any) => item.desertionNo === targetDesertionNo);
+  }
+  useEffect(() => {
+    if (
+      myPageData &&
+      myPageData.dibList &&
+      isDesertionNoInDibList(myPageData.dibList, id)
+    ) {
+      setIsZzim(true);
+    }
+  }, [id, myPageData]);
+
   const { patchDib } = usePatchDib();
   const handlePatchDib = async () => {
     try {
-      const data = { desertionNo: idleDetail?.noticeNo };
+      const data = { desertionNo: idleDetail?.desertionNo };
       await patchDib(data as PatchDibData);
       setIsZzim(true);
+      const myPageResponse = await getMyPage();
+      setMyPageData(myPageResponse);
     } catch (error) {
       console.error("Error during PATCH request:", error);
     }
@@ -51,9 +68,11 @@ export default function IntroductionDetail() {
   const { patchDibDelete } = usePatchDibDelete();
   const handlePatchDibdelete = async () => {
     try {
-      const data = { desertionNo: idleDetail?.noticeNo };
+      const data = { desertionNo: idleDetail?.desertionNo };
       await patchDibDelete(data as PatchDibData);
       setIsZzim(false);
+      const myPageResponse = await getMyPage();
+      setMyPageData(myPageResponse);
     } catch (error) {
       console.error("Error during PATCH request:", error);
     }

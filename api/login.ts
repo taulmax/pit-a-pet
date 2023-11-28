@@ -25,6 +25,7 @@ export const useLogin = () => {
       router.push("/");
       setIsLogin(true);
       localStorage.setItem("token", response.access_token);
+      console.log("로그인 성공");
     } catch (error) {
       console.error("로그인 실패:", error);
       toast.error("로그인에 실패했어요.");
@@ -32,4 +33,13 @@ export const useLogin = () => {
   };
 
   return { loginWithCredentials, isLoading: login.isLoading };
+};
+
+// 우리 아이 찾기 GET
+export const getMyPage = async (): Promise<any> => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  const response = await axios.get("/mypage", { headers });
+  return response.data;
 };
