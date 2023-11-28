@@ -112,6 +112,16 @@
     background-color: #E0708B;
 }
 
+.button_container button.zzim_active {
+    background-color: #808080;
+    /* 추천하는 찜 해제하기 버튼의 배경색 (예시: 회색) */
+}
+
+.button_container button.zzim_active:hover {
+    background-color: #666666;
+    /* 찜 해제하기 버튼에 호버 효과 시의 배경색 (예시: 더 어두운 회색) */
+}
+
 @media screen and (max-width: 1439px) {
     .image_wrapper {
         min-width: 470px;

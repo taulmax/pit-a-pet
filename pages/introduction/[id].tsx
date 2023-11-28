@@ -2,8 +2,13 @@ import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
-import { useEffect } from "react";
-import { getIdleDetail } from "@/api/introduction";
+import { useEffect, useState } from "react";
+import {
+  PatchDibData,
+  getIdleDetail,
+  usePatchDib,
+  usePatchDibDelete,
+} from "@/api/introduction";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
 
@@ -29,6 +34,30 @@ export default function IntroductionDetail() {
       setIdleDetail(data);
     }
   }, [data, idleDetail, setIdleDetail]);
+
+  const [isZzim, setIsZzim] = useState<boolean>(false);
+
+  const { patchDib } = usePatchDib();
+  const handlePatchDib = async () => {
+    try {
+      const data = { desertionNo: idleDetail?.noticeNo };
+      await patchDib(data as PatchDibData);
+      setIsZzim(true);
+    } catch (error) {
+      console.error("Error during PATCH request:", error);
+    }
+  };
+
+  const { patchDibDelete } = usePatchDibDelete();
+  const handlePatchDibdelete = async () => {
+    try {
+      const data = { desertionNo: idleDetail?.noticeNo };
+      await patchDibDelete(data as PatchDibData);
+      setIsZzim(false);
+    } catch (error) {
+      console.error("Error during PATCH request:", error);
+    }
+  };
 
   if (!idleDetail) {
     return <div>Loading...</div>;
@@ -111,7 +140,18 @@ export default function IntroductionDetail() {
           <span className={styles.list_content}>{idleDetail.careTel}</span>
         </li>
         <li className={styles.button_container}>
-          <button className={styles.zzim}>찜하기 ♥</button>
+          {!isZzim ? (
+            <button onClick={handlePatchDib} className={styles.zzim}>
+              찜하기 ♥
+            </button>
+          ) : (
+            <button
+              onClick={handlePatchDibdelete}
+              className={styles.zzim_active}
+            >
+              찜 삭제하기 :&#40;
+            </button>
+          )}
         </li>
       </ul>
     </div>
