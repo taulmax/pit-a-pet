@@ -15,6 +15,10 @@
     background-color: #CBB395;
 }
 
+.logo:hover {
+    background-color: #b6966f;
+}
+
 .blue {
     background-color: #3A74ED;
 }

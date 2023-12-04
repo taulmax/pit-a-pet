@@ -1,5 +1,8 @@
 .community_detail_main_wrapper {
     padding: 0px 360px;
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 40px;
 }
 
 .story_header {
@@ -22,7 +25,7 @@
 .story_author {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     color: #444444;
 }
 
@@ -91,7 +94,7 @@
 
 .story_update_delete_wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 16px;
     color: #8e8e8e;
     cursor: pointer;
@@ -104,8 +107,9 @@
 
 .reply_button_wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .reply_button_wrapper div {

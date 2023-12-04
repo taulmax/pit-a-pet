@@ -11,6 +11,8 @@ export interface Story {
   created_at: string;
   updated_at: string;
   deleted_at: string;
+  like: number;
+  view: number;
 }
 
 export interface StoryDetail {
@@ -22,6 +24,8 @@ export interface StoryDetail {
     updated_at: string;
     deleted_at: string;
     content: string;
+    view: number;
+    like: number;
   };
   replies: {
     content: string;
@@ -37,6 +41,16 @@ export interface IUseStory {
   title: string;
   content: string;
 }
+
+export interface IUseReply {
+  post_id: any;
+  content: string;
+}
+
+export interface IUseDeleteStory {
+  post_id: any;
+}
+
 // 커뮤니티 게시글 GET
 export const getStory = async (params: {
   page: number;
@@ -83,4 +97,66 @@ export const useStory = () => {
   };
 
   return { postStory, isLoading: createPost.isLoading };
+};
+
+export const useReply = () => {
+  const router = useRouter();
+  const createReply = useMutation(createCommunityReply);
+
+  async function createCommunityReply({ post_id, content }: IUseReply) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    const response = await axios.post(
+      "/reply/post",
+      { post_id, content },
+      { headers }
+    );
+    return response.data;
+  }
+
+  const postReply = async (replyData: IUseReply) => {
+    try {
+      const response = await createReply.mutateAsync(replyData);
+      console.log(response);
+      router.reload();
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
+      toast.error("댓글 작성에 실패했어요.");
+    }
+  };
+
+  return { postReply, isReplyLoading: createReply.isLoading };
+};
+
+export const useDeleteStory = () => {
+  const router = useRouter();
+  const deleteStory = useMutation(deleteCommunityStory);
+
+  async function deleteCommunityStory({ post_id }: IUseDeleteStory) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+
+    const data = { post_id };
+    const response = await axios.delete("/community/deletePost", {
+      data,
+      headers,
+    });
+
+    return response.data;
+  }
+
+  const deleteMyStory = async (deleteData: IUseDeleteStory) => {
+    try {
+      const response = await deleteStory.mutateAsync(deleteData);
+      console.log(response);
+      router.push("/community");
+    } catch (error) {
+      console.error("게시글 삭제 실패:", error);
+      toast.error("게시글 삭제에 실패했어요.");
+    }
+  };
+
+  return { deleteMyStory, isDeleteStoryLoading: deleteStory.isLoading };
 };

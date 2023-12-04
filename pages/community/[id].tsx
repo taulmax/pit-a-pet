@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { getStoryDetail } from "@/api/community";
+import { getStoryDetail, useDeleteStory, useReply } from "@/api/community";
 import styles from "@/styles/pages/communityDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,10 +13,12 @@ import Textarea from "@/components/form/Textarea";
 import { useCallback, useState } from "react";
 import Button from "@/components/Button";
 import { formatDate, formatTimeDifference } from "@/util/util";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function StoryDetail() {
   const router = useRouter();
   const { id } = router.query;
+  const { myPageData } = useGlobalState();
 
   const [reply, setReply] = useState<string>("");
   const onChangeReply = useCallback(
@@ -25,6 +27,9 @@ export default function StoryDetail() {
     },
     []
   );
+
+  const { postReply, isReplyLoading } = useReply();
+  const { deleteMyStory } = useDeleteStory();
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
   const { data, isLoading, isError } = useQuery(
@@ -35,7 +40,13 @@ export default function StoryDetail() {
     }
   );
 
-  console.log(data);
+  const onClickReply = useCallback(() => {
+    postReply({ post_id: data?.post.post_id, content: reply });
+  }, [data?.post.post_id, postReply, reply]);
+
+  const onClickDeleteStory = useCallback(() => {
+    deleteMyStory({ post_id: data?.post.post_id });
+  }, [data?.post.post_id, deleteMyStory]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -59,13 +70,15 @@ export default function StoryDetail() {
           <div className={styles.numbers}>
             <div className={styles.numbers_item}>
               <FontAwesomeIcon icon={faEye} />
-              120
+              {data?.post.view}
             </div>
             <div className={styles.numbers_item}>
-              <FontAwesomeIcon icon={faComment} />3
+              <FontAwesomeIcon icon={faComment} />
+              {data?.replies.length}
             </div>
             <div className={styles.numbers_item}>
-              <FontAwesomeIcon icon={faThumbsUp} />3
+              <FontAwesomeIcon icon={faThumbsUp} />
+              {data?.post.like}
             </div>
           </div>
         </div>
@@ -74,20 +87,33 @@ export default function StoryDetail() {
         <div className={styles.story_content}>{data?.post.content}</div>
         <div className={styles.story_thumbs}>
           <div className={styles.thumbs_up}>
-            <FontAwesomeIcon icon={faThumbsUp} />3
+            <FontAwesomeIcon icon={faThumbsUp} />
+            {data?.post.like}
           </div>
         </div>
-        <div className={styles.story_update_delete_wrapper}>
-          <div className={styles.story_update_button}>수정</div>
-          <div>&nbsp;|&nbsp;</div>
-          <div className={styles.story_update_button}>삭제</div>
-        </div>
+        {data?.post.username === myPageData?.user?.username && (
+          <div className={styles.story_update_delete_wrapper}>
+            <div className={styles.story_update_button}>수정</div>
+            <div>&nbsp;|&nbsp;</div>
+            <div
+              onClick={onClickDeleteStory}
+              className={styles.story_update_button}
+            >
+              삭제
+            </div>
+          </div>
+        )}
       </div>
       <div className={styles.reply_write_wrapper}>
-        <Textarea value={reply} onChange={onChangeReply} reply={true} />
+        <Textarea
+          value={reply}
+          onChange={onChangeReply}
+          reply={true}
+          placeholder="댓글을 작성해주세요!"
+        />
         <div className={styles.reply_button_wrapper}>
           <div>
-            <Button text="등록" color="logo" />
+            <Button text="등록" onClick={onClickReply} color="logo" />
           </div>
         </div>
       </div>
