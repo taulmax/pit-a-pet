@@ -1,6 +1,11 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { getStoryDetail, useDeleteStory, useReply } from "@/api/community";
+import {
+  getStoryDetail,
+  useDeleteReply,
+  useDeleteStory,
+  useReply,
+} from "@/api/community";
 import styles from "@/styles/pages/communityDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,6 +35,7 @@ export default function StoryDetail() {
 
   const { postReply, isReplyLoading } = useReply();
   const { deleteMyStory } = useDeleteStory();
+  const { deleteMyReply } = useDeleteReply();
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
   const { data, isLoading, isError } = useQuery(
@@ -47,6 +53,13 @@ export default function StoryDetail() {
   const onClickDeleteStory = useCallback(() => {
     deleteMyStory({ post_id: data?.post.post_id });
   }, [data?.post.post_id, deleteMyStory]);
+
+  const onClickDeleteReply = useCallback(
+    (reply_id: any) => {
+      deleteMyReply({ reply_id: reply_id });
+    },
+    [deleteMyReply]
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -132,9 +145,12 @@ export default function StoryDetail() {
                   </div>
                 </div>
                 <div className={styles.reply_content_header_right}>
-                  <div className={styles.reply_update_delete_button}>수정</div>
-                  <div>&nbsp;|&nbsp;</div>
-                  <div className={styles.reply_update_delete_button}>삭제</div>
+                  <div
+                    onClick={() => onClickDeleteReply(reply.reply_id)}
+                    className={styles.reply_update_delete_button}
+                  >
+                    삭제
+                  </div>
                 </div>
               </header>
               <div className={styles.reply_content}>{reply.content}</div>

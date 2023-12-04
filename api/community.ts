@@ -51,6 +51,10 @@ export interface IUseDeleteStory {
   post_id: any;
 }
 
+export interface IUseDeleteReply {
+  reply_id: any;
+}
+
 // 커뮤니티 게시글 GET
 export const getStory = async (params: {
   page: number;
@@ -159,4 +163,37 @@ export const useDeleteStory = () => {
   };
 
   return { deleteMyStory, isDeleteStoryLoading: deleteStory.isLoading };
+};
+
+export const useDeleteReply = () => {
+  const router = useRouter();
+  const deleteReply = useMutation(deleteCommunityReply);
+
+  async function deleteCommunityReply({ reply_id }: IUseDeleteReply) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+
+    const data = { reply_id };
+    console.log(data);
+    const response = await axios.delete("/reply/deleteReply", {
+      data,
+      headers,
+    });
+
+    return response.data;
+  }
+
+  const deleteMyReply = async (deleteData: IUseDeleteReply) => {
+    try {
+      const response = await deleteReply.mutateAsync(deleteData);
+      console.log(response);
+      router.reload();
+    } catch (error) {
+      console.error("댓글 삭제 실패:", error);
+      toast.error("댓글 삭제에 실패했어요.");
+    }
+  };
+
+  return { deleteMyReply, isDeleteReplyLoading: deleteReply.isLoading };
 };
