@@ -55,6 +55,12 @@ export interface IUseDeleteReply {
   reply_id: any;
 }
 
+export interface IUseUpdateStory {
+  post_id: any;
+  title: string;
+  content: string;
+}
+
 // 커뮤니티 게시글 GET
 export const getStory = async (params: {
   page: number;
@@ -196,4 +202,42 @@ export const useDeleteReply = () => {
   };
 
   return { deleteMyReply, isDeleteReplyLoading: deleteReply.isLoading };
+};
+
+export const useUpdateStory = () => {
+  const router = useRouter();
+  const updateStory = useMutation(updateCommunityStory);
+
+  async function updateCommunityStory({
+    post_id,
+    title,
+    content,
+  }: IUseUpdateStory) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+
+    const data = { title, content };
+    const response = await axios.patch(
+      `/community/editPost?post_id=${post_id}`,
+      data,
+      { headers }
+    );
+
+    return response.data;
+  }
+
+  const updateMyStory = async (updateData: IUseUpdateStory) => {
+    try {
+      const response = await updateStory.mutateAsync(updateData);
+      console.log(response);
+      router.push("/community");
+      toast.success("게시글 수정을 완료했어요.");
+    } catch (error) {
+      console.error("게시글 수정 실패:", error);
+      toast.error("게시글 수정에 실패했어요.");
+    }
+  };
+
+  return { updateMyStory, isDeleteReplyLoading: updateStory.isLoading };
 };

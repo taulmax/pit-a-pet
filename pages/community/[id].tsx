@@ -23,7 +23,7 @@ import { useGlobalState } from "@/context/GlobalStateContext";
 export default function StoryDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { myPageData } = useGlobalState();
+  const { myPageData, setStory } = useGlobalState();
 
   const [reply, setReply] = useState<string>("");
   const onChangeReply = useCallback(
@@ -60,6 +60,21 @@ export default function StoryDetail() {
     },
     [deleteMyReply]
   );
+
+  const onClickUpdateStory = useCallback(() => {
+    router.push("/communityWrite");
+    setStory({
+      post_id: data?.post.post_id as number,
+      title: data?.post.title as string,
+      content: data?.post.content as string,
+    });
+  }, [
+    data?.post.content,
+    data?.post.post_id,
+    data?.post.title,
+    router,
+    setStory,
+  ]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -106,7 +121,12 @@ export default function StoryDetail() {
         </div>
         {data?.post.username === myPageData?.user?.username && (
           <div className={styles.story_update_delete_wrapper}>
-            <div className={styles.story_update_button}>수정</div>
+            <div
+              onClick={onClickUpdateStory}
+              className={styles.story_update_button}
+            >
+              수정
+            </div>
             <div>&nbsp;|&nbsp;</div>
             <div
               onClick={onClickDeleteStory}
@@ -122,6 +142,7 @@ export default function StoryDetail() {
           value={reply}
           onChange={onChangeReply}
           reply={true}
+          maxLength={100}
           placeholder="댓글을 작성해주세요!"
         />
         <div className={styles.reply_button_wrapper}>

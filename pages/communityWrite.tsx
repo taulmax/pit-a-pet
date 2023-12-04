@@ -1,21 +1,40 @@
 import Button from "@/components/Button";
 import Input from "@/components/form/Input";
 import Textarea from "@/components/form/Textarea";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "@/styles/pages/communityWrite.module.css";
 import inputStyles from "@/styles/components/form/Input.module.css";
 import textareaStyles from "@/styles/components/form/Textarea.module.css";
-import { useStory } from "@/api/community";
+import { useStory, useUpdateStory } from "@/api/community";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function CommunityWrite() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
+  const { story } = useGlobalState();
+
+  useEffect(() => {
+    if (story) {
+      setTitle(story.title);
+      setContent(story.content);
+    }
+  }, [story]);
+
   const { postStory, isLoading } = useStory();
+  const { updateMyStory } = useUpdateStory();
 
   const onClickSubmit = useCallback(() => {
-    postStory({ title, content });
-  }, [content, postStory, title]);
+    if (story) {
+      updateMyStory({
+        post_id: story.post_id,
+        title,
+        content,
+      });
+    } else {
+      postStory({ title, content });
+    }
+  }, [content, postStory, story, title, updateMyStory]);
 
   const onChangeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

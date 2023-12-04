@@ -32,7 +32,7 @@ export default function Community({ query }: CommunityProps) {
   const currentPage = query.page ? Number(query.page) : 1;
   const currentType = query.type ? query.type : "recent";
 
-  const { isLogin } = useGlobalState();
+  const { isLogin, resetStory } = useGlobalState();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const onClickStory = useCallback(
@@ -63,11 +63,12 @@ export default function Community({ query }: CommunityProps) {
   // 글쓰기 버튼 클릭
   const onClickWriteButton = useCallback(() => {
     if (isLogin) {
+      resetStory();
       router.push("/communityWrite");
     } else {
       dialogRef.current?.showModal();
     }
-  }, [isLogin, router]);
+  }, [isLogin, resetStory, router]);
 
   if (isLoading) {
     return <div>Loading...</div>;

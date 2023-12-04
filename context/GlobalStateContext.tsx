@@ -30,6 +30,17 @@ interface GlobalState {
   myPageData: any;
   setMyPageData: Dispatch<SetStateAction<null>>;
   resetMyPageData: () => void;
+
+  // 스토리 업데이트
+  story: null | { post_id: number; title: string; content: string };
+  setStory: Dispatch<
+    SetStateAction<{
+      post_id: number;
+      title: string;
+      content: string;
+    } | null>
+  >;
+  resetStory: () => void;
 }
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -49,6 +60,13 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
 
   const [myPageData, setMyPageData] = useState(null);
   const resetMyPageData = () => setMyPageData(null);
+
+  const [story, setStory] = useState<null | {
+    post_id: number;
+    title: string;
+    content: string;
+  }>(null);
+  const resetStory = () => setStory(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -83,6 +101,9 @@ export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
         myPageData,
         setMyPageData,
         resetMyPageData,
+        story,
+        setStory,
+        resetStory,
       }}
     >
       {children}
