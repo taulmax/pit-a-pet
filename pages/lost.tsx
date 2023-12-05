@@ -149,7 +149,8 @@ export default function Lost({ query }: LostProps) {
                 { id: "rest", value: "rest", text: "기타" },
               ]}
               onChange={onChangeSelectType}
-              customDivStyle={{ marginTop: 0, height: "48px" }}
+              customDivStyle={{ marginTop: 0, height: "46px" }}
+              customSelectStyle={{ color: "rgb(111, 111, 111)" }}
             />
           </div>
           <div className={styles.search_box}>
