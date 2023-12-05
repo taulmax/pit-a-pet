@@ -1,9 +1,18 @@
+.lost_detail_wrapper {
+    height: 100%;
+    overflow: auto;
+}
+
 .introduction_detail_wrapper {
     width: 100%;
     height: 100%;
     overflow-y: auto;
     display: flex;
     justify-content: center;
+}
+
+.lost_detail_wrapper .introduction_detail_wrapper {
+    height: auto;
 }
 
 .image_wrapper {
@@ -135,6 +144,94 @@
 .button_container button.zzim_active:hover {
     background-color: #666666;
     /* 찜 해제하기 버튼에 호버 효과 시의 배경색 (예시: 더 어두운 회색) */
+}
+
+.reply_button_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.reply_button_wrapper div {
+    width: 80px;
+}
+
+
+.reply_list {
+    margin: 0px 240px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+.reply_wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.reply_wrapper:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+.user_thumbnail {
+    height: 40px;
+    width: 40px;
+    margin-right: 12px;
+}
+
+.user_thumbnail svg {
+    width: 100%;
+    height: 100%;
+    color: #444444;
+}
+
+.reply_write_wrapper {
+    margin: 0px 240px;
+    border-top: 1px solid #c6c6c6;
+    margin-top: 20px;
+
+}
+
+.reply_content_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reply_content_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.reply_content_header_left,
+.reply_content_header_right {
+    display: flex;
+}
+
+.reply_user {
+    font-family: "NanumSquareBold";
+    margin-right: 6px;
+}
+
+.reply_time {
+    color: #8e8e8e;
+}
+
+.reply_content_header_right {
+    color: #8e8e8e;
+    cursor: pointer;
+    font-size: 14px;
+    align-items: end;
+}
+
+.reply_update_delete_button:hover {
+    color: #444444;
+}
+
+.reply_content {
+    font-size: 18px;
 }
 
 @media screen and (max-width: 1439px) {

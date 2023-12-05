@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "./axios";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 // 우리 아이 찾기 GET interface
 export interface LostData {
@@ -24,6 +26,14 @@ export interface LostData {
     image3?: string; // 이미지 3
     image4?: string; // 이미지 4
   };
+  replies: {
+    content: string;
+    created_at: string;
+    post_id: number;
+    reply_id: number;
+    updated_at: string;
+    username: string;
+  }[];
   createdDate: string;
 }
 
@@ -43,6 +53,15 @@ export interface PostLostData {
   tel: string;
   reward: string;
   detail: string;
+}
+
+interface IUseLostReply {
+  lostNo: string;
+  content: string;
+}
+
+interface IUseDeleteLostReply {
+  reply_id: string;
 }
 
 // 우리 아이 찾기 GET
@@ -102,4 +121,61 @@ export const usePostLost = () => {
 export const getLostDetail = async (lostNo: string): Promise<LostData> => {
   const response = await axios.get("/lost/detail", { params: { lostNo } });
   return response.data;
+};
+
+export const useLostReply = () => {
+  const router = useRouter();
+  const createReply = useMutation(createLostReply);
+
+  async function createLostReply({ lostNo, content }: IUseLostReply) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    const response = await axios.post(
+      "/lostReply/post",
+      { lostNo, content },
+      { headers }
+    );
+    return response.data;
+  }
+
+  const postLostReply = async (replyData: IUseLostReply) => {
+    try {
+      const response = await createReply.mutateAsync(replyData);
+      console.log(response);
+      router.reload();
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
+      toast.error("댓글 작성에 실패했어요.");
+    }
+  };
+
+  const deleteReply = useMutation(deleteLostReply);
+
+  async function deleteLostReply({ reply_id }: IUseDeleteLostReply) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+
+    const data = { reply_id };
+    const response = await axios.delete("/lostReply/deleteReply", {
+      data,
+      headers,
+    });
+
+    return response.data;
+  }
+
+  const deleteMyReply = async (deleteData: IUseDeleteLostReply) => {
+    try {
+      const response = await deleteReply.mutateAsync(deleteData);
+      console.log(response);
+      router.reload();
+    } catch (error) {
+      console.error("댓글 삭제 실패:", error);
+      toast.error("댓글 삭제에 실패했어요.");
+    }
+  };
+
+  return { postLostReply, deleteMyReply };
 };

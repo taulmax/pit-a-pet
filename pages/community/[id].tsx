@@ -173,7 +173,16 @@ export default function StoryDetail() {
         />
         <div className={styles.reply_button_wrapper}>
           <div>
-            <Button text="등록" onClick={onClickReply} color="logo" />
+            <Button
+              text="등록"
+              onClick={onClickReply}
+              color="logo"
+              customButtonStyle={{
+                width: "80px",
+                borderRadius: "8px",
+                fontSize: "14px",
+              }}
+            />
           </div>
         </div>
       </div>
