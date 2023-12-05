@@ -6,7 +6,7 @@ import styles from "@/styles/pages/introduction.module.css";
 import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next/types";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "react-query";
 
 // query 프롭스에 대한 타입 정의
@@ -15,6 +15,28 @@ type IntroductionProps = {
     page?: string;
   };
 };
+
+type selectType = "" | "dog" | "cat" | "rest";
+type selectIsUnderProtection = "" | "Y" | "N";
+type selectRegion =
+  | ""
+  | "서울"
+  | "부산"
+  | "대구"
+  | "인천"
+  | "광주"
+  | "대전"
+  | "울산"
+  | "세종"
+  | "경기도"
+  | "강원도"
+  | "충청북도"
+  | "충청남도"
+  | "전라북도"
+  | "전라남도"
+  | "경상북도"
+  | "경상남도"
+  | "제주";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -47,17 +69,49 @@ export default function Introduction({ query }: IntroductionProps) {
     currentDate.getDate()
   );
 
-  const { data, isLoading, isError } = useQuery(["idle", query], () =>
-    getIdle({
-      page: currentPage,
-      pageSize: 20,
-      startDate: formatDate(threeMonthsAgo)["yyyy-mm-dd"],
-      endDate: formatDate(currentDate)["yyyy-mm-dd"],
-    })
+  const [type, setType] = useState<selectType>("");
+  const [isUnderProtection, setIsUnderProtection] =
+    useState<selectIsUnderProtection>("");
+  const [region, setRegion] = useState<selectRegion>("");
+
+  const { data, isLoading, isError } = useQuery(
+    ["idle", query, type, isUnderProtection, region],
+    () => {
+      const data: any = {
+        page: currentPage,
+        pageSize: 20,
+        startDate: formatDate(threeMonthsAgo)["yyyy-mm-dd"],
+        endDate: formatDate(currentDate)["yyyy-mm-dd"],
+      };
+      if (type) {
+        data.type = type;
+      }
+      if (isUnderProtection) {
+        data.isUnderProtection = isUnderProtection;
+      }
+      if (region) {
+        data.region = region;
+      }
+      return getIdle(data);
+    }
   );
 
-  const onChangeSelect = useCallback(
-    async (e: React.ChangeEvent<HTMLSelectElement>) => {},
+  const onChangeSelectType = useCallback(
+    async (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setType(e.target.value as selectType);
+    },
+    []
+  );
+  const onChangeSelectIsUnderProtection = useCallback(
+    async (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setIsUnderProtection(e.target.value as selectIsUnderProtection);
+    },
+    []
+  );
+  const onChangeSelectRegion = useCallback(
+    async (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setRegion(e.target.value as selectRegion);
+    },
     []
   );
 
@@ -91,46 +145,49 @@ export default function Introduction({ query }: IntroductionProps) {
         <div className={styles.filter_wrapper}>
           <Select
             id="type"
+            value={type}
             option={[
               { id: "", value: "", text: "품종을 선택해주세요" },
               { id: "dog", value: "개", text: "강아지" },
               { id: "cat", value: "고양이", text: "고양이" },
               { id: "rest", value: "기타", text: "기타" },
             ]}
-            onChange={onChangeSelect}
+            onChange={onChangeSelectType}
           />
           <Select
             id="isUnderProtection"
+            value={isUnderProtection}
             option={[
               { id: "", value: "", text: "보호 여부를 선택해주세요" },
-              { id: "protected", value: "protected", text: "보호중" },
-              { id: "unprotected", value: "unprotected", text: "보호종료" },
+              { id: "protected", value: "Y", text: "보호중" },
+              { id: "unprotected", value: "N", text: "보호종료" },
             ]}
-            onChange={onChangeSelect}
+            onChange={onChangeSelectIsUnderProtection}
           />
           <Select
             id="region"
+            value={region}
             option={[
               { id: "", value: "", text: "지역을 선택해주세요" },
-              { id: "seoul", value: "seoul", text: "서울" },
-              { id: "busan", value: "busan", text: "부산" },
-              { id: "daegue", value: "daegue", text: "대구" },
-              { id: "incheon", value: "incheon", text: "인천" },
-              { id: "gwangju", value: "gwangju", text: "광주" },
-              { id: "daejun", value: "daejun", text: "대전" },
-              { id: "ulsan", value: "ulsan", text: "울산" },
-              { id: "sejong", value: "sejong", text: "세종" },
-              { id: "gyeongi", value: "gyeongi", text: "경기도" },
-              { id: "gangwon", value: "gangwon", text: "강원도" },
-              { id: "chungbuk", value: "chungbuk", text: "충청북도" },
-              { id: "chungnam", value: "chungnam", text: "충청남도" },
-              { id: "junbuk", value: "junbuk", text: "전라북도" },
-              { id: "junnam", value: "junnam", text: "전라남도" },
-              { id: "gyeongbuk", value: "gyeongbuk", text: "경상북도" },
-              { id: "gyeongnam", value: "gyeongnam", text: "경상남도" },
-              { id: "jeju", value: "jeju", text: "제주" },
+              { id: "seoul", value: "서울", text: "서울" },
+              { id: "busan", value: "부산", text: "부산" },
+              { id: "daegue", value: "대구", text: "대구" },
+              { id: "incheon", value: "인천", text: "인천" },
+              { id: "gwangju", value: "광주", text: "광주" },
+              { id: "daejun", value: "대전", text: "대전" },
+              { id: "ulsan", value: "울산", text: "울산" },
+              { id: "sejong", value: "세종", text: "세종" },
+              { id: "gyeongi", value: "경기도", text: "경기도" },
+              { id: "gangwon", value: "강원도", text: "강원도" },
+              { id: "chungbuk", value: "충청북도", text: "충청북도" },
+              { id: "chungnam", value: "충청남도", text: "충청남도" },
+              { id: "junbuk", value: "전라북도", text: "전라북도" },
+              { id: "junnam", value: "전라남도", text: "전라남도" },
+              { id: "gyeongbuk", value: "경상북도", text: "경상북도" },
+              { id: "gyeongnam", value: "경상남도", text: "경상남도" },
+              { id: "jeju", value: "제주", text: "제주" },
             ]}
-            onChange={onChangeSelect}
+            onChange={onChangeSelectRegion}
           />
         </div>
       </header>
