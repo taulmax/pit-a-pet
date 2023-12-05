@@ -61,6 +61,10 @@ export interface IUseUpdateStory {
   content: string;
 }
 
+export interface IUsePatchLike {
+  post_id: any;
+}
+
 // 커뮤니티 게시글 GET
 export const getStory = async (params: {
   page: number;
@@ -240,4 +244,30 @@ export const useUpdateStory = () => {
   };
 
   return { updateMyStory, isDeleteReplyLoading: updateStory.isLoading };
+};
+
+export const patchLike = async (data: IUsePatchLike): Promise<any> => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  const response = await axios.patch("/mypage/like", data, { headers });
+  return response.data;
+};
+
+export const usePatchLike = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation(patchLike, {
+    onSuccess: () => {
+      // 이 부분에서 필요한 경우 캐시를 업데이트할 수 있습니다.
+      queryClient.invalidateQueries(/* queryKey */);
+    },
+  });
+
+  const patchLikeRequest = async (data: IUsePatchLike) => {
+    // 이 부분에서 필요한 로직을 추가할 수 있습니다.
+    return mutateAsync(data);
+  };
+
+  return { patchLike: patchLikeRequest };
 };

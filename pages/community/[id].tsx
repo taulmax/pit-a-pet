@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import {
+  IUsePatchLike,
   getStoryDetail,
   useDeleteReply,
   useDeleteStory,
+  usePatchLike,
   useReply,
 } from "@/api/community";
 import styles from "@/styles/pages/communityDetail.module.css";
@@ -19,13 +21,13 @@ import { useCallback, useRef, useState } from "react";
 import Button from "@/components/Button";
 import { formatDate, formatTimeDifference } from "@/util/util";
 import { useGlobalState } from "@/context/GlobalStateContext";
-import { toast } from "react-toastify";
 import LoginDialog from "@/components/form/LoginDialog";
+import { getMyPage } from "@/api/login";
 
 export default function StoryDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { isLogin, myPageData, setStory } = useGlobalState();
+  const { isLogin, myPageData, setStory, setMyPageData } = useGlobalState();
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -69,13 +71,6 @@ export default function StoryDetail() {
     [deleteMyReply]
   );
 
-  const onClickLike = useCallback(() => {
-    if (isLogin) {
-    } else {
-      dialogRef.current?.showModal();
-    }
-  }, [isLogin]);
-
   const onClickUpdateStory = useCallback(() => {
     router.push("/communityWrite");
     setStory({
@@ -90,6 +85,22 @@ export default function StoryDetail() {
     router,
     setStory,
   ]);
+
+  const { patchLike } = usePatchLike();
+  const handlePatchDib = async () => {
+    if (isLogin) {
+      try {
+        const likeData = { post_id: data?.post.post_id };
+        await patchLike(likeData as IUsePatchLike);
+        const myPageResponse = await getMyPage();
+        setMyPageData(myPageResponse);
+      } catch (error) {
+        console.error("Error during PATCH request:", error);
+      }
+    } else {
+      dialogRef.current?.showModal();
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -129,7 +140,7 @@ export default function StoryDetail() {
       <div className={styles.story_content_wrapper}>
         <div className={styles.story_content}>{data?.post.content}</div>
         <div className={styles.story_thumbs}>
-          <div onClick={onClickLike} className={styles.thumbs_up}>
+          <div onClick={handlePatchDib} className={styles.thumbs_up}>
             <FontAwesomeIcon icon={faThumbsUp} />
             {data?.post.like}
           </div>
