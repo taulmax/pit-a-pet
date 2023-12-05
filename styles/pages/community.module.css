@@ -47,6 +47,10 @@
     margin-bottom: 20px;
 }
 
+.community_main_wrapper header .search_box {
+    display: flex;
+}
+
 .community_main_wrapper ul {
     width: 100%;
 }

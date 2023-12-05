@@ -69,6 +69,8 @@ export interface IUsePatchLike {
 export const getStory = async (params: {
   page: number;
   pageSize: number;
+  hot?: number;
+  title?: string;
 }): Promise<{ data: Story[]; pageCount: number }> => {
   const response = await axios.get("/community/data", { params });
   return response.data;

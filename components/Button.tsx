@@ -8,6 +8,7 @@ interface IButton {
   icon?: any;
   onClick?: (e: any) => void;
   disabled?: boolean;
+  customButtonStyle?: any;
 }
 
 export default function Button({
@@ -18,9 +19,11 @@ export default function Button({
   icon,
   onClick,
   disabled = false,
+  customButtonStyle,
 }: IButton) {
   return (
     <button
+      style={customButtonStyle}
       onClick={onClick}
       disabled={disabled}
       className={`${styles.my_button} ${styles[color]} ${styles[className]} ${styles[textColor]}`}

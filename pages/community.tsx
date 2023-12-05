@@ -1,4 +1,7 @@
 import { getStory } from "@/api/community";
+import Button from "@/components/Button";
+import Pagination from "@/components/Pagination";
+import Input from "@/components/form/Input";
 import LoginDialog from "@/components/form/LoginDialog";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import styles from "@/styles/pages/community.module.css";
@@ -7,14 +10,13 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useQuery } from "react-query";
 
 // query 프롭스에 대한 타입 정의
 type CommunityProps = {
   query: {
     page?: string;
-    type?: "recent" | "hot";
   };
 };
 
@@ -30,7 +32,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Community({ query }: CommunityProps) {
   const router = useRouter();
   const currentPage = query.page ? Number(query.page) : 1;
-  const currentType = query.type ? query.type : "recent";
+
+  const [isNewOrHot, setIsNewOrHot] = useState<"new" | "hot">("new");
+  const onClickIsNewOrHot = useCallback((type: "new" | "hot") => {
+    setIsNewOrHot(type);
+  }, []);
+
+  const [searchText, setSearchText] = useState<string>("");
+  const [searchFlag, setSearchFlag] = useState<number>(0);
+  const onChangeSearchText = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchText(e.target.value);
+    },
+    []
+  );
+  const onClickSearch = useCallback(() => {
+    setSearchFlag((state) => state + 1);
+  }, []);
 
   const { isLogin, resetStory } = useGlobalState();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -53,11 +71,18 @@ export default function Community({ query }: CommunityProps) {
     [router]
   );
 
-  const { data, isLoading, isError } = useQuery(["story", query], () =>
-    getStory({
-      page: currentPage,
-      pageSize: 20,
-    })
+  const { data, isLoading, isError } = useQuery(
+    ["story", query, isNewOrHot, searchFlag],
+    () => {
+      const data: any = { page: currentPage, pageSize: 20 };
+      if (isNewOrHot === "hot") {
+        data.hot = 1;
+      }
+      if (searchFlag > 0) {
+        data.title = searchText;
+      }
+      return getStory(data);
+    }
   );
 
   // 글쓰기 버튼 클릭
@@ -98,12 +123,47 @@ export default function Community({ query }: CommunityProps) {
     <main id="community_main_wrapper" className={styles.community_main_wrapper}>
       <header>
         <div className={styles.community_recent_or_hot_tab}>
-          <div className={currentType === "recent" ? styles.active : ""}>
+          <div
+            onClick={() => onClickIsNewOrHot("new")}
+            className={isNewOrHot === "new" ? styles.active : ""}
+          >
             최신글
           </div>
-          <div className={currentType === "hot" ? styles.active : ""}>
+          <div
+            onClick={() => onClickIsNewOrHot("hot")}
+            className={isNewOrHot === "hot" ? styles.active : ""}
+          >
             인기글
           </div>
+        </div>
+        <div className={styles.search_box}>
+          <Input
+            value={searchText}
+            onChange={onChangeSearchText}
+            placeholder="게시글 제목을 입력해주세요."
+            textAlign="left"
+            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === "Enter") {
+                onClickSearch();
+              }
+            }}
+            customDivStyle={{
+              marginTop: 0,
+              height: "48px",
+              width: "400px",
+            }}
+          />
+          <Button
+            text="검색"
+            color="logo"
+            onClick={onClickSearch}
+            customButtonStyle={{
+              width: "80px",
+              borderRadius: "8px",
+              fontSize: "14px",
+              marginLeft: "4px",
+            }}
+          />
         </div>
       </header>
       <ul>
@@ -140,6 +200,11 @@ export default function Community({ query }: CommunityProps) {
       <dialog ref={dialogRef}>
         <LoginDialog dialogRef={dialogRef} />
       </dialog>
+      <Pagination
+        currentPage={currentPage}
+        pageCount={data.pageCount}
+        onPageChange={onPageChange}
+      />
     </main>
   );
 }

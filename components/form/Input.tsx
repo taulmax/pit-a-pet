@@ -21,6 +21,8 @@ interface IInput {
   suffix?: string;
   width?: string;
   placeholder?: string;
+  customDivStyle?: any;
+  customInputStyle?: any;
 }
 
 export default function Input({
@@ -35,6 +37,8 @@ export default function Input({
   suffix,
   width,
   placeholder,
+  customDivStyle,
+  customInputStyle,
 }: IInput) {
   // Focus Event
   const onFocusInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
@@ -52,12 +56,16 @@ export default function Input({
     [onBlur]
   );
 
+  const divStyle = { ...customDivStyle };
+  const inputStyle = { textAlign, ...customInputStyle };
+
   return (
-    <div className={`${styles.input_wrapper} ${width ? width : ""}`}>
+    <div
+      style={divStyle}
+      className={`${styles.input_wrapper} ${width ? width : ""}`}
+    >
       <input
-        style={{
-          textAlign,
-        }}
+        style={inputStyle}
         id={id}
         className={`${styles.custom_input} ${className}`}
         type={type}
