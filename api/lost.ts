@@ -74,7 +74,10 @@ export const getLost = async (params: {
 };
 
 export const postLost = async (postData: FormData): Promise<LostData> => {
-  const response = await axios.post("/lost", postData);
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  const response = await axios.post("/lost", postData, { headers });
   return response.data;
 };
 
