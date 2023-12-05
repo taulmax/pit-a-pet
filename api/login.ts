@@ -127,7 +127,20 @@ export const useRegister = () => {
     }
   };
 
-  return { register };
+  const kakaoRegister = async (registerData: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      const response = await registerMutation.mutateAsync(registerData);
+      return response;
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+      toast.error("회원가입에 실패했어요.");
+    }
+  };
+
+  return { register, kakaoRegister };
 };
 
 // 우리 아이 찾기 GET

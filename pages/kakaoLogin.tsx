@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function KakaoLogin() {
   const router = useRouter();
-  const { register } = useRegister();
+  const { kakaoRegister } = useRegister();
   const { loginWithCredentials } = useLogin();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function KakaoLogin() {
       kakaoLoginCallback(code as string)
         .then((response) => {
           console.log(response);
-          register({
+          kakaoRegister({
             username: response.username,
             password: `${response.kakaoId}`,
           }).then(() =>
