@@ -1,9 +1,11 @@
 import { IdleData } from "@/api/introduction";
+import { LostData } from "@/api/lost";
 import AnimalCard from "@/components/AnimalCard/AnimalCard";
+import LostAnimalCard from "@/components/AnimalCard/LostAnimalCard";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import styles from "@/styles/pages/mypage.module.css";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 interface IStory {
   post_id: number;
@@ -18,8 +20,14 @@ interface IStory {
 }
 
 export default function Mypage() {
-  const { myPageData } = useGlobalState();
+  const { myPageData, isLogin } = useGlobalState();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isLogin) {
+      router.push("/");
+    }
+  }, [isLogin, router]);
 
   const chunkSize = 4;
   const fakeValue = { desertionNo: "fake" };
@@ -31,6 +39,18 @@ export default function Mypage() {
       chunk.push(fakeValue);
     }
     chunkedArray.push(chunk);
+  }
+
+  const lostChunkSize = 4;
+  const lostFakeValue = { lostNo: "fake" };
+  const lostChunkedArray = [];
+
+  for (let i = 0; i < myPageData?.lostList?.length; i += lostChunkSize) {
+    const chunk: any[] = myPageData?.lostList.slice(i, i + lostChunkSize);
+    while (chunk.length < lostChunkSize) {
+      chunk.push(lostFakeValue);
+    }
+    lostChunkedArray.push(chunk);
   }
 
   const onClickStory = useCallback(
@@ -63,6 +83,33 @@ export default function Mypage() {
         {chunkedArray.length === 0 && (
           <div className={styles.no_dib_wrapper}>
             <div className={styles.no_dib}>아직 찜한 아이들이 없어요!</div>
+          </div>
+        )}
+      </div>
+
+      <div className={styles.dib_wrapper} style={{ marginTop: "20px" }}>
+        <header>
+          <h1>내 아이가 사라졌어요</h1>
+        </header>
+        {lostChunkedArray.map((item, index) => (
+          <div key={`row${index}`} className={styles.animal_card_row}>
+            {item.map((lostData: LostData, lostIndex: number) =>
+              lostData.lostNo !== "fake" ? (
+                <LostAnimalCard key={lostData.lostNo} lostData={lostData} />
+              ) : (
+                <div
+                  key={lostData.lostNo + lostIndex}
+                  className={styles.animal_fake_card}
+                ></div>
+              )
+            )}
+          </div>
+        ))}
+        {lostChunkedArray.length === 0 && (
+          <div className={styles.no_dib_wrapper}>
+            <div className={styles.no_dib}>
+              아직 사라진 아이가 없어요. 다행이에요!
+            </div>
           </div>
         )}
       </div>
