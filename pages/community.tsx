@@ -96,7 +96,73 @@ export default function Community({ query }: CommunityProps) {
   }, [isLogin, resetStory, router]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <main
+        id="community_main_wrapper"
+        className={styles.community_main_wrapper}
+      >
+        <header>
+          <div className={styles.community_recent_or_hot_tab}>
+            <div
+              onClick={() => onClickIsNewOrHot("new")}
+              className={isNewOrHot === "new" ? styles.active : ""}
+            >
+              최신글
+            </div>
+            <div
+              onClick={() => onClickIsNewOrHot("hot")}
+              className={isNewOrHot === "hot" ? styles.active : ""}
+            >
+              인기글
+            </div>
+          </div>
+          <div className={styles.search_box}>
+            <Input
+              value={searchText}
+              onChange={onChangeSearchText}
+              placeholder="게시글 제목을 입력해주세요."
+              textAlign="left"
+              onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === "Enter") {
+                  onClickSearch();
+                }
+              }}
+              customDivStyle={{
+                marginTop: 0,
+                height: "48px",
+                width: "400px",
+              }}
+            />
+            <Button
+              text="검색"
+              color="logo"
+              onClick={onClickSearch}
+              customButtonStyle={{
+                width: "80px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                marginLeft: "4px",
+              }}
+            />
+          </div>
+        </header>
+        <ul>
+          <li className={styles.community_th}>
+            <div className={styles.number}>번호</div>
+            <div className={styles.title}>제목</div>
+            <div className={styles.author}>작성자</div>
+            <div className={styles.date}>날짜</div>
+            <div className={styles.visit}>조회</div>
+            <div className={styles.thumbsup}>추천</div>
+          </li>
+        </ul>
+
+        {/* 글쓰기 FIXED BUTTON */}
+        <div onClick={onClickWriteButton} className={styles.write_button}>
+          <FontAwesomeIcon icon={faPen} />
+        </div>
+      </main>
+    );
   }
 
   if (isError) {
@@ -109,7 +175,7 @@ export default function Community({ query }: CommunityProps) {
         id="community_main_wrapper"
         className={styles.community_main_wrapper}
       >
-        <div>No data available</div>
+        <div>아직 등록된 글이 없어요!</div>
 
         {/* 우리 아이 찾기 글쓰기 FIXED BUTTON */}
         <div onClick={onClickWriteButton} className={styles.write_button}>
