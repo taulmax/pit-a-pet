@@ -90,6 +90,8 @@
 .community_main_wrapper ul li.community_tr div {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .community_main_wrapper ul li.community_tr div.title {
