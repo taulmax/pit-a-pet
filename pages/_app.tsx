@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { GlobalStateProvider } from "@/context/GlobalStateContext";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -42,6 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
           transition={Slide}
           theme="colored"
         />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </GlobalStateProvider>
   );

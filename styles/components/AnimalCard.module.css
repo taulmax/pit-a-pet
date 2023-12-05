@@ -14,10 +14,18 @@
     box-shadow: 0px 2px 18px -3px rgba(0, 0, 0, 0.25);
 }
 
+.animal_card_image_wrapper {
+    background-color: black;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
 .animal_card_image {
-    position: static !important;
-    width: 200px !important;
-    height: 200px !important;
+    width: auto !important;
+    height: 100% !important;
+    display: block !important;
+    margin: auto !important;
 }
 
 .animal_tag_wrapper {
@@ -91,10 +99,18 @@
         font-size: 10px;
     }
 
+    .animal_card_image_wrapper {
+        background-color: black;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+    }
+
     .animal_card_image {
-        position: static !important;
-        width: 150px !important;
-        height: 150px !important;
+        width: auto !important;
+        height: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 
     .animal_card_list .list_title {
@@ -195,9 +211,17 @@
         min-width: 48px;
     }
 
+    .animal_card_image_wrapper {
+        background-color: black;
+        width: 124px;
+        height: 124px;
+        overflow: hidden;
+    }
+
     .animal_card_image {
-        position: static !important;
-        width: 124px !important;
-        height: 124px !important;
+        width: auto !important;
+        height: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 }

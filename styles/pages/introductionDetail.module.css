@@ -8,12 +8,18 @@
 
 .image_wrapper {
     margin-right: 30px;
-    min-width: 500px;
-    min-height: 500px;
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: black;
 }
 
 .animal_image {
-    border-radius: 10px;
+    width: auto !important;
+    height: 100% !important;
+    display: block !important;
+    margin: auto !important;
 }
 
 .animal_info_wrapper {
@@ -135,11 +141,15 @@
     .image_wrapper {
         min-width: 470px;
         min-height: 470px;
+        width: 470px;
+        height: 470px;
     }
 
     .animal_image {
-        width: 470px !important;
-        height: 470px !important;
+        width: auto !important;
+        height: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 
     .animal_info_wrapper {
@@ -159,13 +169,29 @@
     }
 
     .image_wrapper {
+        min-width: 470px;
+        min-height: 470px;
+        width: 470px;
+        height: 470px;
         margin-right: 0px;
         margin-bottom: 12px;
+    }
+
+    .animal_image {
+        width: auto !important;
+        height: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 
     .button_container {
         width: 100%;
         position: static;
+    }
+
+    .animal_info_wrapper {
+        min-height: 500px;
+        height: 500px;
     }
 }
 
@@ -173,16 +199,22 @@
     .image_wrapper {
         min-width: 350px;
         min-height: 350px;
+        width: 350px;
+        height: 350px;
     }
 
     .animal_image {
-        width: 350px !important;
-        height: 350px !important;
+        width: auto !important;
+        height: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 
     .animal_info_wrapper {
         min-width: 350px;
         width: 350px;
+        min-height: 400px;
+        height: 400px;
     }
 
     .animal_info_wrapper .animal_title {

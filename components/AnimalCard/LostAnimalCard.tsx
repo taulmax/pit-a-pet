@@ -16,14 +16,16 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
       onClick={() => setLostDetail(lostData)}
     >
       <div className={styles.animal_card}>
-        <Image
-          className={styles.animal_card_image}
-          src={lostData.images.image1}
-          alt="thumbnail"
-          priority={true}
-          width={100}
-          height={100}
-        />
+        <div className={styles.animal_card_image_wrapper}>
+          <Image
+            className={styles.animal_card_image}
+            src={lostData.images.image1}
+            alt="thumbnail"
+            priority={true}
+            width={100}
+            height={100}
+          />
+        </div>
         <div className={styles.tag_list_wrapper}>
           <div className={styles.animal_tag_wrapper}>
             {lostData.sexCd === "boy" ? (
