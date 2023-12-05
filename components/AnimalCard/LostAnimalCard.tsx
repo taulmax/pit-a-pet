@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/components/AnimalCard.module.css";
 import Link from "next/link";
-import { formatDate, koreanType } from "@/util/util";
+import { koreanType } from "@/util/util";
 import { LostData } from "@/api/lost";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
@@ -39,9 +39,7 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
           <ul className={styles.animal_card_list_wrapper}>
             <li className={styles.animal_card_list}>
               <div className={styles.list_title}>실종일</div>
-              <div className={styles.list_content}>
-                {formatDate(lostData.lostDate)["yy.mm.dd"]}
-              </div>
+              <div className={styles.list_content}>{lostData.lostDate}</div>
             </li>
             <li className={styles.animal_card_list}>
               <div className={styles.list_title}>이름</div>

@@ -138,7 +138,6 @@ export default function LostWrite() {
         tel,
         reward,
         detail,
-        lostDate: "2023-11-28",
       };
       const response = await postLost(postData);
       console.log(response);

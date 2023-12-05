@@ -1,4 +1,4 @@
-import { formatDate, formatTimeDifference, koreanType } from "@/util/util";
+import { formatTimeDifference, koreanType } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
@@ -106,9 +106,7 @@ export default function LostDetail() {
           </li>
           <li className={styles.animal_info_list}>
             <span className={styles.list_title}>실종일자</span>{" "}
-            <span className={styles.list_content}>
-              {formatDate(lostDetail.lostDate)["yy.mm.dd"]}
-            </span>
+            <span className={styles.list_content}>{lostDetail.lostDate}</span>
           </li>
           <li className={styles.animal_info_list}>
             <span className={styles.list_title}>실종 장소</span>{" "}
