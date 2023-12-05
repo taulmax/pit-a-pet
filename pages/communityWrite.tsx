@@ -52,22 +52,36 @@ export default function CommunityWrite() {
 
   return (
     <main className={styles.community_write_wrapper}>
+      <h1>게시글을 작성해주세요</h1>
       <Input
         value={title}
         onChange={onChangeTitle}
         textAlign="left"
-        placeholder="제목을 적어주세요."
+        placeholder="제목을 작성주세요."
         width={inputStyles.w100p}
       />
       <Textarea
         value={content}
         onChange={onChangeContents}
         width={textareaStyles.w100p}
-        placeholder="내용을 적어주세요."
+        placeholder="내용을 작성해주세요."
+        customTextareaStyle={{
+          fontSize: "1rem",
+          padding: "24px 14px",
+        }}
       />
       <div className={styles.button_wrapper}>
         <div>
-          <Button text="등록" onClick={onClickSubmit} />
+          <Button
+            text="등록"
+            onClick={onClickSubmit}
+            color="logo"
+            customButtonStyle={{
+              width: "80px",
+              borderRadius: "8px",
+              fontSize: "14px",
+            }}
+          />
         </div>
       </div>
     </main>

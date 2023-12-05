@@ -10,6 +10,7 @@ interface ITextarea {
   reply?: boolean;
   width?: string;
   placeholder?: string;
+  customTextareaStyle?: any;
 }
 
 export default function Textarea({
@@ -21,6 +22,7 @@ export default function Textarea({
   reply,
   width,
   placeholder,
+  customTextareaStyle,
 }: ITextarea) {
   const [charCount, setCharCount] = useState(value.length);
 
@@ -54,6 +56,7 @@ export default function Textarea({
       >
         <textarea
           className={`${styles.custom_textarea} ${className}`}
+          style={customTextareaStyle}
           id={id}
           value={value}
           onChange={handleTextChange}
