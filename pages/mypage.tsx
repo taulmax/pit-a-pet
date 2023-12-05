@@ -60,6 +60,11 @@ export default function Mypage() {
             )}
           </div>
         ))}
+        {chunkedArray.length === 0 && (
+          <div className={styles.no_dib_wrapper}>
+            <div className={styles.no_dib}>아직 찜한 아이들이 없어요!</div>
+          </div>
+        )}
       </div>
       <div className={styles.post_wrapper}>
         <div className={styles.my_post_wrapper}>
@@ -83,6 +88,9 @@ export default function Mypage() {
                 <div className={styles.thumbsup}>{story.like}</div>
               </li>
             ))}
+            {myPageData?.myPosting.length === 0 && (
+              <div className={styles.no_post}>아직 작성한 글이 없어요!</div>
+            )}
           </ul>
         </div>
         <div className={styles.my_like_wrapper}>
@@ -95,7 +103,7 @@ export default function Mypage() {
               <div className={styles.visit}>조회</div>
               <div className={styles.thumbsup}>추천</div>
             </li>
-            {myPageData?.myPosting.map((story: IStory) => (
+            {myPageData?.likeList.map((story: IStory) => (
               <li
                 onClick={() => onClickStory(story.post_id)}
                 key={story.post_id}
@@ -106,6 +114,11 @@ export default function Mypage() {
                 <div className={styles.thumbsup}>{story.like}</div>
               </li>
             ))}
+            {myPageData?.likeList.length === 0 && (
+              <div className={styles.no_post}>
+                아직 좋아요 누른 글이 없어요!
+              </div>
+            )}
           </ul>
         </div>
       </div>

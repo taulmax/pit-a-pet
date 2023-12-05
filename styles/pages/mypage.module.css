@@ -18,6 +18,25 @@
     margin-bottom: 8px;
 }
 
+.no_dib_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.no_dib {
+    width: 850px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.no_post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
 .animal_card_row {
     display: flex;
     justify-content: center;
@@ -36,7 +55,7 @@
 }
 
 .my_post_wrapper {
-    width: 420px;
+    width: 410px;
     margin-right: 10px;
     margin-bottom: 40px;
 }
