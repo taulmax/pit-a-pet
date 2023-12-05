@@ -2,7 +2,7 @@ import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   PatchDibData,
   getIdleDetail,
@@ -12,13 +12,16 @@ import {
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
 import { getMyPage } from "@/api/login";
+import LoginDialog from "@/components/form/LoginDialog";
 
 export default function IntroductionDetail() {
   const router = useRouter();
   const { id } = router.query;
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
   // 아이들 상세정보 전역상태
-  const { idleDetail, setIdleDetail, myPageData, setMyPageData } =
+  const { isLogin, idleDetail, setIdleDetail, myPageData, setMyPageData } =
     useGlobalState();
 
   // React Query를 사용하여 API 데이터를 가져오는 훅을 정의
@@ -54,14 +57,18 @@ export default function IntroductionDetail() {
 
   const { patchDib } = usePatchDib();
   const handlePatchDib = async () => {
-    try {
-      const data = { desertionNo: idleDetail?.desertionNo };
-      await patchDib(data as PatchDibData);
-      setIsZzim(true);
-      const myPageResponse = await getMyPage();
-      setMyPageData(myPageResponse);
-    } catch (error) {
-      console.error("Error during PATCH request:", error);
+    if (isLogin) {
+      try {
+        const data = { desertionNo: idleDetail?.desertionNo };
+        await patchDib(data as PatchDibData);
+        setIsZzim(true);
+        const myPageResponse = await getMyPage();
+        setMyPageData(myPageResponse);
+      } catch (error) {
+        console.error("Error during PATCH request:", error);
+      }
+    } else {
+      dialogRef.current?.showModal();
     }
   };
 
@@ -173,6 +180,9 @@ export default function IntroductionDetail() {
           )}
         </li>
       </ul>
+      <dialog ref={dialogRef}>
+        <LoginDialog dialogRef={dialogRef} />
+      </dialog>
     </div>
   );
 }

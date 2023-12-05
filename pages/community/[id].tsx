@@ -15,15 +15,19 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Textarea from "@/components/form/Textarea";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Button from "@/components/Button";
 import { formatDate, formatTimeDifference } from "@/util/util";
 import { useGlobalState } from "@/context/GlobalStateContext";
+import { toast } from "react-toastify";
+import LoginDialog from "@/components/form/LoginDialog";
 
 export default function StoryDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { myPageData, setStory } = useGlobalState();
+  const { isLogin, myPageData, setStory } = useGlobalState();
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [reply, setReply] = useState<string>("");
   const onChangeReply = useCallback(
@@ -47,8 +51,12 @@ export default function StoryDetail() {
   );
 
   const onClickReply = useCallback(() => {
-    postReply({ post_id: data?.post.post_id, content: reply });
-  }, [data?.post.post_id, postReply, reply]);
+    if (isLogin) {
+      postReply({ post_id: data?.post.post_id, content: reply });
+    } else {
+      dialogRef.current?.showModal();
+    }
+  }, [data?.post.post_id, isLogin, postReply, reply]);
 
   const onClickDeleteStory = useCallback(() => {
     deleteMyStory({ post_id: data?.post.post_id });
@@ -60,6 +68,13 @@ export default function StoryDetail() {
     },
     [deleteMyReply]
   );
+
+  const onClickLike = useCallback(() => {
+    if (isLogin) {
+    } else {
+      dialogRef.current?.showModal();
+    }
+  }, [isLogin]);
 
   const onClickUpdateStory = useCallback(() => {
     router.push("/communityWrite");
@@ -114,7 +129,7 @@ export default function StoryDetail() {
       <div className={styles.story_content_wrapper}>
         <div className={styles.story_content}>{data?.post.content}</div>
         <div className={styles.story_thumbs}>
-          <div className={styles.thumbs_up}>
+          <div onClick={onClickLike} className={styles.thumbs_up}>
             <FontAwesomeIcon icon={faThumbsUp} />
             {data?.post.like}
           </div>
@@ -181,6 +196,9 @@ export default function StoryDetail() {
           </li>
         ))}
       </ul>
+      <dialog ref={dialogRef}>
+        <LoginDialog dialogRef={dialogRef} />
+      </dialog>
     </main>
   );
 }
