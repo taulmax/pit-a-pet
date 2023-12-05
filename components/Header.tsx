@@ -8,15 +8,18 @@ import Button from "./Button";
 import { MAIN_MENU } from "@/util/data";
 import { useRouter } from "next/router";
 import { useGlobalState } from "@/context/GlobalStateContext";
+import { sleep } from "@/util/util";
 
 export default function Header() {
   const router = useRouter();
   const AUTH_PAGE = ["/login", "/resgister"];
   const { isLogin, setIsLogin } = useGlobalState();
 
-  const onClickLogout = useCallback(() => {
+  const onClickLogout = useCallback(async () => {
     setIsLogin(false);
     localStorage.removeItem("token");
+    router.push("/");
+    await sleep(300);
     router.reload();
   }, [router, setIsLogin]);
 

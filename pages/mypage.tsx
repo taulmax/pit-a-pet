@@ -20,14 +20,8 @@ interface IStory {
 }
 
 export default function Mypage() {
-  const { myPageData, isLogin } = useGlobalState();
+  const { myPageData } = useGlobalState();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!isLogin) {
-      router.push("/");
-    }
-  }, [isLogin, router]);
 
   const chunkSize = 4;
   const fakeValue = { desertionNo: "fake" };
