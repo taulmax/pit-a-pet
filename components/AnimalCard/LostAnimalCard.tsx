@@ -33,7 +33,7 @@ export default function LostAnimalCard({ lostData }: { lostData: LostData }) {
             ) : lostData.sexCd === "girl" ? (
               <span className={styles.female}>여자</span>
             ) : (
-              <></>
+              <span className={styles.unknown}>모름</span>
             )}
           </div>
           <ul className={styles.animal_card_list_wrapper}>

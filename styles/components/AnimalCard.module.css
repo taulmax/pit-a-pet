@@ -65,6 +65,11 @@
     color: #da5f5f;
 }
 
+.animal_tag_wrapper span.unknown {
+    border-color: #a3a3a3;
+    color: #a3a3a3;
+}
+
 .animal_card_list_wrapper {
     display: flex;
     height: 96px;
