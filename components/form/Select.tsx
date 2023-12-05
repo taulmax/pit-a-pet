@@ -10,9 +10,18 @@ interface ISelect {
     value: any;
   }[];
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  customDivStyle?: any;
+  customSelectStyle?: any;
 }
 
-export function Select({ id, value, option, onChange }: ISelect) {
+export function Select({
+  id,
+  value,
+  option,
+  onChange,
+  customDivStyle,
+  customSelectStyle,
+}: ISelect) {
   // Focus Event
   const onFocus = useCallback((e: React.FocusEvent<HTMLSelectElement>) => {
     e.target.parentElement?.classList.add(styles.active);
@@ -24,13 +33,14 @@ export function Select({ id, value, option, onChange }: ISelect) {
   }, []);
 
   return (
-    <div className={styles.select_wrapper}>
+    <div className={styles.select_wrapper} style={customDivStyle}>
       <select
         id={id}
         value={value}
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={onChange}
+        style={customSelectStyle}
       >
         {option.map((item) => (
           <option key={item.text} id={item.id} value={item.value}>

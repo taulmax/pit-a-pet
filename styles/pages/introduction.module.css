@@ -6,6 +6,24 @@
     justify-content: center;
 }
 
+.content_wrapper header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 48px;
+}
+
+.content_wrapper header .header_wrapper {
+    width: 860px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content_wrapper header .search_box {
+    display: flex;
+}
+
 .animal_card_row {
     display: flex;
     justify-content: center;
