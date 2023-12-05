@@ -10,13 +10,15 @@ import { useRouter } from "next/router";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function Header() {
+  const router = useRouter();
   const AUTH_PAGE = ["/login", "/resgister"];
   const { isLogin, setIsLogin } = useGlobalState();
 
   const onClickLogout = useCallback(() => {
     setIsLogin(false);
     localStorage.removeItem("token");
-  }, [setIsLogin]);
+    router.reload();
+  }, [router, setIsLogin]);
 
   const { pathname } = useRouter();
   const [isBurgerMenuOn, setIsBurgerMenuOn] = useState(false);

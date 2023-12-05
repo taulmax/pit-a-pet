@@ -16,7 +16,7 @@ export interface IUseRegister {
 
 export const useLogin = () => {
   const router = useRouter();
-  const { setIsLogin } = useGlobalState();
+  const { setIsLogin, setMyPageData } = useGlobalState();
   const login = useMutation(loginUser);
 
   async function loginUser({ username, password }: IUseLogin) {
@@ -30,6 +30,13 @@ export const useLogin = () => {
       router.push("/");
       setIsLogin(true);
       localStorage.setItem("token", response.access_token);
+      try {
+        const myPageResponse = await getMyPage();
+        setMyPageData(myPageResponse);
+        console.log(myPageResponse);
+      } catch (error) {
+        console.error("Error fetching my page:", error);
+      }
       console.log("로그인 성공");
     } catch (error) {
       console.error("로그인 실패:", error);

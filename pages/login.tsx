@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useLogin } from "@/api/login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faN } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -16,7 +17,7 @@ export default function Login() {
 
   const onClickLogin = useCallback(async () => {
     loginWithCredentials({ username, password });
-  }, [username, loginWithCredentials, password]);
+  }, [loginWithCredentials, username, password]);
 
   return (
     <div className={styles.login_page_wrapper}>

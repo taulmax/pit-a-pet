@@ -166,12 +166,14 @@ export default function StoryDetail() {
                   </div>
                 </div>
                 <div className={styles.reply_content_header_right}>
-                  <div
-                    onClick={() => onClickDeleteReply(reply.reply_id)}
-                    className={styles.reply_update_delete_button}
-                  >
-                    삭제
-                  </div>
+                  {reply.username === myPageData?.user?.username && (
+                    <div
+                      onClick={() => onClickDeleteReply(reply.reply_id)}
+                      className={styles.reply_update_delete_button}
+                    >
+                      삭제
+                    </div>
+                  )}
                 </div>
               </header>
               <div className={styles.reply_content}>{reply.content}</div>
