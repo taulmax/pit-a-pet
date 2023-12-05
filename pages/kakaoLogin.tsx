@@ -16,7 +16,7 @@ export default function KakaoLogin() {
       // 예를 들어, code를 서버로 보내어 토큰을 교환하거나 다른 로직을 수행할 수 있습니다.
       kakaoLoginCallback(code as string)
         .then((response) => {
-          console.log("Token:", response.data);
+          console.log(response);
         })
         .catch((error) =>
           console.error("Error exchanging code for token:", error)
