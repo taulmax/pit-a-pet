@@ -1,7 +1,8 @@
 .community_main_wrapper {
     width: 100%;
     height: 100%;
-    padding: 0px 360px;
+    padding: 0px 280px;
+    overflow: auto;
 }
 
 .community_main_wrapper header {
@@ -22,7 +23,7 @@
 
 .community_main_wrapper header .community_recent_or_hot_tab div {
     color: #ffffff;
-    padding: 6px 8px;
+    padding: 8px 8px;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
@@ -48,8 +49,6 @@
 
 .community_main_wrapper ul {
     width: 100%;
-    max-height: 80%;
-    overflow-y: scroll;
 }
 
 .community_main_wrapper ul li {
@@ -57,30 +56,52 @@
 }
 
 .community_main_wrapper ul li.community_th {
-    height: 32px;
-    border-bottom: 1px solid black;
+    height: 50px;
     display: flex;
     align-items: center;
+    background-color: rgb(229, 224, 219);
+    color: rgb(22, 22, 22);
+}
+
+.community_main_wrapper ul li.community_th div {
+    font-family: 'NanumSquareBold';
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
 }
 
 .community_main_wrapper ul li.community_tr {
-    height: 48px;
-    border-bottom: 1px solid black;
+    height: 50px;
+    border-bottom: 1px solid rgb(197, 197, 197);
     display: flex;
     align-items: center;
+    color: rgb(37, 37, 37);
+}
+
+.community_main_wrapper ul li.community_tr:hover div {
+    font-family: "NanumSquareBold";
+    font-size: 17px;
+}
+
+.community_main_wrapper ul li.community_tr div {
+    display: flex;
+    justify-content: center;
+}
+
+.community_main_wrapper ul li.community_tr div.title {
+    justify-content: flex-start;
 }
 
 .community_main_wrapper ul li.community_tr:hover {
-    background-color: #e7d9c8;
     cursor: pointer;
 }
 
 .community_main_wrapper ul li div.number {
-    width: 15%;
+    width: 11%;
 }
 
 .community_main_wrapper ul li div.title {
-    width: 40%;
+    width: 44%;
 }
 
 .community_main_wrapper ul li div.author {
