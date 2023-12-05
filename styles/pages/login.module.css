@@ -43,3 +43,11 @@
     margin-top: 12px;
     color: #222222;
 }
+
+.login_box .is_auth.red {
+    color: #da5f5f;
+}
+
+.login_box .is_auth.green {
+    color: #6c9c7e;
+}

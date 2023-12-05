@@ -17,6 +17,7 @@ interface IInput {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp?: (e: any) => void;
+  onBlur?: () => void;
   suffix?: string;
   width?: string;
   placeholder?: string;
@@ -30,19 +31,26 @@ export default function Input({
   value,
   onChange,
   onKeyUp,
+  onBlur,
   suffix,
   width,
   placeholder,
 }: IInput) {
   // Focus Event
-  const onFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+  const onFocusInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.target.parentElement?.classList.add(styles.active);
   }, []);
 
   // Blur Event
-  const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.parentElement?.classList.remove(styles.active);
-  }, []);
+  const onBlurInput = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      e.target.parentElement?.classList.remove(styles.active);
+      if (onBlur) {
+        onBlur();
+      }
+    },
+    [onBlur]
+  );
 
   return (
     <div className={`${styles.input_wrapper} ${width ? width : ""}`}>
@@ -55,8 +63,8 @@ export default function Input({
         type={type}
         value={value}
         onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={onFocusInput}
+        onBlur={onBlurInput}
         onKeyUp={onKeyUp}
         placeholder={placeholder}
       />

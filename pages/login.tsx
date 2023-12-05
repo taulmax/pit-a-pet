@@ -63,13 +63,6 @@ export default function Login() {
             />
           }
         />
-        {/* <Button
-          text="네이버 계정으로 시작하기"
-          disabled={isLoading}
-          onClick={onClickLogin}
-          color="naver"
-          icon={<FontAwesomeIcon icon={faN} />}
-        /> */}
         <div className={styles.find}>
           <span>아이디 찾기</span>
           <span>&nbsp;|&nbsp;</span>
