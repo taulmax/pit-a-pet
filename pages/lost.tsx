@@ -102,7 +102,102 @@ export default function Lost({ query }: LostProps) {
   }, [isLogin, router]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    const chunkSize = 4;
+    const fakeValue = { desertionNo: "fake" };
+    const chunkedArray = [];
+
+    for (let i = 0; i < 20; i += chunkSize) {
+      const chunk = Array.from({ length: chunkSize }, () => fakeValue);
+      chunkedArray.push(chunk);
+    }
+
+    return (
+      <main id="introduction_main_wrapper" className={styles.content_wrapper}>
+        <header>
+          <div className={styles.header_wrapper}>
+            <div className={styles.type_filter}>
+              <Select
+                id="type"
+                value={type}
+                option={[
+                  { id: "", value: "", text: "품종을 선택해주세요" },
+                  { id: "dog", value: "dog", text: "강아지" },
+                  { id: "cat", value: "cat", text: "고양이" },
+                  { id: "rest", value: "rest", text: "기타" },
+                ]}
+                onChange={onChangeSelectType}
+                customDivStyle={{ marginTop: 0, height: "46px" }}
+                customSelectStyle={{ color: "rgb(111, 111, 111)" }}
+              />
+            </div>
+            <div className={styles.search_box}>
+              <Input
+                value={searchRegion}
+                onChange={onChangeSearchRegion}
+                placeholder="지역을 입력해주세요."
+                textAlign="left"
+                onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (e.key === "Enter") {
+                    onClickSearch();
+                  }
+                }}
+                customDivStyle={{
+                  marginTop: 0,
+                  height: "48px",
+                  width: "200px",
+                }}
+              />
+              <Input
+                value={searchName}
+                onChange={onChangeSearchName}
+                placeholder="이름을 입력해주세요."
+                textAlign="left"
+                onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (e.key === "Enter") {
+                    onClickSearch();
+                  }
+                }}
+                customDivStyle={{
+                  marginTop: 0,
+                  height: "48px",
+                  width: "200px",
+                  marginLeft: "4px",
+                }}
+              />
+              <Button
+                text="검색"
+                color="logo"
+                onClick={onClickSearch}
+                customButtonStyle={{
+                  width: "80px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  marginLeft: "4px",
+                }}
+              />
+            </div>
+          </div>
+        </header>
+        {chunkedArray.map((item, index) => (
+          <div key={`row${index}`} className={styles.animal_card_row}>
+            {item.map((_, idx) => (
+              <div
+                key={`chunk${index}_${idx}`}
+                className={styles.animal_skeleton_card}
+              ></div>
+            ))}
+          </div>
+        ))}
+
+        {/* 우리 아이 찾기 글쓰기 FIXED BUTTON */}
+        <div onClick={onClickWriteButton} className={styles.write_button}>
+          <FontAwesomeIcon icon={faPen} />
+        </div>
+        <dialog ref={dialogRef}>
+          <LoginDialog dialogRef={dialogRef} />
+        </dialog>
+      </main>
+    );
   }
 
   if (isError) {
@@ -112,7 +207,7 @@ export default function Lost({ query }: LostProps) {
   if (!data?.data.length) {
     return (
       <main id="introduction_main_wrapper" className={styles.content_wrapper}>
-        <div>No data available</div>
+        <div>아직 등록된 실종 신고글이 없어요!</div>
 
         {/* 우리 아이 찾기 글쓰기 FIXED BUTTON */}
         <div onClick={onClickWriteButton} className={styles.write_button}>

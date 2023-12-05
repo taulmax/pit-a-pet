@@ -35,6 +35,28 @@
     margin: 10px;
 }
 
+.animal_skeleton_card {
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    border-radius: 16px;
+    background: linear-gradient(0deg, #d0d0d0 25%, #b0b0b0 50%, #d0d0d0 75%);
+    background-size: 200% 200%;
+    animation: gradientWave 1.5s linear infinite;
+}
+
+@keyframes gradientWave {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+
+
 /* 우리 아이 찾기 글쓰기 FIXED BUTTON */
 .write_button {
     position: fixed;

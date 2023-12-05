@@ -116,7 +116,79 @@ export default function Introduction({ query }: IntroductionProps) {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    const chunkSize = 4;
+    const fakeValue = { desertionNo: "fake" };
+    const chunkedArray = [];
+
+    for (let i = 0; i < 20; i += chunkSize) {
+      const chunk = Array.from({ length: chunkSize }, () => fakeValue);
+      chunkedArray.push(chunk);
+    }
+
+    return (
+      <main id="introduction_main_wrapper" className={styles.content_wrapper}>
+        <header className={styles.filter_header}>
+          <div className={styles.filter_wrapper}>
+            <Select
+              id="type"
+              value={type}
+              option={[
+                { id: "", value: "", text: "품종을 선택해주세요" },
+                { id: "dog", value: "개", text: "강아지" },
+                { id: "cat", value: "고양이", text: "고양이" },
+                { id: "rest", value: "기타", text: "기타" },
+              ]}
+              onChange={onChangeSelectType}
+            />
+            <Select
+              id="isUnderProtection"
+              value={isUnderProtection}
+              option={[
+                { id: "", value: "", text: "보호 여부를 선택해주세요" },
+                { id: "protected", value: "Y", text: "보호중" },
+                { id: "unprotected", value: "N", text: "보호종료" },
+              ]}
+              onChange={onChangeSelectIsUnderProtection}
+            />
+            <Select
+              id="region"
+              value={region}
+              option={[
+                { id: "", value: "", text: "지역을 선택해주세요" },
+                { id: "seoul", value: "서울", text: "서울" },
+                { id: "busan", value: "부산", text: "부산" },
+                { id: "daegue", value: "대구", text: "대구" },
+                { id: "incheon", value: "인천", text: "인천" },
+                { id: "gwangju", value: "광주", text: "광주" },
+                { id: "daejun", value: "대전", text: "대전" },
+                { id: "ulsan", value: "울산", text: "울산" },
+                { id: "sejong", value: "세종", text: "세종" },
+                { id: "gyeongi", value: "경기도", text: "경기도" },
+                { id: "gangwon", value: "강원도", text: "강원도" },
+                { id: "chungbuk", value: "충청북도", text: "충청북도" },
+                { id: "chungnam", value: "충청남도", text: "충청남도" },
+                { id: "junbuk", value: "전라북도", text: "전라북도" },
+                { id: "junnam", value: "전라남도", text: "전라남도" },
+                { id: "gyeongbuk", value: "경상북도", text: "경상북도" },
+                { id: "gyeongnam", value: "경상남도", text: "경상남도" },
+                { id: "jeju", value: "제주", text: "제주" },
+              ]}
+              onChange={onChangeSelectRegion}
+            />
+          </div>
+        </header>
+        {chunkedArray.map((item, index) => (
+          <div key={`row${index}`} className={styles.animal_card_row}>
+            {item.map((_, idx) => (
+              <div
+                key={`chunk${index}_${idx}`}
+                className={styles.animal_skeleton_card}
+              ></div>
+            ))}
+          </div>
+        ))}
+      </main>
+    );
   }
 
   if (isError) {
