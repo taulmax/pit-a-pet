@@ -136,3 +136,15 @@ export const getMyPage = async (): Promise<any> => {
   const response = await axios.get("/mypage", { headers });
   return response.data;
 };
+
+// 카카오 로그인
+export const kakaoLogin = async (): Promise<any> => {
+  const response = await axios.get("/auth/kakao");
+  return response.data;
+};
+
+// 카카오 로그인 callback
+export const kakaoLoginCallback = async (code: string): Promise<any> => {
+  const response = await axios.get(`/auth/kakao/callback?code=${code}`);
+  return response.data;
+};

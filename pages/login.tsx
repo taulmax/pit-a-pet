@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import styles from "@/styles/pages/login.module.css";
 import inputStyles from "@/styles/components/form/Input.module.css";
 import Link from "next/link";
-import { useLogin } from "@/api/login";
+import { kakaoLogin, useLogin } from "@/api/login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faN } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
@@ -18,6 +18,14 @@ export default function Login() {
   const onClickLogin = useCallback(async () => {
     loginWithCredentials({ username, password });
   }, [loginWithCredentials, username, password]);
+
+  const onClickKakaoLogin = () => {
+    try {
+      window.location.href = "http://localhost:8080/auth/kakao";
+    } catch (error) {
+      console.error("카카오 로그인 에러:", error);
+    }
+  };
 
   return (
     <div className={styles.login_page_wrapper}>
@@ -53,7 +61,7 @@ export default function Login() {
         <Button
           text="카카오 계정으로 시작하기"
           disabled={isLoading}
-          onClick={onClickLogin}
+          onClick={onClickKakaoLogin}
           color="kakao"
           textColor="text_kakao"
           icon={
