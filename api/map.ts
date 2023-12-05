@@ -11,7 +11,7 @@ export const getKakaoMap = async (
     params.category_group_code = "HP8";
     params.x = String(lng);
     params.y = String(lat);
-    params.radius = 3000;
+    params.radius = 5000;
   }
   const response = await axios.get(
     "https://dapi.kakao.com/v2/local/search/keyword.json",

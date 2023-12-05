@@ -8,7 +8,7 @@ import {
   faStethoscope,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
 export async function getServerSideProps() {
@@ -32,6 +32,11 @@ export default function Map({
     lat: 37.5665,
     lng: 126.978,
   });
+  const [center, setCenter] = useState<{ lat: number; lng: number }>({
+    lat: 37.5665,
+    lng: 126.978,
+  });
+  const [research, setResearch] = useState<number>(0);
   const [mapLoading, setMapLoading] = useState(true);
 
   // 내 위치 탐색 허용 / 비허용
@@ -55,8 +60,17 @@ export default function Map({
 
   // 카카오 API로 동물병원 가져오기
   const kakaoAnimalHospital = useQuery(
-    ["kakaoAnimalHospital", tab],
-    () => getKakaoMap(tab, location.lat, location.lng, NEXT_KAKAO_REST_API_KEY),
+    ["kakaoAnimalHospital", tab, research],
+    () => {
+      let lat = location.lat;
+      let lng = location.lng;
+      if (research) {
+        lat = center.lat;
+        lng = center.lng;
+      }
+
+      return getKakaoMap(tab, lat, lng, NEXT_KAKAO_REST_API_KEY);
+    },
     {
       enabled: !mapLoading,
     }
@@ -67,6 +81,11 @@ export default function Map({
     [kakaoAnimalHospital.data?.documents]
   );
 
+  const onClickResearch = useCallback(() => {
+    setResearch((state) => state + 1);
+    setLocation(center);
+  }, [center]);
+
   return (
     <div className={styles.map_wrapper}>
       <div className={styles.naver_map_wrapper}>
@@ -75,6 +94,8 @@ export default function Map({
           location={location}
           mapLoading={mapLoading}
           placeData={placeData}
+          center={center}
+          setCenter={setCenter}
         />
 
         {/* 플로팅 탭 */}
@@ -101,6 +122,9 @@ export default function Map({
             &nbsp; 동물등록 대행업체
           </li>
         </ul>
+        <div onClick={onClickResearch} className={styles.research_button}>
+          현 지도에서 다시 검색
+        </div>
       </div>
       <MapList tab={tab} placeData={placeData} />
     </div>
