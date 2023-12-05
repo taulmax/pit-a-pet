@@ -150,3 +150,7 @@ export const koreanType = (type: string) => {
       return "기타";
   }
 };
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

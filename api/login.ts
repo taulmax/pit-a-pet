@@ -3,6 +3,7 @@ import axios from "./axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useGlobalState } from "@/context/GlobalStateContext";
+import { sleep } from "@/util/util";
 
 export interface IUseLogin {
   username: string;
@@ -117,6 +118,7 @@ export const useRegister = () => {
     try {
       const response = await registerMutation.mutateAsync(registerData);
       router.push("/login");
+      await sleep(500);
       toast.success("회원가입에 성공했어요!");
       return response;
     } catch (error) {
