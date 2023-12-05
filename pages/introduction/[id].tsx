@@ -2,7 +2,7 @@ import { formatDate } from "@/util/util";
 import { useRouter } from "next/router";
 import styles from "@/styles/pages/introductionDetail.module.css";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   PatchDibData,
   getIdleDetail,
@@ -13,12 +13,14 @@ import { useGlobalState } from "@/context/GlobalStateContext";
 import { useQuery } from "react-query";
 import { getMyPage } from "@/api/login";
 import LoginDialog from "@/components/form/LoginDialog";
+import BigImageDialog from "@/components/AnimalCard/BigImageDialog";
 
 export default function IntroductionDetail() {
   const router = useRouter();
   const { id } = router.query;
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const imageDialogRef = useRef<HTMLDialogElement>(null);
 
   // 아이들 상세정보 전역상태
   const { isLogin, idleDetail, setIdleDetail, myPageData, setMyPageData } =
@@ -85,6 +87,10 @@ export default function IntroductionDetail() {
     }
   };
 
+  const onClickZoomImage = useCallback(() => {
+    imageDialogRef.current?.showModal();
+  }, []);
+
   if (!idleDetail) {
     return <div>Loading...</div>;
   }
@@ -97,6 +103,7 @@ export default function IntroductionDetail() {
     <div className={styles.introduction_detail_wrapper}>
       <div className={styles.image_wrapper}>
         <Image
+          onClick={onClickZoomImage}
           className={styles.animal_image}
           src={idleDetail.popfile}
           alt="thumbnail"
@@ -183,6 +190,7 @@ export default function IntroductionDetail() {
       <dialog ref={dialogRef}>
         <LoginDialog dialogRef={dialogRef} />
       </dialog>
+      <BigImageDialog dialogRef={imageDialogRef} src={idleDetail.popfile} />
     </div>
   );
 }

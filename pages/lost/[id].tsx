@@ -11,12 +11,14 @@ import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import Textarea from "@/components/form/Textarea";
 import Button from "@/components/Button";
 import LoginDialog from "@/components/form/LoginDialog";
+import BigImageDialog from "@/components/AnimalCard/BigImageDialog";
 
 export default function LostDetail() {
   const router = useRouter();
   const { id } = router.query;
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const imageDialogRef = useRef<HTMLDialogElement>(null);
 
   // 실종 상세정보 전역상태
   const { lostDetail, setLostDetail, myPageData, isLogin } = useGlobalState();
@@ -60,6 +62,10 @@ export default function LostDetail() {
     }
   }, [data, setLostDetail]);
 
+  const onClickZoomImage = useCallback(() => {
+    imageDialogRef.current?.showModal();
+  }, []);
+
   if (!lostDetail) {
     return <div>Loading...</div>;
   }
@@ -73,6 +79,7 @@ export default function LostDetail() {
       <div className={styles.introduction_detail_wrapper}>
         <div className={styles.image_wrapper}>
           <Image
+            onClick={onClickZoomImage}
             className={styles.animal_image}
             src={lostDetail.images.image1}
             alt="thumbnail"
@@ -186,6 +193,10 @@ export default function LostDetail() {
       <dialog ref={dialogRef}>
         <LoginDialog dialogRef={dialogRef} />
       </dialog>
+      <BigImageDialog
+        dialogRef={imageDialogRef}
+        src={lostDetail.images.image1}
+      />
     </div>
   );
 }
